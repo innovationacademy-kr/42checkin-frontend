@@ -1,0 +1,16 @@
+.control-section {
+	margin: auto;
+}
+
+
+input {
+	background-color: rgba(255, 255, 255, 0);
+	border: none;
+	border-bottom: 1px solid white;
+	/* user-select: none; */
+	color: white;
+}
+
+input:focus {
+	outline: none;
+}
