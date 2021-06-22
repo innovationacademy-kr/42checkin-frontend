@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import SearchBar from './SearchBar';
 import * as moment from 'moment';
-import axios from 'axios';
 import '../styles/AdminPage.css';
+import { forceCheckOut, checkAdmin as getCheckAdmin } from '../api/api';
 
 function AdminPage() {
   const [LogType, setLogType] = useState(0);
@@ -13,7 +13,7 @@ function AdminPage() {
 
   const checkAdmin = async () => {
     try {
-      const response = await axios.get(`/api/user/status`);
+      const response = await getCheckAdmin();
       if (!(response.data && response.data.isAdmin)) window.location.href = '/submit';
     } catch (err) {
       console.log(err);
@@ -58,7 +58,7 @@ function AdminPage() {
   const checkOutOnClick = async e => {
     try {
       const userId = e.target.getAttribute('data');
-      const response = await axios.post(`/api/user/forceCheckOut/${userId}`);
+      const response = await forceCheckOut(userId);
       setLogs([]);
       ref.current.onSubmit(e);
     } catch (err) {

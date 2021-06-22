@@ -9,9 +9,8 @@ function LandingPage() {
   }, []);
 
   const handleLogin = () => {
-    window.location.href = '/api/user/login';
+    window.location.href = `${process.env.REACT_APP_API_URL}/user/login`;
   };
-
   return (
     <div id='landing-wrapper'>
       <button id='login-btn' onClick={handleLogin}>

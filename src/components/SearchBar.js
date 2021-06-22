@@ -1,7 +1,7 @@
-import axios from "axios";
 import React, { forwardRef, useImperativeHandle, useState } from "react";
 import "../styles/SearchBar.css";
 import Paging from "../components/Paging";
+import { getCluster , getStudent , getCard , getCheckIn , getAllCarad} from '../api/api';
 
 const SearchBar = forwardRef((props, ref) => {
 	useImperativeHandle(ref, () => ({
@@ -52,31 +52,19 @@ const SearchBar = forwardRef((props, ref) => {
 			let response;
 			switch (props.type) {
 				case 0:
-					response = await axios.get(
-						`/api/log/${
-							ClusterType === 0 ? "gaepo" : "seocho"
-						}?page=${props.Page}`
-					);
+					response = await getCluster(ClusterType, props.Page)
 					break;
 				case 1:
-					response = await axios.get(
-						`/api/log/user/${Login}?page=${props.Page}`
-					);
+					response = await getStudent(Login, props.Page)
 					break;
 				case 2:
-					response = await axios.get(
-						`/api/log/card/${CardId}?page=${props.Page}`
-					);
+					response = await getCard(CardId, props.Page)
 					break;
 				case 3:
-					response = await axios.get(
-						`/api/log/checkIn/${ClusterType}`
-					);
+					response = await getCheckIn(ClusterType)
 					break;
 				case 4:
-					response = await axios.get(
-						`/api/log/allCard/${ClusterType}`
-					);
+					response = await getAllCarad(ClusterType)
 					break;
 				default:
 					break;
