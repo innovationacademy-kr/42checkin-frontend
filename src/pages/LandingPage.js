@@ -5,7 +5,7 @@ import { getCookieValue } from '../utils/utils';
 function LandingPage() {
   useEffect(() => {
     const token = getCookieValue('w_auth');
-    if (token !== '') window.location.href = '/submit';
+    if (token !== '') window.location.href = '/checkin';
   }, []);
 
   const handleLogin = () => {

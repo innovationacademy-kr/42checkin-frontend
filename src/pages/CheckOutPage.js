@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import '../styles/EndPage.css';
+import '../styles/CheckOutPage.css';
 
-function EndPage() {
+function CheckOutPage() {
   useEffect(() => {
-    setTimeout(() => (window.location.href = '/submit'), 1000);
+    setTimeout(() => (window.location.href = '/checkin'), 1000);
   });
   return (
     <div id='text-wrapper'>
@@ -12,4 +12,4 @@ function EndPage() {
   );
 }
 
-export default EndPage;
+export default CheckOutPage;
