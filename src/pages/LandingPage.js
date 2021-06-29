@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
-import '../styles/LandingPage.css';
 import { getCookieValue } from '../utils/utils';
+import StatusBoard from '../components/StatusBoard';
+import '../styles/LandingPage.css';
 
 function LandingPage() {
   useEffect(() => {
@@ -14,8 +15,10 @@ function LandingPage() {
 
   return (
     <div id='landing-wrapper'>
+      <h1> 42 Check In</h1>
+      <StatusBoard />
       <button id='login-btn' onClick={handleLogin}>
-        42 Log In
+        Log In
       </button>
     </div>
   );

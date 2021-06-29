@@ -1,5 +1,7 @@
 #landing-wrapper {
+  font-family: 'Futura', 'Sans serif';
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -16,6 +18,7 @@
   color: black;
   background-color: whitesmoke;
   font-size: 1rem;
-  width: 50%;
+  width: 50vw;
+  max-width: 256px;
   padding: 10px;
 }
