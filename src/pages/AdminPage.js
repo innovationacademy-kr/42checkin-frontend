@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import SearchBar from './SearchBar';
+import SearchBar from '../components/SearchBar';
 import * as moment from 'moment';
 import '../styles/AdminPage.css';
 import { forceCheckOut, checkAdmin as getCheckAdmin } from '../api/api';
@@ -14,7 +14,7 @@ function AdminPage() {
   const checkAdmin = async () => {
     try {
       const response = await getCheckAdmin();
-      if (!(response.data && response.data.isAdmin)) window.location.href = '/submit';
+      if (!(response.data && response.data.isAdmin)) window.location.href = '/checkin';
     } catch (err) {
       console.log(err);
       window.location.href = '/';

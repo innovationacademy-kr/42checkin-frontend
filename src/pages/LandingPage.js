@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
-import '../styles/LandingPage.css';
 import { getCookieValue } from '../utils/utils';
+import StatusBoard from '../components/StatusBoard';
+import '../styles/LandingPage.css';
 
 function LandingPage() {
   useEffect(() => {
     const token = getCookieValue('w_auth');
-    if (token !== '') window.location.href = '/submit';
+    if (token !== '') window.location.href = '/checkin';
   }, []);
 
   const handleLogin = () => {
@@ -13,8 +14,10 @@ function LandingPage() {
   };
   return (
     <div id='landing-wrapper'>
+      <h1> 42 Check In</h1>
+      <StatusBoard />
       <button id='login-btn' onClick={handleLogin}>
-        42 Log In
+        Log In
       </button>
     </div>
   );
