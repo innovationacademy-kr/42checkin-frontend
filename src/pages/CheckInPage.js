@@ -108,7 +108,7 @@ function CheckInPage() {
   }, [cardNum, checkStatus, status]);
 
   return (
-    <div id='page-wrapper'>
+    <div id='checkin-wrapper'>
       <div id='checkinout'>
         <h1 id='title'>{status === 'in' ? '42 CheckOut' : '42 CheckIn'}</h1>
         <StatusBoard />
