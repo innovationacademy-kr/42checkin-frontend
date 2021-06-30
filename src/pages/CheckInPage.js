@@ -12,7 +12,7 @@ import '../styles/CheckInPage.css';
 function CheckInPage() {
   const [userInfo, setUserInfo] = useState({
     userId: '',
-    cardNum: null,
+    cardNum: '',
     waitingNum: null,
     status: 'out'
   });
@@ -21,14 +21,12 @@ function CheckInPage() {
   const [checkStatus, setCheckStatus] = useState([false, false, false]);
   const [readySubmit, setReadySubmit] = useState(false);
 
-  const { userId, cardNum, waitingNum, status } = userInfo;
+  const { userId, cardNum, status } = userInfo;
 
   const handleCheckIn = async () => {
     if (readySubmit) {
       try {
         const response = await validCard(cardNum);
-        console.log(cardNum);
-        console.log(response.data);
         if (response.data['using'] === false) {
           try {
             await checkIn(cardNum);
@@ -39,7 +37,7 @@ function CheckInPage() {
         } else {
           setUserInfo({
             ...userInfo,
-            cardNum: null
+            cardNum: ''
           });
           alert('이미 사용 중이거나 유효한 카드 번호가 아닙니다');
         }
@@ -79,7 +77,7 @@ function CheckInPage() {
         const { user } = response.data;
         setUserInfo({
           userId: user.login,
-          cardNum: user.card,
+          cardNum: user.card !== null ? user.card : '',
           status: user.card !== null ? 'in' : 'out',
           waitingNum: user.waitingNum
         });
@@ -97,18 +95,25 @@ function CheckInPage() {
 
   useEffect(() => {
     const checkSubmitCondition = () => {
-      if (cardNum !== null && JSON.stringify(checkStatus) === JSON.stringify([true, true, true]))
+      if (cardNum && checkAll) {
         setReadySubmit(true);
-      else setReadySubmit(false);
+      } else {
+        setReadySubmit(false);
+      }
     };
     if (status === 'out') checkSubmitCondition();
-    if (cardNum !== '' && JSON.stringify(checkStatus) === JSON.stringify([true, true, true]))
-      setReadySubmit(true);
-    else setReadySubmit(false);
-  }, [cardNum, checkStatus, status]);
+  }, [cardNum, checkAll, status]);
+
+  useEffect(() => {
+    if (JSON.stringify(checkStatus) === JSON.stringify([true, true, true])) {
+      setCheckAll(true);
+    } else {
+      setCheckAll(false);
+    }
+  }, [checkStatus]);
 
   return (
-    <div id='page-wrapper'>
+    <div id='checkin-wrapper'>
       <div id='checkinout'>
         <h1 id='title'>{status === 'in' ? '42 CheckOut' : '42 CheckIn'}</h1>
         <StatusBoard />
