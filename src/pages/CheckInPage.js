@@ -6,6 +6,7 @@ import Modal from '../components/Modal';
 import { getCookieValue } from '../utils/utils';
 import { checkLists } from '../utils/notice';
 import { checkAdmin, checkOut, checkIn, validCard } from '../api/api';
+import StatusBoard from '../components/StatusBoard';
 import '../styles/CheckInPage.css';
 
 function CheckInPage() {
@@ -13,31 +14,14 @@ function CheckInPage() {
     userId: '',
     cardNum: null,
     waitingNum: null,
-    status: 'out',
-    timeOut: null
-  });
-
-  // const [cardNum, setCardNum] = useState(null);
-  const [clusterInfo, setClusterInfo] = useState({
-    gaepo: 0,
-    g_waiting: 0,
-    seocho: 0,
-    s_waiting: 0
+    status: 'out'
   });
 
   const [checkAll, setCheckAll] = useState(false);
   const [checkStatus, setCheckStatus] = useState([false, false, false]);
   const [readySubmit, setReadySubmit] = useState(false);
 
-  // const [waitingCheckStatus, setWaitingCheckStatus] = useState(false);
-  // const [waitingCluster, setWaitingCluster] = useState(null);
-  // const [readyWait, setReadyWait] = useState(false);
-
-  // const [waitStatus, setWaitStatus] = useState('cannot'); // waiting status: cannot, ready, waiting
-
-  // const { userId, waitingNum, status, timeOut } = userInfo;
-  const { userId, cardNum, waitingNum, status, timeOut } = userInfo;
-  const { gaepo, g_waiting, seocho, s_waiting } = clusterInfo;
+  const { userId, cardNum, waitingNum, status } = userInfo;
 
   const handleCheckIn = async () => {
     if (readySubmit) {
@@ -88,54 +72,16 @@ function CheckInPage() {
     setCheckStatus([isChecked, isChecked, isChecked]);
   };
 
-  // const handleWait = async () => {
-  //   if (readyWait) {
-  //     try {
-  //       await axios.post(`http://localhost:3000/api/waiting/create/${waitingCluster === 'gaepo' ? 0 : 1}`);
-  //       try {
-  //         const response = await axios.get('/api/user/status');
-  //         const { user, cluster } = response.data;
-  //         setUserInfo({
-  //           ...userInfo,
-  //           waitingNum: user.waitingNum,
-  //           timeout: user.timeOut
-  //         });
-  //         setClusterInfo({
-  //           gaepo: cluster.gaepo,
-  //           g_waiting: cluster.gaepoWaiting,
-  //           seocho: cluster.seocho,
-  //           s_waiting: cluster.seochoWaiting
-  //         });
-  //         setWaitStatus('waiting');
-  //       } catch (err) {
-  //         console.log(err);
-  //       }
-  //     } catch (err) {
-  //       console.log(err);
-  //       if (err.response.status === 400) {
-  //         const modal = document.getElementById('myModal');
-  //         modal.style.display = 'flex';
-  //       } else console.log(err);
-  //     }
-  //   }
-  // };
   useEffect(() => {
     const getUserData = async () => {
       try {
         const response = await checkAdmin();
-        const { user, cluster } = response.data;
+        const { user } = response.data;
         setUserInfo({
           userId: user.login,
           cardNum: user.card,
           status: user.card !== null ? 'in' : 'out',
-          waitingNum: user.waitingNum,
-          timeOut: user.timeOut
-        });
-        setClusterInfo({
-          gaepo: cluster.gaepo,
-          g_waiting: cluster.gaepoWaiting,
-          seocho: cluster.seocho,
-          s_waiting: cluster.seochoWaiting
+          waitingNum: user.waitingNum
         });
       } catch (err) {
         console.log(err);
@@ -164,16 +110,8 @@ function CheckInPage() {
   return (
     <div id='page-wrapper'>
       <div id='checkinout'>
-        <h1 id='title'>
-          {/* {status === 'in' ? '42 CheckOut' : waitStatus !== 'cannot' ? '42 Waiting' : '42 CheckIn'} */}
-          {status === 'in' ? '42 CheckOut' : '42 CheckIn'}
-        </h1>
-        <h4>
-          개포 인원 : {gaepo} / 150 {gaepo === 150 ? `(${g_waiting})` : ''}
-        </h4>
-        <h4>
-          서초 인원 : {seocho} / 150 {seocho === 150 ? `(${s_waiting})` : ''}
-        </h4>
+        <h1 id='title'>{status === 'in' ? '42 CheckOut' : '42 CheckIn'}</h1>
+        <StatusBoard />
         <h3> Intra ID : {userId}</h3>
         {status === 'in' ? (
           <>

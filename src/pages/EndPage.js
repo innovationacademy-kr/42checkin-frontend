@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import '../styles/CheckOutPage.css';
+import '../styles/EndPage.css';
 
-function CheckOutPage() {
+function EndPage() {
   useEffect(() => {
     setTimeout(() => (window.location.href = '/checkin'), 1000);
   });
@@ -12,4 +12,4 @@ function CheckOutPage() {
   );
 }
 
-export default CheckOutPage;
+export default EndPage;

@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import CheckInPage from './pages/CheckInPage';
-import CheckOutPage from './pages/CheckOutPage';
+import EndPage from './pages/EndPage';
 import AdminPage from './pages/AdminPage';
 import NotFoundPage from './pages/NotFoundPage';
 import './App.css';
@@ -12,7 +12,7 @@ function App() {
       <Switch>
         <Route path='/' exact={true} component={LandingPage} />
         <Route path='/checkin' component={CheckInPage} />
-        <Route path='/checkout' component={CheckOutPage} />
+        <Route path='/end' component={EndPage} />
         <Route path='/admin' component={AdminPage} />
         <Route component={NotFoundPage} />
       </Switch>
