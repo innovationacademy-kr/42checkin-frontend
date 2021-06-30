@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { getMaxCapacity, getUsingCard } from '../api/api';
 
 const StatusBoard = () => {
   const [headCount, setHeadCount] = useState({
@@ -10,12 +11,17 @@ const StatusBoard = () => {
 
   const getHeadCount = async () => {
     try {
-      const response = await axios.get('https://api.checkin.42seoul.io/config');
-      setHeadCount({
-        gaepo: response.data.gaepo,
-        seocho: response.data.seocho,
-        maxCapacity: response.data.maxCapacity
-      });
+      const resMaxCapacity = getMaxCapacity();
+      try {
+        const resUsingCard = getUsingCard();
+        setHeadCount({
+          gaepo: resUsingCard.data.gaepo,
+          seocho: resUsingCard.data.seocho,
+          maxCapacity: resMaxCapacity.data.maxCapacity
+        });
+      } catch (err) {
+        console.log(err);
+      }
     } catch (err) {
       console.log(err);
     }

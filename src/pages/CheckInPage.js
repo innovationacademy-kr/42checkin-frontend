@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import Checkbox from '../components/Checkbox';
 import UserInput from '../components/UserInput';
 import Button from '../components/Button';
-import Timer from '../components/Timer';
 import Modal from '../components/Modal';
 import { getCookieValue } from '../utils/utils';
-import { checkLists, waitingNoti } from '../utils/notice';
+import { checkLists } from '../utils/notice';
+import { checkAdmin, checkOut, checkIn, validCard } from '../api/api';
 import '../styles/CheckInPage.css';
 
 function CheckInPage() {
@@ -43,13 +42,13 @@ function CheckInPage() {
   const handleCheckIn = async () => {
     if (readySubmit) {
       try {
-        const response = await axios.get(`/api/card/valid/${cardNum}`);
+        const response = await validCard(cardNum);
         console.log(cardNum);
         console.log(response.data);
         if (response.data['using'] === false) {
           try {
-            await axios.post(`/api/user/checkIn/${cardNum}`);
-            window.location.href = '/checkout';
+            await checkIn(cardNum);
+            window.location.href = '/end';
           } catch (err) {
             console.log(err);
           }
@@ -73,8 +72,8 @@ function CheckInPage() {
   const handleCheckOut = async () => {
     if (window.confirm('퇴실 하시겠습니까?')) {
       try {
-        await axios.post('/api/user/checkOut');
-        window.location.href = '/checkout';
+        await checkOut();
+        window.location.href = '/end';
       } catch (err) {
         alert('이미 처리된 작업입니다.');
         window.location.href = '/';
@@ -123,7 +122,7 @@ function CheckInPage() {
   useEffect(() => {
     const getUserData = async () => {
       try {
-        const response = await axios.get('/api/user/status');
+        const response = await checkAdmin();
         const { user, cluster } = response.data;
         setUserInfo({
           userId: user.login,
@@ -139,6 +138,7 @@ function CheckInPage() {
           s_waiting: cluster.seochoWaiting
         });
       } catch (err) {
+        console.log(err);
         document.cookie = 'w_auth=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         window.location.href = '/';
       }
