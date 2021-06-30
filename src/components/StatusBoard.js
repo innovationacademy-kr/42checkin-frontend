@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { getMaxCapacity, getUsingCard } from '../api/api';
 
 const StatusBoard = () => {
@@ -11,9 +10,9 @@ const StatusBoard = () => {
 
   const getHeadCount = async () => {
     try {
-      const resMaxCapacity = getMaxCapacity();
+      const resMaxCapacity = await getMaxCapacity();
       try {
-        const resUsingCard = getUsingCard();
+        const resUsingCard = await getUsingCard();
         setHeadCount({
           gaepo: resUsingCard.data.gaepo,
           seocho: resUsingCard.data.seocho,
