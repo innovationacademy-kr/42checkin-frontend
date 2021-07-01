@@ -18,7 +18,7 @@ function App() {
           <Redirect from="/submit" to="/checkin" />
           <Route component={NotFoundPage} />
         </Switch>
-        <div id='version'>v1.0.0</div>
+        <div id='version'>v1.0.1</div>
       </div>
     </BrowserRouter>
   );
