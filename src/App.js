@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import CheckInPage from './pages/CheckInPage';
 import EndPage from './pages/EndPage';
@@ -15,6 +15,7 @@ function App() {
           <Route path='/checkin' component={CheckInPage} />
           <Route path='/end' component={EndPage} />
           <Route path='/admin' component={AdminPage} />
+          <Redirect from="/submit" to="/checkin" />
           <Route component={NotFoundPage} />
         </Switch>
         <div id='version'>v1.0.0</div>
