@@ -15,10 +15,10 @@ function App() {
           <Route path='/checkin' component={CheckInPage} />
           <Route path='/end' component={EndPage} />
           <Route path='/admin' component={AdminPage} />
-          <Redirect from="/submit" to="/checkin" />
+          <Redirect from='/submit' to='/checkin' />
           <Route component={NotFoundPage} />
         </Switch>
-        <div id='version'>v1.0.1</div>
+        <div id='version'>v1.0.2</div>
       </div>
     </BrowserRouter>
   );
