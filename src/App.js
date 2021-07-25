@@ -8,19 +8,23 @@ import './App.css';
 
 function App() {
   return (
-    <BrowserRouter>
-      <div id='page-wrapper'>
-        <Switch>
-          <Route path='/' exact={true} component={LandingPage} />
-          <Route path='/checkin' component={CheckInPage} />
-          <Route path='/end' component={EndPage} />
-          <Route path='/admin' component={AdminPage} />
-          <Redirect from='/submit' to='/checkin' />
-          <Route component={NotFoundPage} />
-        </Switch>
-        <div id='version'>v1.0.2</div>
-      </div>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <div id='page-wrapper'>
+          <Switch>
+            <Route path='/' exact={true} component={LandingPage} />
+            <Route path='/checkin' component={CheckInPage} />
+            <Route path='/end' component={EndPage} />
+            <Route path='/admin' component={AdminPage} />
+            <Redirect from='/submit' to='/checkin' />
+            <Route component={NotFoundPage} />
+          </Switch>
+        </div>
+      </BrowserRouter>
+      <footer>
+        <div id='version'>v{process.env.REACT_APP_VERSION}</div>
+      </footer>
+    </>
   );
 }
 

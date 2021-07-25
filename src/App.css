@@ -15,4 +15,8 @@ html {
   font-size: smaller;
   text-align: center;
   color: rgb(45, 50, 65);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
