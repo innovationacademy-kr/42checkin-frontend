@@ -5,7 +5,7 @@ import '../styles/LandingPage.css';
 
 function LandingPage() {
   useEffect(() => {
-    const token = getCookieValue('w_auth');
+    const token = getCookieValue(process.env.REACT_APP_AUTH_KEY);
     if (token !== '') window.location.href = '/checkin';
   }, []);
 

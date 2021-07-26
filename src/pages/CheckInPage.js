@@ -83,12 +83,12 @@ function CheckInPage() {
         });
       } catch (err) {
         console.log(err);
-        document.cookie = 'w_auth=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        document.cookie = `${process.env.REACT_APP_AUTH_KEY}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
         window.location.href = '/';
       }
     };
 
-    const token = getCookieValue('w_auth');
+    const token = getCookieValue(process.env.REACT_APP_AUTH_KEY);
     if (token !== '') getUserData();
     else window.location.href = '/';
   }, []);
