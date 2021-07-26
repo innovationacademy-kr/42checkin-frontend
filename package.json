@@ -1,6 +1,6 @@
 {
   "name": "42checkin",
-  "version": "1.0.3",
+  "version": "1.00.03",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.10",
