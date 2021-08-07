@@ -14,7 +14,7 @@ function LandingPage() {
   };
   return (
     <div id='landing-wrapper'>
-      <h1> 42 Check In</h1>
+      <h1>42 Check In</h1>
       <StatusBoard />
       <button id='login-btn' onClick={handleLogin}>
         Log In

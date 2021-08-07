@@ -14,11 +14,12 @@
 #login-btn {
   font-family: 'Futura', 'Sans serif';
   border-radius: 3px;
-  border: none;
+  width: 50%;
+  max-width: 256px;
   color: black;
+  padding: 10px;
   background-color: whitesmoke;
   font-size: 1rem;
-  width: 50vw;
-  max-width: 256px;
-  padding: 10px;
+  border: none;
+  margin: 1.5rem 0;
 }

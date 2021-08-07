@@ -21,9 +21,7 @@ function App() {
           </Switch>
         </div>
       </BrowserRouter>
-      <footer>
-        <div id='version'>v{process.env.REACT_APP_VERSION}</div>
-      </footer>
+      <footer id='version'>v{process.env.REACT_APP_VERSION}</footer>
     </>
   );
 }

@@ -115,7 +115,7 @@ function CheckInPage() {
   return (
     <div id='checkin-wrapper'>
       <div id='checkinout'>
-        <h1 id='title'>{status === 'in' ? '42 CheckOut' : '42 CheckIn'}</h1>
+        <h1>{status === 'in' ? '42 Check Out' : '42 Check In'}</h1>
         <StatusBoard />
         <h3> Intra ID : {userId}</h3>
         {status === 'in' ? (
