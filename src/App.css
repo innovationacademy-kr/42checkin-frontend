@@ -5,8 +5,8 @@ html {
 
 #page-wrapper {
   width: 100vw;
-  height: 100vh;
   max-height: -webkit-fill-available;
+  margin: 1.5em 0;
 }
 
 #version {
@@ -15,8 +15,4 @@ html {
   font-size: smaller;
   text-align: center;
   color: rgb(45, 50, 65);
-}
-
-h1 {
-  margin-top: 1.5rem;
 }
