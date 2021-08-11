@@ -2,11 +2,14 @@ import { useEffect } from 'react';
 import { getCookieValue } from '../utils/utils';
 import StatusBoard from '../components/StatusBoard';
 import '../styles/LandingPage.css';
+import { useHistory } from 'react-router-dom';
 
 function LandingPage() {
+  const history = useHistory();
+
   useEffect(() => {
     const token = getCookieValue(process.env.REACT_APP_AUTH_KEY);
-    if (token !== '') window.location.href = '/checkin';
+    if (token !== '') history.push('/checkin');
   }, []);
 
   const handleLogin = () => {

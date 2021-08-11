@@ -3,8 +3,10 @@ import SearchBar from '../components/SearchBar';
 import * as moment from 'moment';
 import '../styles/AdminPage.css';
 import { forceCheckOut, checkAdmin as getCheckAdmin } from '../api/api';
+import { useHistory } from 'react-router-dom';
 
 function AdminPage() {
+  const history = useHistory();
   const [LogType, setLogType] = useState(0);
   const [Logs, setLogs] = useState([]);
   const [Page, setPage] = useState(0);
@@ -14,10 +16,10 @@ function AdminPage() {
   const checkAdmin = async () => {
     try {
       const response = await getCheckAdmin();
-      if (!(response.data && response.data.isAdmin)) window.location.href = '/checkin';
+      if (!(response.data && response.data.isAdmin)) history.push('/checkin');
     } catch (err) {
       console.log(err);
-      window.location.href = '/';
+      history.push('/');
     }
   };
 

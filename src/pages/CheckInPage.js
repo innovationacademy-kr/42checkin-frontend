@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import Checkbox from '../components/Checkbox';
 import UserInput from '../components/UserInput';
 import Button from '../components/Button';
@@ -10,6 +11,7 @@ import StatusBoard from '../components/StatusBoard';
 import '../styles/CheckInPage.css';
 
 function CheckInPage() {
+  const history = useHistory();
   const [userInfo, setUserInfo] = useState({
     userId: '',
     cardNum: '',
@@ -30,7 +32,7 @@ function CheckInPage() {
         if (response.data['using'] === false) {
           try {
             await checkIn(cardNum);
-            window.location.href = '/end';
+            history.push('/end');
           } catch (err) {
             console.log(err);
           }
@@ -55,10 +57,10 @@ function CheckInPage() {
     if (window.confirm('퇴실 하시겠습니까?')) {
       try {
         await checkOut();
-        window.location.href = '/end';
+        history.push('/end');
       } catch (err) {
         alert('이미 처리된 작업입니다.');
-        window.location.href = '/';
+        history.push('/');
         console.log(err);
       }
     }
@@ -84,13 +86,13 @@ function CheckInPage() {
       } catch (err) {
         console.log(err);
         document.cookie = `${process.env.REACT_APP_AUTH_KEY}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
-        window.location.href = '/';
+        history.push('/');
       }
     };
 
     const token = getCookieValue(process.env.REACT_APP_AUTH_KEY);
     if (token !== '') getUserData();
-    else window.location.href = '/';
+    else history.push('/');
   }, []);
 
   useEffect(() => {

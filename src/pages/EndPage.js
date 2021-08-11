@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import '../styles/EndPage.css';
 
 function EndPage() {
+  const history = useHistory();
   useEffect(() => {
-    setTimeout(() => (window.location.href = '/checkin'), 1000);
+    setTimeout(() => history.push('/checkin'), 1000);
   });
   return (
     <div id='text-wrapper'>
