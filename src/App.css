@@ -4,9 +4,13 @@ html {
 }
 
 #page-wrapper {
+  font-family: 'Futura', 'Sans serif';
   width: 100vw;
-  max-height: -webkit-fill-available;
-  margin: 1.5em 0;
+  height: fit-content;
+  min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
+  touch-action: pan-y;
+  margin: 1em 0;
 }
 
 #version {
@@ -15,4 +19,5 @@ html {
   font-size: smaller;
   text-align: center;
   color: rgb(45, 50, 65);
+  margin-top: 1em;
 }
