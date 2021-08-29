@@ -1,8 +1,8 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react';
-import '../styles/SearchBar.css';
-import Paging from '../components/Paging';
+import '../assets/styles/SearchBar.css';
+import Paging from './Paging';
 import { getCluster, getStudent, getCard, getCheckIn, getAllCarad } from '../api/api';
-import { gaepoCard, seochoCard } from '../utils/cardList';
+import { gaepoCard, seochoCard } from '../../utils/cardList';
 
 const SearchBar = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({

@@ -4,17 +4,17 @@ import * as moment from 'moment';
 
 import { makeStyles } from '@material-ui/core/styles';
 // core components
-import GridItem from '../admin/components/Grid/GridItem.js';
-import GridContainer from '../admin/components/Grid/GridContainer.js';
-import Table from '../admin/components/Table/Table.js';
-import Card from '../admin/components/Card/Card.js';
-import CardHeader from '../admin/components/Card/CardHeader.js';
-import CardBody from '../admin/components/Card/CardBody.js';
+import GridItem from '../components/Grid/GridItem.js';
+import GridContainer from '../components/Grid/GridContainer.js';
+import Table from '../components/Table/Table.js';
+import Card from '../components/Card/Card.js';
+import CardHeader from '../components/Card/CardHeader.js';
+import CardBody from '../components/Card/CardBody.js';
 import { Button } from '@material-ui/core';
 
 import SearchBar from '../components/SearchBar';
 import { forceCheckOut, checkAdmin as getCheckAdmin } from '../api/api';
-import '../styles/AdminPage.css';
+import '../assets/styles/AdminPage.css';
 
 const styles = {
   cardTitleWhite: {
@@ -45,6 +45,7 @@ function AdminPage() {
   const ref = useRef();
   const classes = useStyles();
   const tableHead = ['ID', '시간', '출/입', '인트라 ID', '카드 번호', '클러스터', '강제 퇴실'];
+
   const checkAdmin = async () => {
     try {
       const response = await getCheckAdmin();
@@ -55,10 +56,6 @@ function AdminPage() {
     }
   };
 
-  useEffect(() => {
-    checkAdmin();
-  }, []);
-
   const handleFilterBtn = ({ target }) => {
     setLogs([]);
     setLogType(+target.dataset.idx);
@@ -68,6 +65,7 @@ function AdminPage() {
   const checkOutOnClick = async e => {
     try {
       const userId = e.target.getAttribute('data');
+      console.log('userid', e.target.dataset);
       const response = await forceCheckOut(userId);
       setLogs([]);
       ref.current.onSubmit(e);
@@ -75,6 +73,10 @@ function AdminPage() {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    checkAdmin();
+  }, []);
 
   return (
     <div
@@ -127,32 +129,38 @@ function AdminPage() {
               <h4 className={classes.cardTitleWhite}>Logs</h4>
               <p className={classes.cardCategoryWhite}></p>
             </CardHeader>
-            {logs && (
-              <CardBody>
-                <Table
-                  tableHeaderColor='primary'
-                  tableHead={tableHead}
-                  tableData={logs.map((log, idx) => {
-                    const date = new Date(log.createdAt);
-                    return [
-                      log.id ?? page * 50 + idx + 1,
-                      moment(date).format('MM월 DD일 HH:mm') ?? null,
-                      log.logType ?? null,
-                      log.user ? log.user.userName : null,
-                      log.card ? log.card.cardId.toString() : null,
-                      log.card ? (log.card.type === 0 ? '개포' : '서초') : null,
-                      log.card ? (
-                        log.card.cardId === log.user.cardId ? (
-                          <Button variant='outlined' onClick={checkOutOnClick}>
-                            퇴실 처리
-                          </Button>
+            {logs &&
+              (console.log(logs),
+              (
+                <CardBody>
+                  <Table
+                    tableHeaderColor='primary'
+                    tableHead={tableHead}
+                    tableData={logs.map((log, idx) => {
+                      const date = new Date(log.createdAt);
+                      return [
+                        log.id ?? page * 50 + idx + 1,
+                        moment(date).format('MM월 DD일 HH:mm') ?? null,
+                        log.logType ?? null,
+                        log.user ? log.user.userName : null,
+                        log.card ? log.card.cardId.toString() : null,
+                        log.card ? (log.card.type === 0 ? '개포' : '서초') : null,
+                        log.user ? (
+                          log.card.cardId === log.user.cardId ? (
+                            <Button
+                              variant='outlined'
+                              onClick={checkOutOnClick}
+                              data-idx={log.user._id}
+                            >
+                              퇴실 처리
+                            </Button>
+                          ) : null
                         ) : null
-                      ) : null
-                    ];
-                  })}
-                />
-              </CardBody>
-            )}
+                      ];
+                    })}
+                  />
+                </CardBody>
+              ))}
           </Card>
         </GridItem>
       </GridContainer>

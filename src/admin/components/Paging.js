@@ -1,5 +1,6 @@
 import React from 'react';
-import '../styles/Paging.css';
+import '../assets/styles/Paging.css';
+
 const Paging = ({ Page, setPage }) => {
   return (
     <div className='paging-wrapper'>

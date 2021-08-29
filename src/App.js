@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import CheckInPage from './pages/CheckInPage';
 import EndPage from './pages/EndPage';
-import AdminPage from './pages/AdminPage';
+import AdminPage from './admin/pages/AdminPage';
 import NotFoundPage from './pages/NotFoundPage';
 import './App.css';
 
