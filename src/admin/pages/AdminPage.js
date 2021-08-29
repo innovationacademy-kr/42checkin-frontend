@@ -10,7 +10,6 @@ import Table from '../components/Table/Table.js';
 import Card from '../components/Card/Card.js';
 import CardHeader from '../components/Card/CardHeader.js';
 import CardBody from '../components/Card/CardBody.js';
-import { Button } from '@material-ui/core';
 
 import SearchBar from '../components/SearchBar';
 import { forceCheckOut, checkAdmin as getCheckAdmin } from '../api/api';
@@ -64,11 +63,15 @@ function AdminPage() {
 
   const checkOutOnClick = async e => {
     try {
-      const userId = e.target.getAttribute('data');
-      console.log('userid', e.target.dataset);
-      const response = await forceCheckOut(userId);
-      setLogs([]);
-      ref.current.onSubmit(e);
+      const userId = e.target.dataset.idx;
+      if (userId) {
+        window.confirm('퇴실 처리 하시겠습니까?');
+        await forceCheckOut(userId);
+        setLogs([]);
+        ref.current.onSubmit(e);
+      } else {
+        window.alert('유효한 인트라 ID가 아닙니다.');
+      }
     } catch (err) {
       console.log(err);
     }
@@ -129,38 +132,36 @@ function AdminPage() {
               <h4 className={classes.cardTitleWhite}>Logs</h4>
               <p className={classes.cardCategoryWhite}></p>
             </CardHeader>
-            {logs &&
-              (console.log(logs),
-              (
-                <CardBody>
-                  <Table
-                    tableHeaderColor='primary'
-                    tableHead={tableHead}
-                    tableData={logs.map((log, idx) => {
-                      const date = new Date(log.createdAt);
-                      return [
-                        log.id ?? page * 50 + idx + 1,
-                        moment(date).format('MM월 DD일 HH:mm') ?? null,
-                        log.logType ?? null,
-                        log.user ? log.user.userName : null,
-                        log.card ? log.card.cardId.toString() : null,
-                        log.card ? (log.card.type === 0 ? '개포' : '서초') : null,
-                        log.user ? (
-                          log.card.cardId === log.user.cardId ? (
-                            <Button
-                              variant='outlined'
-                              onClick={checkOutOnClick}
-                              data-idx={log.user._id}
-                            >
-                              퇴실 처리
-                            </Button>
-                          ) : null
+            {logs && (
+              <CardBody>
+                <Table
+                  tableHeaderColor='primary'
+                  tableHead={tableHead}
+                  tableData={logs.map((log, idx) => {
+                    const date = new Date(log.createdAt);
+                    return [
+                      log.id ?? page * 50 + idx + 1,
+                      moment(date).format('MM월 DD일 HH:mm') ?? null,
+                      log.logType ?? null,
+                      log.user ? log.user.userName : null,
+                      log.card ? log.card.cardId.toString() : null,
+                      log.card ? (log.card.type === 0 ? '개포' : '서초') : null,
+                      log.user ? (
+                        log.card.cardId === log.user.cardId ? (
+                          <button
+                            className='force-out-Btn'
+                            onClick={checkOutOnClick}
+                            data-idx={log.user._id}
+                          >
+                            퇴실 처리
+                          </button>
                         ) : null
-                      ];
-                    })}
-                  />
-                </CardBody>
-              ))}
+                      ) : null
+                    ];
+                  })}
+                />
+              </CardBody>
+            )}
           </Card>
         </GridItem>
       </GridContainer>

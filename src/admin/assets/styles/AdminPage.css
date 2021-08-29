@@ -19,3 +19,10 @@
   font-size: 1rem;
   font-weight: bolder;
 }
+
+.force-out-Btn {
+  border: 1px solid black;
+  border-radius: 3px;
+  background: none;
+  font-weight: bolder;
+}
