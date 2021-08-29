@@ -14,8 +14,12 @@ export const forceCheckOut = async userId => {
   return await instance.post(`/user/forceCheckOut/${userId}`);
 };
 
+const CLUSTER = {
+  0: 'gaepo',
+  1: 'seocho'
+};
 export const getCluster = async (ClusterType, page) => {
-  return await instance.get(`/log/${ClusterType === 0 ? 'gaepo' : 'seocho'}?page=${page}`);
+  return await instance.get(`/log/${CLUSTER[ClusterType]}?page=${page}`);
 };
 
 export const getStudent = async (login, page) => {
