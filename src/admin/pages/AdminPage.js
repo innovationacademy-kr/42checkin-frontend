@@ -10,12 +10,18 @@ import Table from '../components/Table/Table.js';
 import Card from '../components/Card/Card.js';
 import CardHeader from '../components/Card/CardHeader.js';
 import CardBody from '../components/Card/CardBody.js';
+import Paper from '@material-ui/core/Paper';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 import SearchBar from '../components/SearchBar';
 import { forceCheckOut, checkAdmin as getCheckAdmin } from '../api/api';
 import '../assets/styles/AdminPage.css';
 
 const styles = {
+  root: {
+    flexGrow: 1
+  },
   cardTitleWhite: {
     color: '#FFFFFF',
     marginTop: '0px',
@@ -35,6 +41,13 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
+function a11yProps(index) {
+  return {
+    id: `full-width-tab-${index}`,
+    'aria-controls': `full-width-tabpanel-${index}`
+  };
+}
+
 function AdminPage() {
   const history = useHistory();
   const [logType, setLogType] = useState(0);
@@ -45,6 +58,12 @@ function AdminPage() {
   const classes = useStyles();
   const tableHead = ['ID', '시간', '출/입', '인트라 ID', '카드 번호', '클러스터', '강제 퇴실'];
 
+  const handleChange = (event, newValue) => {
+    setLogs([]);
+    setPage(0);
+    setLogType(newValue);
+  };
+
   const checkAdmin = async () => {
     try {
       const response = await getCheckAdmin();
@@ -53,12 +72,6 @@ function AdminPage() {
       console.log(err);
       history.push('/');
     }
-  };
-
-  const handleFilterBtn = ({ target }) => {
-    setLogs([]);
-    setLogType(+target.dataset.idx);
-    setPage(0);
   };
 
   const checkOutOnClick = async e => {
@@ -91,39 +104,22 @@ function AdminPage() {
       }}
     >
       <div className='selectorWrapper'>
-        <div
-          style={{
-            display: 'flex',
-            // width: "50%",
-            justifyContent: 'center'
-          }}
-        >
-          <button className='filterBtn' data-idx='0' onClick={handleFilterBtn}>
-            클러스터
-          </button>
-          <button className='filterBtn' data-idx='1' onClick={handleFilterBtn}>
-            인트라 ID
-          </button>
-          <button className='filterBtn' data-idx='2' onClick={handleFilterBtn}>
-            카드 번호
-          </button>
-          <button className='filterBtn' data-idx='3' onClick={handleFilterBtn}>
-            미반납 카드
-          </button>
-          <button className='filterBtn' data-idx='4' onClick={handleFilterBtn}>
-            모든 카드 정보
-          </button>
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            width: '50%',
-            padding: '1rem',
-            height: '5rem'
-          }}
-        >
-          <SearchBar type={logType} setLogs={setLogs} ref={ref} Page={page} setPage={setPage} />
-        </div>
+        <Paper className={classes.root}>
+          <Tabs
+            value={logType}
+            onChange={handleChange}
+            indicatorColor='primary'
+            textColor='primary'
+            centered
+          >
+            <Tab label='클러스터' {...a11yProps(0)} />
+            <Tab label='인트라 ID' {...a11yProps(1)} />
+            <Tab label='카드 번호' {...a11yProps(2)} />
+            <Tab label='미반납 카드' {...a11yProps(3)} />
+            <Tab label='모든 카드 정보' {...a11yProps(4)} />
+          </Tabs>
+        </Paper>
+        <SearchBar type={logType} setLogs={setLogs} ref={ref} Page={page} setPage={setPage} />
       </div>
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
