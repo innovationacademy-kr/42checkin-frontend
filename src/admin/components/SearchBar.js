@@ -1,16 +1,16 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import '../assets/styles/SearchBar.css';
 import Paging from './Paging';
-import { getCluster, getStudent, getCard, getCheckIn, getAllCarad } from '../api/api';
-import { gaepoCard, seochoCard } from '../../utils/cardList';
+import { getCluster, getStudent, getCard, getCheckIn, getAllCard } from '../api/api';
+import { gaepoCard, seochoCard } from '../utils/cardList';
 
 const SearchBar = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
     onSubmit
   }));
-  const [ClusterType, setClusterType] = useState(0);
-  const [Login, setLogin] = useState('');
-  const [CardId, setCardId] = useState(0);
+  const [clusterType, setClusterType] = useState('0');
+  const [login, setLogin] = useState('');
+  const [cardId, setCardId] = useState(0);
 
   const handleClick = e => {
     props.setLogs([]);
@@ -24,48 +24,42 @@ const SearchBar = forwardRef((props, ref) => {
       let response;
       switch (props.type) {
         case 0:
-          response = await getCluster(ClusterType, props.Page);
+          response = await getCluster(clusterType, props.Page);
           break;
         case 1:
-          response = await getStudent(Login, props.Page);
+          response = await getStudent(login, props.Page);
           break;
         case 2:
-          response = await getCard(CardId, props.Page);
+          response = await getCard(cardId, props.Page);
           break;
         case 3:
-          response = await getCheckIn(ClusterType);
+          response = await getCheckIn(clusterType);
           break;
         case 4:
-          response = await getAllCarad(ClusterType);
+          response = await getAllCard(clusterType);
           break;
         default:
           break;
       }
-      let data;
-      data = response.data;
+      let datas;
+      datas = response.data;
       if (props.type === 3 || props.type === 4) {
-        data = response.data
-          .filter((item, index) => {
-            return (
-              response.data.findIndex((item2, i) => {
-                return item.user._id === item2.user._id;
-              }) === index
-            );
-          })
+        datas = response.data
+          .filter(
+            (item, index) =>
+              response.data.findIndex(item2 => item.user._id === item2.user._id) === index
+          )
           .reverse();
-      }
-      if (props.type === 4) {
-        let newdata = [];
-        const card = ClusterType == 0 ? gaepoCard : seochoCard;
-        card.map((item, index) => {
-          const tmp = data.find(ele => {
-            if (ele.card.cardId === item) return true;
+        if (props.type === 4) {
+          let newdata = [];
+          const card = clusterType === '0' ? gaepoCard : seochoCard;
+          card.map(item => {
+            return newdata.push({ id: item, ...datas.find(ele => ele.card.cardId === item) });
           });
-          newdata.push({ id: item, ...tmp });
-        });
-        data = newdata;
+          datas = newdata;
+        }
       }
-      props.setLogs(data);
+      props.setLogs(datas);
     } catch (err) {
       console.log(err);
     }
@@ -79,8 +73,8 @@ const SearchBar = forwardRef((props, ref) => {
             <input
               type='radio'
               name='cluster'
-              value={0}
-              checked={ClusterType == 0}
+              value={'0'}
+              checked={clusterType === '0'}
               onChange={handleClick}
             />
             개포
@@ -89,15 +83,15 @@ const SearchBar = forwardRef((props, ref) => {
             <input
               type='radio'
               name='cluster'
-              value={1}
-              checked={ClusterType == 1}
+              value={'1'}
+              checked={clusterType === '1'}
               onChange={handleClick}
             />
             서초
           </label>
           <button onClick={onSubmit}>불러오기</button>
         </div>
-        <Paging Page={props.Page} setPage={props.setPage} />
+        {props.type === 0 && <Paging Page={props.Page} setPage={props.setPage} />}
       </form>
     </div>
   );
@@ -108,7 +102,7 @@ const SearchBar = forwardRef((props, ref) => {
         <input
           type='text'
           name='로그인'
-          value={Login}
+          value={login}
           placeholder='인트라 아이디'
           onChange={e => {
             setLogin(e.target.value);
@@ -129,7 +123,7 @@ const SearchBar = forwardRef((props, ref) => {
         <input
           type='text'
           name='text'
-          value={CardId}
+          value={cardId}
           placeholder='카드번호'
           onChange={e => {
             setCardId(e.target.value);
