@@ -5,7 +5,8 @@ const StatusBoard = () => {
   const [headCount, setHeadCount] = useState({
     gaepo: 0,
     seocho: 0,
-    maxCapacity: 0
+    maxCapGaepo: 0,
+    maxCapSeocho: 0
   });
 
   const getHeadCount = async () => {
@@ -16,7 +17,8 @@ const StatusBoard = () => {
         setHeadCount({
           gaepo: resUsingCard.data.gaepo,
           seocho: resUsingCard.data.seocho,
-          maxCapacity: resMaxCapacity.data.maxCapacity
+          maxCapGaepo: resMaxCapacity.data.maxCapGaepo,
+          maxCapSeocho: resMaxCapacity.data.maxCapSeocho
         });
       } catch (err) {
         console.log(err);
@@ -33,10 +35,10 @@ const StatusBoard = () => {
   return (
     <div>
       <h3>
-        개포 인원 : {headCount.gaepo} / {headCount.maxCapacity}
+        개포 인원 : {headCount.gaepo} / {headCount.maxCapGaepo}
       </h3>
       <h3>
-        서초 인원 : {headCount.seocho} / {headCount.maxCapacity}
+        서초 인원 : {headCount.seocho} / {headCount.maxCapSeocho}
       </h3>
     </div>
   );
