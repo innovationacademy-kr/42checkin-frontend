@@ -4,9 +4,11 @@ import '../styles/EndPage.css';
 
 function EndPage() {
   const history = useHistory();
+
   useEffect(() => {
     setTimeout(() => history.push('/checkin'), 1000);
   });
+
   return (
     <div id='text-wrapper'>
       <h1 id='ending-text'>Complete!</h1>

@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import Checkbox from '../components/Checkbox';
 import UserInput from '../components/UserInput';
 import Button from '../components/Button';
 import Modal from '../components/Modal';
-import { getCookieValue } from '../utils/utils';
 import { checkLists } from '../utils/notice';
 import { checkAdmin, checkOut, checkIn, validCard } from '../api/api';
 import StatusBoard from '../components/StatusBoard';
@@ -25,7 +24,7 @@ function CheckInPage() {
 
   const { userId, cardNum, status } = userInfo;
 
-  const handleCheckIn = async () => {
+  const handleCheckIn = useCallback(async () => {
     if (readySubmit) {
       try {
         const response = await validCard(cardNum);
@@ -51,9 +50,9 @@ function CheckInPage() {
           alert('체크인을 처리할 수 없습니다. 제한 인원 초과가 아닌 경우 관리자에게 문의해주세요.');
       }
     }
-  };
+  }, [cardNum, readySubmit, userInfo, history]);
 
-  const handleCheckOut = async () => {
+  const handleCheckOut = useCallback(async () => {
     if (window.confirm('퇴실 하시겠습니까?')) {
       try {
         await checkOut();
@@ -64,36 +63,33 @@ function CheckInPage() {
         console.log(err);
       }
     }
-  };
+  }, [history]);
 
-  const handleCheckAll = e => {
+  const handleCheckAll = useCallback(e => {
     const isChecked = e.target.checked;
     setCheckAll(isChecked);
     setCheckStatus([isChecked, isChecked, isChecked]);
-  };
+  }, []);
+
+  const getUserData = useCallback(async () => {
+    try {
+      const response = await checkAdmin();
+      const { user } = response.data;
+      setUserInfo({
+        userId: user.login,
+        cardNum: user.card !== null ? user.card : '',
+        status: user.card !== null ? 'in' : 'out',
+        waitingNum: user.waitingNum
+      });
+    } catch (err) {
+      console.log(err);
+      document.cookie = `${process.env.REACT_APP_AUTH_KEY}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+    }
+  }, []);
 
   useEffect(() => {
-    const getUserData = async () => {
-      try {
-        const response = await checkAdmin();
-        const { user } = response.data;
-        setUserInfo({
-          userId: user.login,
-          cardNum: user.card !== null ? user.card : '',
-          status: user.card !== null ? 'in' : 'out',
-          waitingNum: user.waitingNum
-        });
-      } catch (err) {
-        console.log(err);
-        document.cookie = `${process.env.REACT_APP_AUTH_KEY}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
-        history.push('/');
-      }
-    };
-
-    const token = getCookieValue(process.env.REACT_APP_AUTH_KEY);
-    if (token !== '') getUserData();
-    else history.push('/');
-  }, []);
+    getUserData();
+  }, [getUserData]);
 
   useEffect(() => {
     const checkSubmitCondition = () => {
