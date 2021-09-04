@@ -19,8 +19,8 @@ function App() {
         <div id='page-wrapper'>
           <Switch>
             <Route path='/' exact={true} component={LandingPage} />
-            <Route path='/checkin' component={CheckInPage} />
-            <Route path='/end' component={EndPage} />
+            <Route path='/checkin' exact component={CheckInPage} />
+            <Route path='/end' exact component={EndPage} />
             <Redirect from='/submit' to='/checkin' />
             <Route component={NotFoundPage} />
           </Switch>
