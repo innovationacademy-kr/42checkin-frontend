@@ -30,6 +30,9 @@ const StatusBoard = () => {
 
   useEffect(() => {
     getHeadCount();
+    return () => {
+      setHeadCount({});
+    };
   }, []);
 
   return (
