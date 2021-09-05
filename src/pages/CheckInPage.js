@@ -87,7 +87,8 @@ function CheckInPage() {
       });
     } catch (err) {
       console.log(err);
-      document.cookie = `${process.env.REACT_APP_AUTH_KEY}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+      console.log(process.env.REACT_APP_AUTH_KEY);
+      // document.cookie = `${process.env.REACT_APP_AUTH_KEY}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
     }
   }, []);
 
