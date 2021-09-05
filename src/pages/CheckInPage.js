@@ -37,22 +37,20 @@ function CheckInPage() {
             await checkIn(cardNum);
             history.push('/end');
           } catch (err) {
-            console.log(err);
+            alert(err.response.data.message);
           }
         } else {
-          setUserInfo({
-            ...userInfo,
-            cardNum: ''
-          });
-          alert('이미 사용 중이거나 유효한 카드 번호가 아닙니다');
+          alert('이미 사용 중인 카드입니다.');
         }
       } catch (err) {
-        if (err.response.status === 400) {
-          const modal = document.getElementById('myModal');
-          modal.style.display = 'flex';
-        } else
+        if (err.response.data.code === 404) alert(err.response.data.message);
+        else
           alert('체크인을 처리할 수 없습니다. 제한 인원 초과가 아닌 경우 관리자에게 문의해주세요.');
       }
+      setUserInfo({
+        ...userInfo,
+        cardNum: ''
+      });
     }
   }, [cardNum, readySubmit, userInfo, history]);
 
@@ -87,8 +85,7 @@ function CheckInPage() {
       });
     } catch (err) {
       console.log(err);
-      console.log(process.env.REACT_APP_AUTH_KEY);
-      // document.cookie = `${process.env.REACT_APP_AUTH_KEY}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+      document.cookie = `${process.env.REACT_APP_AUTH_KEY}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
     }
   }, []);
 
