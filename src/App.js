@@ -35,14 +35,17 @@ function App() {
     document.documentElement.style.setProperty('--vh', `${vh}px`);
   });
 
+  console.log();
   return (
     <>
       <BrowserRouter>
         <div id='page-wrapper'>
-          <Alert severity='info' variant='filled' className={classes.info}>
-            <AlertTitle className={classes.title}>운영 시간: 07:00~22:00</AlertTitle>
-            <span>※ 사회적 거리두기 단계에 따라 운영시간 변경 가능</span>
-          </Alert>
+          {window.location.pathname.split('/')[1] !== 'admin' && (
+            <Alert severity='info' variant='filled' className={classes.info}>
+              <AlertTitle className={classes.title}>운영 시간: 07:00~22:00</AlertTitle>
+              <span>※ 사회적 거리두기 단계에 따라 운영시간 변경 가능</span>
+            </Alert>
+          )}
           <Switch>
             <Route path='/' exact={true} component={LandingPage} />
             <Route path='/checkin' exact component={CheckInPage} />
