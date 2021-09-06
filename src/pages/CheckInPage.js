@@ -23,8 +23,8 @@ function CheckInPage() {
     status: 'out'
   });
 
-  const [checkAll, setCheckAll] = useState(true);
-  const [checkStatus, setCheckStatus] = useState([true, true, true]);
+  const [checkAll, setCheckAll] = useState(false);
+  const [checkStatus, setCheckStatus] = useState([false, false, false]);
   const [readySubmit, setReadySubmit] = useState(false);
 
   const { userId, cardNum, status } = userInfo;
