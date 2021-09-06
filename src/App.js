@@ -5,6 +5,7 @@ import EndPage from './pages/EndPage';
 import NotFoundPage from './pages/NotFoundPage';
 import CheckInLog from './checkin-admin/views/CheckInLog';
 import CheckInSetting from './checkin-admin/views/CheckInSetting';
+import Alert from './components/Alert';
 import './App.css';
 
 function App() {
@@ -19,6 +20,9 @@ function App() {
     <>
       <BrowserRouter>
         <div id='page-wrapper'>
+          <Alert severity='info'>
+            운영 시간: 07:00~22:00 ※ 사회적 거리두기 단계에 따라 운영시간 변경 가능
+          </Alert>
           <Switch>
             <Route path='/' exact={true} component={LandingPage} />
             <Route path='/checkin' exact component={CheckInPage} />
