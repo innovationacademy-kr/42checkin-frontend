@@ -5,10 +5,28 @@ import EndPage from './pages/EndPage';
 import NotFoundPage from './pages/NotFoundPage';
 import CheckInLog from './checkin-admin/views/CheckInLog';
 import CheckInSetting from './checkin-admin/views/CheckInSetting';
-import Alert from './components/Alert';
+import { Alert, AlertTitle } from '@material-ui/lab';
+import { makeStyles } from '@material-ui/core/styles';
 import './App.css';
 
+const styles = {
+  info: {
+    background: 'rgba(0, 0, 0, 0.5)',
+    '& span': {
+      fontSize: '0.6rem'
+    }
+  },
+  title: {
+    fontSize: '1rem',
+    fontWeight: '800'
+  }
+};
+
+const useStyles = makeStyles(styles);
+
 function App() {
+  const classes = useStyles();
+
   const vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 
@@ -16,12 +34,14 @@ function App() {
     const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
   });
+
   return (
     <>
       <BrowserRouter>
         <div id='page-wrapper'>
-          <Alert severity='info'>
-            운영 시간: 07:00~22:00 ※ 사회적 거리두기 단계에 따라 운영시간 변경 가능
+          <Alert severity='info' variant='filled' className={classes.info}>
+            <AlertTitle className={classes.title}>운영 시간: 07:00~22:00</AlertTitle>
+            <span>※ 사회적 거리두기 단계에 따라 운영시간 변경 가능</span>
           </Alert>
           <Switch>
             <Route path='/' exact={true} component={LandingPage} />
