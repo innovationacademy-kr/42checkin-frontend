@@ -3,7 +3,10 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 const instance = axios.create({
   baseURL: apiUrl,
-  withCredentials: true
+  withCredentials: true,
+  headers: {
+    'X-42Cadet-Auth-Key': process.env.REACT_APP_X_42CADET_AUTH
+  }
 });
 
 export const checkAdmin = async () => {
