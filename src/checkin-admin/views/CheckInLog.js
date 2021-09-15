@@ -27,8 +27,7 @@ const LOGTYPE = {
   0: '클러스터',
   1: '인트라 ID',
   2: '카드 번호',
-  3: '미반납 카드',
-  4: '모든 카드 정보'
+  3: '미반납 카드'
 };
 const styles = {
   root: {
@@ -174,7 +173,6 @@ function CheckInLog() {
           <Tab label='인트라 ID' {...a11yProps(1)} />
           <Tab label='카드 번호' {...a11yProps(2)} />
           <Tab label='미반납 카드' {...a11yProps(3)} />
-          <Tab label='모든 카드 정보' {...a11yProps(4)} />
         </Tabs>
       </Paper>
       <SearchBar
@@ -204,7 +202,7 @@ function CheckInLog() {
                   aria-haspopup='true'
                   onClick={handleClick}
                   variant='outlined'
-                  disabled={logType === 3 || logType === 4}
+                  disabled={logType === 3}
                 >
                   size: {listSize}
                 </Button>

@@ -12,8 +12,7 @@ import Looks4Icon from '@material-ui/icons/Looks4';
 import LooksTwoIcon from '@material-ui/icons/LooksTwo';
 import { debounce } from 'lodash';
 
-import { getCluster, getStudent, getCard, getCheckIn, getAllCard } from '../api/api';
-import { gaepoCard, seochoCard } from '../utils/cardList';
+import { getCluster, getStudent, getCard, getCheckIn } from '../api/api';
 
 import '../assets/styles/SearchBar.css';
 
@@ -73,16 +72,16 @@ const SearchBar = forwardRef(
             case 3:
               response = await getCheckIn(clusterType, page);
               break;
-            case 4:
-              response = await getAllCard(clusterType, page);
-              break;
+            // case 4:
+            //   response = await getAllCard(clusterType, page);
+            //   break;
             default:
               break;
           }
           if (response.data.list) {
             let datas;
             datas = response.data.list;
-            if (type === 3 || type === 4) {
+            if (type === 3) {
               datas = response.data.list
                 .filter(
                   (item, index) =>
@@ -90,14 +89,6 @@ const SearchBar = forwardRef(
                     index
                 )
                 .reverse();
-              if (type === 4) {
-                let newdata = [];
-                const card = clusterType === '0' ? gaepoCard : seochoCard;
-                card.map(item => {
-                  return newdata.push({ id: item, ...datas.find(ele => ele.card.cardId === item) });
-                });
-                datas = newdata;
-              }
             }
             setLogs(datas);
             setLastPage(response.data.lastPage);
