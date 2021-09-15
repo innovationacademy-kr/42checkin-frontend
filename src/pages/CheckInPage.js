@@ -8,8 +8,6 @@ import { checkLists } from '../utils/notice';
 import { checkAdmin, checkOut, checkIn, validCard } from '../api/api';
 import StatusBoard from '../components/StatusBoard';
 import { LoginContext } from '../contexts/LoginContext';
-import { gaepoCard, seochoCard } from '../utils/cardList';
-
 import '../styles/CheckInPage.css';
 
 function CheckInPage() {
@@ -31,33 +29,28 @@ function CheckInPage() {
 
   const handleCheckIn = useCallback(async () => {
     if (readySubmit) {
-      if (gaepoCard.concat(seochoCard).includes(+cardNum)) {
-        try {
-          const response = await validCard(cardNum);
-          if (response.data['using'] === false) {
-            try {
-              await checkIn(cardNum);
-              history.push('/end');
-            } catch (err) {
-              alert(err.response.data.message);
-            }
-          } else {
-            alert('이미 사용 중인 카드입니다.');
+      try {
+        const response = await validCard(cardNum);
+        if (response.data['using'] === false) {
+          try {
+            await checkIn(cardNum);
+            history.push('/end');
+          } catch (err) {
+            alert(err.response.data.message);
           }
-        } catch (err) {
-          if (err.response.data.code === 404) alert(err.response.data.message);
-          else
-            alert(
-              '체크인을 처리할 수 없습니다. 제한 인원 초과가 아닌 경우 관리자에게 문의해주세요.'
-            );
+        } else {
+          alert('이미 사용 중인 카드입니다.');
         }
-        setUserInfo({
-          ...userInfo,
-          cardNum: ''
-        });
-      } else {
-        alert('존재하지 않는 카드 번호입니다.');
+      } catch (err) {
+        if (err.response.data.code === 404) alert(err.response.data.message);
+        else {
+          alert('체크인을 처리할 수 없습니다. 제한 인원 초과가 아닌 경우 관리자에게 문의해주세요.');
+        }
       }
+      setUserInfo({
+        ...userInfo,
+        cardNum: ''
+      });
     }
   }, [cardNum, readySubmit, userInfo, history]);
 

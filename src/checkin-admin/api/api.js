@@ -8,7 +8,10 @@ const ALL_CARD_CNT = 1000;
 const apiUrl = process.env.REACT_APP_API_URL;
 const instance = axios.create({
   baseURL: apiUrl,
-  withCredentials: true
+  withCredentials: true,
+  headers: {
+    'X-42Cadet-Auth-Key': process.env.REACT_APP_X_42CADET_AUTH
+  }
 });
 
 export const checkAdmin = async () => {
@@ -33,10 +36,6 @@ export const getCard = async (cardId, page, listSize) => {
 
 export const getCheckIn = async (ClusterType, page) => {
   return await instance.get(`/log/checkIn/${ClusterType}?page=${page}&listSize=${ALL_CARD_CNT}`);
-};
-
-export const getAllCard = async (ClusterType, page) => {
-  return await instance.get(`/log/allCard/${ClusterType}?page=${page}&listSize=${ALL_CARD_CNT}`);
 };
 
 export const getMaxCapacity = async () => {
