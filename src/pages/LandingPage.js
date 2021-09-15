@@ -9,7 +9,9 @@ function LandingPage() {
   const history = useHistory();
 
   const handleLogin = () => {
-    window.location.href = `${process.env.REACT_APP_API_URL}/user/login`;
+    window.location.href = `${
+      process.env.REACT_APP_API_URL
+    }/user/login?redirect=${encodeURIComponent(window.location.href)}`;
   };
 
   useEffect(() => {
