@@ -60,9 +60,14 @@ function CheckInPage() {
         await checkOut();
         history.push('/end');
       } catch (err) {
-        alert('이미 처리된 작업입니다.');
-        history.push('/');
-        console.log(err);
+        if (!err.response) {
+          alert('정상적으로 처리되지 않았습니다.\n네트워크 연결 상태를 확인해주세요.');
+        } else if (err.response.data.code === 404) {
+          alert('이미 체크아웃 되었습니다.');
+          history.push('/');
+        } else {
+          alert(err.response.data.message);
+        }
       }
     }
   }, [history]);
