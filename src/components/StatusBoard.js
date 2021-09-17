@@ -11,7 +11,8 @@ const StatusBoard = () => {
 
   const getHeadCount = async () => {
     try {
-      const resMaxCapacity = await getMaxCapacity();
+      const today = new Date();
+      const resMaxCapacity = await getMaxCapacity(today.toISOString().slice(0, 10));
       try {
         const resUsingCard = await getUsingCard();
         setHeadCount({

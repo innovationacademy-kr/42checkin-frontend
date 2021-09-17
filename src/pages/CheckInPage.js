@@ -30,16 +30,11 @@ function CheckInPage() {
   const handleCheckIn = useCallback(async () => {
     if (readySubmit) {
       try {
-        const response = await validCard(cardNum);
-        if (response.data['using'] === false) {
-          try {
-            await checkIn(cardNum);
-            history.push('/end');
-          } catch (err) {
-            alert(err.response.data.message);
-          }
-        } else {
-          alert('이미 사용 중인 카드입니다.');
+        try {
+          await checkIn(cardNum);
+          history.push('/end');
+        } catch (err) {
+          alert(err.response.data.message);
         }
       } catch (err) {
         if (err.response.data.code === 404) alert(err.response.data.message);

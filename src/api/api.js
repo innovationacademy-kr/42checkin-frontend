@@ -25,10 +25,10 @@ export const checkOut = async cardNum => {
   return await instance.post(`/user/checkOut`);
 };
 
-export const getMaxCapacity = async () => {
-  return await instance.get(`/config`);
+export const getMaxCapacity = async (date) => {
+  return await instance.get(`/config`, { params: { date }});
 };
 
 export const getUsingCard = async () => {
-  return await instance.get(`/card/using`);
+  return await instance.get(`/user/using`);
 };
