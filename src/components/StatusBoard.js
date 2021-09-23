@@ -18,8 +18,8 @@ const StatusBoard = () => {
         setHeadCount({
           gaepo: resUsingCard.data.gaepo,
           seocho: resUsingCard.data.seocho,
-          maxCapGaepo: resMaxCapacity.data.maxCapGaepo,
-          maxCapSeocho: resMaxCapacity.data.maxCapSeocho
+          maxCapGaepo: resMaxCapacity.data.gaepo,
+          maxCapSeocho: resMaxCapacity.data.seocho,
         });
       } catch (err) {
         console.log(err);
