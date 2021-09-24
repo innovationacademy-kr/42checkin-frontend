@@ -1,15 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
-import './fonts/Futura.ttc';
+import { Provider } from 'react-redux';
 import { LoginProvider } from './contexts/LoginContext';
+import configureStore from './redux/configureStore';
+
+import reportWebVitals from './reportWebVitals';
+import './index.css';
+import './fonts/Futura.ttc';
 
 ReactDOM.render(
-  <LoginProvider>
-    <App />
-  </LoginProvider>,
+  <Provider store={configureStore}>
+    <LoginProvider>
+      <App />
+    </LoginProvider>
+  </Provider>,
   document.getElementById('root')
 );
 

@@ -35,7 +35,6 @@ function App() {
     document.documentElement.style.setProperty('--vh', `${vh}px`);
   });
 
-  console.log();
   return (
     <>
       <BrowserRouter>
