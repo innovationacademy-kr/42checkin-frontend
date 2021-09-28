@@ -1,31 +1,33 @@
-import { useState, useEffect, useCallback, useContext } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Checkbox from '../components/Checkbox';
 import UserInput from '../components/UserInput';
 import Button from '../components/Button';
 import Modal from '../components/Modal';
 import { checkLists } from '../utils/notice';
-import { checkAdmin, checkOut, checkIn, validCard } from '../api/api';
+import { checkAdmin, checkOut, checkIn } from '../api/api';
 import StatusBoard from '../components/StatusBoard';
-import { LoginContext } from '../contexts/LoginContext';
+import { setUser, setCardNum } from '../redux/modules/user';
 import '../styles/CheckInPage.css';
 
 function CheckInPage() {
   const history = useHistory();
-  const { isLogin } = useContext(LoginContext);
+  const { isLogin, id, cardNum, status } = useSelector(
+    state => ({
+      isLogin: state.user.isLogin,
+      id: state.user.id,
+      cardNum: state.user.cardNum,
+      status: state.user.status
+    }),
+    shallowEqual
+  );
 
-  const [userInfo, setUserInfo] = useState({
-    userId: '',
-    cardNum: '',
-    waitingNum: null,
-    status: 'out'
-  });
+  const dispatch = useDispatch();
 
   const [checkAll, setCheckAll] = useState(false);
   const [checkStatus, setCheckStatus] = useState([false, false, false]);
   const [readySubmit, setReadySubmit] = useState(false);
-
-  const { userId, cardNum, status } = userInfo;
 
   const handleCheckIn = useCallback(async () => {
     if (readySubmit) {
@@ -42,12 +44,13 @@ function CheckInPage() {
           alert('체크인을 처리할 수 없습니다. 제한 인원 초과가 아닌 경우 관리자에게 문의해주세요.');
         }
       }
-      setUserInfo({
-        ...userInfo,
-        cardNum: ''
-      });
+      dispatch(
+        setCardNum({
+          cardNum: ''
+        })
+      );
     }
-  }, [cardNum, readySubmit, userInfo, history]);
+  }, [cardNum, readySubmit, history, dispatch]);
 
   const handleCheckOut = useCallback(async () => {
     if (window.confirm('퇴실 하시겠습니까?')) {
@@ -77,17 +80,18 @@ function CheckInPage() {
     try {
       const response = await checkAdmin();
       const { user } = response.data;
-      setUserInfo({
-        userId: user.login,
-        cardNum: user.card !== null ? user.card : '',
-        status: user.card !== null ? 'in' : 'out',
-        waitingNum: user.waitingNum
-      });
+      dispatch(
+        setUser({
+          id: user.login,
+          cardNum: user.card !== null ? user.card : '',
+          status: user.card !== null ? 'in' : 'out'
+        })
+      );
     } catch (err) {
       console.log(err);
       document.cookie = `${process.env.REACT_APP_AUTH_KEY}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
     }
-  }, []);
+  }, [dispatch]);
 
   const checkSubmitCondition = useCallback(() => {
     if (cardNum && checkAll) {
@@ -96,17 +100,17 @@ function CheckInPage() {
       setReadySubmit(false);
     }
   }, [cardNum, checkAll]);
+
   useEffect(() => {
     if (!isLogin) history.push('/');
     getUserData();
   }, [isLogin, history, getUserData]);
 
   useEffect(() => {
-    if (status === 'out') checkSubmitCondition();
-    return () => {
-      setReadySubmit(false);
-    };
-  }, [status, checkSubmitCondition]);
+    if (status === 'out') {
+      checkSubmitCondition();
+    }
+  }, [cardNum, status, checkSubmitCondition]);
 
   useEffect(() => {
     if (JSON.stringify(checkStatus) === JSON.stringify([true, true, true])) {
@@ -124,7 +128,7 @@ function CheckInPage() {
       <div id='checkinout'>
         <h1>{status === 'in' ? '42 Check Out' : '42 Check In'}</h1>
         <StatusBoard />
-        <h3> Intra ID : {userId}</h3>
+        <h3> Intra ID : {id}</h3>
         {status === 'in' ? (
           <>
             <h3>Card Number : {cardNum}</h3>
@@ -162,10 +166,7 @@ function CheckInPage() {
               placeholder='카드 번호를 입력해주세요'
               value={cardNum}
               handleChange={e => {
-                setUserInfo({
-                  ...userInfo,
-                  cardNum: e.target.value
-                });
+                dispatch(setCardNum(e.target.value));
               }}
             />
             <Button
