@@ -81,15 +81,6 @@ const SearchBar = forwardRef(
           if (response.data.list) {
             let datas;
             datas = response.data.list;
-            if (type === 3) {
-              datas = response.data.list
-                .filter(
-                  (item, index) =>
-                    response.data.list.findIndex(item2 => item.user._id === item2.user._id) ===
-                    index
-                )
-                .reverse();
-            }
             setLogs(datas);
             setLastPage(response.data.lastPage);
           } else {

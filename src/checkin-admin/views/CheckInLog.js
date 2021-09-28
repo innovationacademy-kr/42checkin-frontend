@@ -218,25 +218,24 @@ function CheckInLog() {
               <Table
                 tableHead={tableHead}
                 tableData={logs.map((log, idx) => {
-                  const date = new Date(log.createdAt);
                   return [
-                    log.id ?? (page - 1) * listSize + idx + 1,
-                    moment(date).format('MM월 DD일 HH:mm') ?? null,
-                    log.logType ?? null,
-                    log.user ? log.user.userName : null,
-                    log.card ? log.card.cardId.toString() : null,
-                    log.card ? (log.card.type === 0 ? '개포' : '서초') : null,
-                    log.user ? (
-                      log.card.cardId === log.user.cardId ? (
-                        <button
-                          className='force-out-Btn'
-                          onClick={checkOutOnClick}
-                          data-idx={log.user._id}
-                        >
-                          퇴실 처리
-                        </button>
-                      ) : null
-                    ) : null
+                    log._id ?? (page - 1) * listSize + idx + 1,
+                    moment(log.create_at).format('MM월 DD일 HH:mm') ?? null,
+                    log.type,
+                    log.login,
+                    log.card_no,
+                    log.card_no > 999 ? '서초' : '개포',
+                    !log.User
+                      ? null
+                      : log.card_no === log.User.card_no
+                        ? <button
+                            className='force-out-Btn'
+                            onClick={checkOutOnClick}
+                            data-idx={log.User._id}
+                          >
+                            퇴실 처리
+                          </button>
+                      : null
                   ];
                 })}
               />

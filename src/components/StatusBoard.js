@@ -11,14 +11,15 @@ const StatusBoard = () => {
 
   const getHeadCount = async () => {
     try {
-      const resMaxCapacity = await getMaxCapacity();
+      const today = new Date();
+      const resMaxCapacity = await getMaxCapacity(today.toISOString().slice(0, 10));
       try {
         const resUsingCard = await getUsingCard();
         setHeadCount({
           gaepo: resUsingCard.data.gaepo,
           seocho: resUsingCard.data.seocho,
-          maxCapGaepo: resMaxCapacity.data.maxCapGaepo,
-          maxCapSeocho: resMaxCapacity.data.maxCapSeocho
+          maxCapGaepo: resMaxCapacity.data.gaepo,
+          maxCapSeocho: resMaxCapacity.data.seocho,
         });
       } catch (err) {
         console.log(err);
