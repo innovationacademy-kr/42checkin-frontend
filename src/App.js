@@ -1,4 +1,9 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { getCookieValue } from './utils/utils';
+import { login, logout } from './redux/modules/user';
+
 import LandingPage from './pages/LandingPage';
 import CheckInPage from './pages/CheckInPage';
 import EndPage from './pages/EndPage';
@@ -34,6 +39,13 @@ function App() {
     const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
   });
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const token = getCookieValue(process.env.REACT_APP_AUTH_KEY);
+    if (!token) dispatch(logout());
+    else dispatch(login());
+  }, [dispatch]);
 
   return (
     <>

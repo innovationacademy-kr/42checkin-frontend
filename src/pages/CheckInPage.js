@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useContext } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Checkbox from '../components/Checkbox';
@@ -8,15 +8,14 @@ import Modal from '../components/Modal';
 import { checkLists } from '../utils/notice';
 import { checkAdmin, checkOut, checkIn, validCard } from '../api/api';
 import StatusBoard from '../components/StatusBoard';
-import { LoginContext } from '../contexts/LoginContext';
 import { setUser, setCardNum } from '../redux/modules/user';
 import '../styles/CheckInPage.css';
 
 function CheckInPage() {
   const history = useHistory();
-  const { isLogin } = useContext(LoginContext);
-  const { id, cardNum, status } = useSelector(
+  const { isLogin, id, cardNum, status } = useSelector(
     state => ({
+      isLogin: state.user.isLogin,
       id: state.user.id,
       cardNum: state.user.cardNum,
       status: state.user.status

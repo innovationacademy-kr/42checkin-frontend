@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { Provider } from 'react-redux';
-import { LoginProvider } from './contexts/LoginContext';
 import configureStore from './redux/configureStore';
 
 import reportWebVitals from './reportWebVitals';
@@ -11,9 +10,7 @@ import './fonts/Futura.ttc';
 
 ReactDOM.render(
   <Provider store={configureStore}>
-    <LoginProvider>
-      <App />
-    </LoginProvider>
+    <App />
   </Provider>,
   document.getElementById('root')
 );

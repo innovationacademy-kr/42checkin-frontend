@@ -1,13 +1,17 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useSelector, shallowEqual } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import StatusBoard from '../components/StatusBoard';
-import { LoginContext } from '../contexts/LoginContext';
 import '../styles/LandingPage.css';
 
 function LandingPage() {
-  const { isLogin } = useContext(LoginContext);
   const history = useHistory();
-
+  const { isLogin } = useSelector(
+    state => ({
+      isLogin: state.user.isLogin
+    }),
+    shallowEqual
+  );
   const handleLogin = () => {
     window.location.href = `${
       process.env.REACT_APP_API_URL
@@ -16,7 +20,7 @@ function LandingPage() {
 
   useEffect(() => {
     if (isLogin) history.push('/checkin');
-  });
+  }, [history, isLogin]);
 
   return (
     <div id='landing-wrapper'>
