@@ -14,6 +14,5 @@ export const getCookieValue = key => {
 };
 
 export const getTime = strDate => {
-  const date = new Date(strDate).toUTCString();
-  return date.split(' ')[4];
+  return new Date(strDate).toLocaleTimeString();
 };
