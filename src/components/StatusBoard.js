@@ -1,48 +1,26 @@
-import { useEffect, useState } from 'react';
-import { getMaxCapacity, getUsingCard } from '../api/api';
+import { useSelector, shallowEqual } from 'react-redux';
 
 const StatusBoard = () => {
-  const [headCount, setHeadCount] = useState({
-    gaepo: 0,
-    seocho: 0,
-    maxCapGaepo: 0,
-    maxCapSeocho: 0
-  });
+  const { maxGaepo, maxSeocho } = useSelector(
+    state => ({
+      maxGaepo: state.config.gaepo,
+      maxSeocho: state.config.seocho
+    }),
+    shallowEqual
+  );
 
-  const getHeadCount = async () => {
-    try {
-      const today = new Date();
-      const resMaxCapacity = await getMaxCapacity(today.toISOString().slice(0, 10));
-      try {
-        const resUsingCard = await getUsingCard();
-        setHeadCount({
-          gaepo: resUsingCard.data.gaepo,
-          seocho: resUsingCard.data.seocho,
-          maxCapGaepo: resMaxCapacity.data.gaepo,
-          maxCapSeocho: resMaxCapacity.data.seocho,
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getHeadCount();
-    return () => {
-      setHeadCount({});
-    };
-  }, []);
+  const { gaepo, seocho } = useSelector(state => ({
+    gaepo: state.status.gaepo,
+    seocho: state.status.seocho
+  }));
 
   return (
     <div>
       <h3>
-        개포 인원 : {headCount.gaepo} / {headCount.maxCapGaepo}
+        개포 인원 : {gaepo} / {maxGaepo}
       </h3>
       <h3>
-        서초 인원 : {headCount.seocho} / {headCount.maxCapSeocho}
+        서초 인원 : {seocho} / {maxSeocho}
       </h3>
     </div>
   );

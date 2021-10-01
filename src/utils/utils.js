@@ -12,3 +12,8 @@ export const getCookieValue = key => {
   }
   return result;
 };
+
+export const getTime = strDate => {
+  const date = new Date(strDate).toUTCString();
+  return date.split(' ')[4];
+};
