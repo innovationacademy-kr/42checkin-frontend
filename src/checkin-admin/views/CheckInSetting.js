@@ -97,7 +97,9 @@ const CheckInSetting = () => {
   };
 
   useEffect(() => {
-    getHeadCount();
+    window.alert('내부 사정으로 인해 해당 기능 사용이 불가합니다.\n빠른 시일 내 복구하겠습니다.');
+    history.push('/admin/log');
+    // getHeadCount();
   }, []);
 
   return (
