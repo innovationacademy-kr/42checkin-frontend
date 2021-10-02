@@ -78,12 +78,13 @@ function App() {
 
   useEffect(() => {
     const token = getCookieValue(process.env.REACT_APP_AUTH_KEY);
-    if (!token) dispatch(logout());
-    else {
+    if (!token) {
+      dispatch(logout());
+    } else {
       dispatch(login());
-      getConfig();
-      getHeadCount();
     }
+    getConfig();
+    getHeadCount();
   }, [dispatch, getConfig, getHeadCount]);
 
   return (
