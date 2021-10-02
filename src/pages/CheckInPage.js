@@ -6,7 +6,9 @@ import UserInput from '../components/UserInput';
 import Button from '../components/Button';
 import Modal from '../components/Modal';
 import { checkLists } from '../utils/notice';
-import { checkAdmin, checkOut, checkIn } from '../api/api';
+import { checkAdmin, checkOut, checkIn, getUsingCard } from '../api/api';
+import { setHeadCount } from '../redux/modules/status';
+
 import StatusBoard from '../components/StatusBoard';
 import { setUser, setCardNum } from '../redux/modules/user';
 import '../styles/CheckInPage.css';
@@ -101,10 +103,20 @@ function CheckInPage() {
     }
   }, [cardNum, checkAll]);
 
+  const getHeadCount = useCallback(async () => {
+    try {
+      const response = await getUsingCard();
+      dispatch(setHeadCount(response.data));
+    } catch (err) {
+      console.log(err);
+    }
+  }, [dispatch]);
+
   useEffect(() => {
     if (!isLogin) history.push('/');
     getUserData();
-  }, [isLogin, history, getUserData]);
+    getHeadCount();
+  }, [isLogin, history, getUserData, getHeadCount]);
 
   useEffect(() => {
     if (status === 'out') {
