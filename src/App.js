@@ -53,7 +53,6 @@ function App() {
     try {
       const today = new Date();
       const response = await getMaxCapacity(today.toISOString().slice(0, 10));
-
       dispatch(
         setConfig({
           beginAt: getTime(response.data.begin_at),
@@ -80,11 +79,11 @@ function App() {
     const token = getCookieValue(process.env.REACT_APP_AUTH_KEY);
     if (!token) {
       dispatch(logout());
+      getConfig();
+      getHeadCount();
     } else {
       dispatch(login());
     }
-    getConfig();
-    getHeadCount();
   }, [dispatch, getConfig, getHeadCount]);
 
   return (
