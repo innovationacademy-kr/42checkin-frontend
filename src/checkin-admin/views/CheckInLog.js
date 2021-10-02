@@ -121,6 +121,7 @@ function CheckInLog() {
     } catch (err) {
       console.log(err);
       window.alert('오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      document.cookie = `${process.env.REACT_APP_AUTH_KEY}=; expires=Thu, 01 Jan 1970 00:00:01 GMT; domain=${process.env.REACT_APP_COOKIE_DOMAIN}`;
       history.push('/');
     }
   }, [history]);
@@ -225,17 +226,15 @@ function CheckInLog() {
                     log.login,
                     log.card_no,
                     log.card_no > 999 ? '서초' : '개포',
-                    !log.User
-                      ? null
-                      : log.card_no === log.User.card_no
-                        ? <button
-                            className='force-out-Btn'
-                            onClick={checkOutOnClick}
-                            data-idx={log.User._id}
-                          >
-                            퇴실 처리
-                          </button>
-                      : null
+                    !log.User ? null : log.card_no === log.User.card_no ? (
+                      <button
+                        className='force-out-Btn'
+                        onClick={checkOutOnClick}
+                        data-idx={log.User._id}
+                      >
+                        퇴실 처리
+                      </button>
+                    ) : null
                   ];
                 })}
               />

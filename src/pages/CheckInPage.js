@@ -8,6 +8,7 @@ import Modal from '../components/Modal';
 import { checkLists } from '../utils/notice';
 import { checkAdmin, checkOut, checkIn, getUsingCard } from '../api/api';
 import { setHeadCount } from '../redux/modules/status';
+import { logout } from '../redux/modules/user';
 
 import StatusBoard from '../components/StatusBoard';
 import { setUser, setCardNum } from '../redux/modules/user';
@@ -91,7 +92,8 @@ function CheckInPage() {
       );
     } catch (err) {
       console.log(err);
-      document.cookie = `${process.env.REACT_APP_AUTH_KEY}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+      document.cookie = `${process.env.REACT_APP_AUTH_KEY}=; expires=Thu, 01 Jan 1970 00:00:01 GMT; domain=${process.env.REACT_APP_COOKIE_DOMAIN}`;
+      dispatch(logout());
     }
   }, [dispatch]);
 
