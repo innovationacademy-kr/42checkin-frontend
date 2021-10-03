@@ -45,3 +45,7 @@ export const getMaxCapacity = async () => {
 export const setMaxCapacity = async capacity => {
   return await instance.put(`/config`, capacity);
 };
+
+export const getUsingCard = async () => {
+  return await instance.get(`/user/using`);
+};

@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { setHeadCount } from '../../redux/modules/status';
+
 import * as moment from 'moment';
 import { makeStyles } from '@material-ui/core/styles';
 import GridItem from '../components/Grid/GridItem.js';
@@ -19,7 +22,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import PaginationRounded from '../components/Paging';
 import SearchBar from '../components/SearchBar';
 import StatusBoard from '../../components/StatusBoard';
-import { forceCheckOut, checkAdmin as getCheckAdmin } from '../api/api';
+import { forceCheckOut, checkAdmin as getCheckAdmin, getUsingCard } from '../api/api';
 
 import '../assets/styles/AdminPage.css';
 
@@ -73,6 +76,7 @@ function a11yProps(index) {
 
 function CheckInLog() {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [logType, setLogType] = useState(0);
   const [logs, setLogs] = useState([]);
   const [page, setPage] = useState(1);
@@ -142,9 +146,19 @@ function CheckInLog() {
     }
   };
 
+  const getHeadCount = useCallback(async () => {
+    try {
+      const response = await getUsingCard();
+      dispatch(setHeadCount(response.data));
+    } catch (err) {
+      console.log(err);
+    }
+  }, [dispatch]);
+
   useEffect(() => {
     checkAdmin();
-  }, [checkAdmin]);
+    getHeadCount();
+  }, [checkAdmin, getHeadCount]);
 
   return (
     <div style={{}}>
@@ -221,7 +235,7 @@ function CheckInLog() {
                 tableData={logs.map((log, idx) => {
                   return [
                     log._id ?? (page - 1) * listSize + idx + 1,
-                    moment(log.create_at).format('MM월 DD일 HH:mm') ?? null,
+                    moment(log.created_at).format('MM월 DD일 HH:mm') ?? null,
                     log.type,
                     log.login,
                     log.card_no,

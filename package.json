@@ -1,6 +1,6 @@
 {
   "name": "42checkin",
-  "version": "2.00.00",
+  "version": "2.00.01",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.12.3",
