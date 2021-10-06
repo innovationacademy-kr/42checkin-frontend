@@ -15,12 +15,14 @@ const StatusBoard = () => {
   }));
 
   return (
-    <div>
+    <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+      <h3>개포</h3>
       <h3>
-        개포 인원 : {gaepo} / {maxGaepo}
+        {gaepo} / {maxGaepo}
       </h3>
+      <h3>서초</h3>
       <h3>
-        서초 인원 : {seocho} / {maxSeocho}
+        {seocho} / {maxSeocho}
       </h3>
     </div>
   );

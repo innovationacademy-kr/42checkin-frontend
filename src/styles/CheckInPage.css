@@ -1,42 +1,29 @@
 #checkin-wrapper {
   height: fit-content;
   min-height: inherit;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#checkinout {
-  font-family: 'Futura', 'Sans serif';
-  width: 80vw;
+  width: 90vw;
   max-width: 512px;
-  user-select: none;
-  text-align: center;
+  margin: auto;
 }
 
 .input-wrapper {
   margin: 1.5rem auto;
 }
 
-.checkbox-wrapper {
-  width: 80%;
-  padding: 3px;
-}
-
 .submitBtn {
-  font-family: 'Futura', 'Sans serif';
+  font-family: 'Spoqa Han Sans Neo';
   border-radius: 3px;
   width: 50%;
-  color: whitesmoke;
+  color: rgb(83, 227, 173);
   padding: 10px;
   background: none;
   font-size: 1rem;
-  border: 1px solid whitesmoke;
+  border: 2px solid rgb(83, 227, 173);
 }
 
 .ready {
-  color: black;
-  background-color: whitesmoke;
+  /* color: black; */
+  background-color: rgb(83, 227, 173);
   border: none;
 }
 

@@ -14,7 +14,7 @@ import DescriptionIcon from '@material-ui/icons/Description';
 
 // import { grayColor } from '../../admin/assets/jss/material-dashboard-react.js';
 import { grayColor } from '../../admin/assets/jss/material-dashboard-react';
-import { getMaxCapacity, setMaxCapacity } from '../api/api.js';
+import { setMaxCapacity } from '../api/api.js';
 
 const styles = {
   cardCategory: {
@@ -61,19 +61,6 @@ const CheckInSetting = () => {
     maxCapSeocho: ''
   });
 
-  const getHeadCount = async () => {
-    try {
-      const response = await getMaxCapacity();
-      cmpCapValue = {
-        maxCapGaepo: response.data.maxCapGaepo,
-        maxCapSeocho: response.data.maxCapSeocho
-      };
-      setCapacity(cmpCapValue);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const handleChange = e => {
     setCapacity({
       ...capacity,
@@ -99,8 +86,7 @@ const CheckInSetting = () => {
   useEffect(() => {
     window.alert('내부 사정으로 인해 해당 기능 사용이 불가합니다.\n빠른 시일 내 복구하겠습니다.');
     history.push('/admin/log');
-    // getHeadCount();
-  }, []);
+  }, [history]);
 
   return (
     <>
