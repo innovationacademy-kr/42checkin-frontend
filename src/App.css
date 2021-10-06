@@ -16,6 +16,6 @@ html {
 #version {
   font-size: smaller;
   text-align: center;
-  color: rgba(244, 244, 245, 0.4);
+  color: rgba(255, 255, 255, 0.3);
   margin-top: 1em;
 }

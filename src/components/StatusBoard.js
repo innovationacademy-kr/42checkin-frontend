@@ -1,4 +1,5 @@
 import { useSelector, shallowEqual } from 'react-redux';
+import '../styles/StatusBoard.css';
 
 const StatusBoard = () => {
   const { maxGaepo, maxSeocho } = useSelector(
@@ -15,7 +16,7 @@ const StatusBoard = () => {
   }));
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+    <div id='status-board-wrapper'>
       <h3>개포</h3>
       <h3>
         {gaepo} / {maxGaepo}

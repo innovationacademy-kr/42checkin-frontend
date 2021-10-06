@@ -4,50 +4,6 @@
   width: 90vw;
   max-width: 512px;
   margin: auto;
-}
-
-.input-wrapper {
-  margin: 1.5rem auto;
-}
-
-.submitBtn {
-  font-family: 'Spoqa Han Sans Neo';
-  border-radius: 3px;
-  width: 50%;
-  color: rgb(83, 227, 173);
-  padding: 10px;
-  background: none;
-  font-size: 1rem;
-  border: 2px solid rgb(83, 227, 173);
-}
-
-.ready {
-  /* color: black; */
-  background-color: rgb(83, 227, 173);
-  border: none;
-}
-
-#card {
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-input::-webkit-input-placeholder {
-  text-align: center;
-}
-input::-moz-placeholder {
-  text-align: center;
-}
-input:-ms-input-placeholder {
-  text-align: center;
-}
-input:-moz-placeholder {
-  text-align: center;
-}
-input::placeholder {
-  text-align: center;
-}
-label {
-  cursor: pointer;
+  flex-direction: column;
 }

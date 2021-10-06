@@ -1,4 +1,5 @@
 import { useSelector, shallowEqual } from 'react-redux';
+import '../styles/Profile.css';
 
 const Profile = () => {
   const { id } = useSelector(
@@ -9,13 +10,13 @@ const Profile = () => {
   );
 
   return (
-    <>
+    <div id='profile-wrapper'>
       <img
         src='https://sports-phinf.pstatic.net/team/kbo/default/LT.png?type=f108_108'
         alt='profile'
       />
-      <h3>{id}</h3>
-    </>
+      <h2>{id}</h2>
+    </div>
   );
 };
 

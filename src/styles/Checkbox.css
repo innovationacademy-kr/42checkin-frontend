@@ -1,9 +1,12 @@
 .checkbox {
+  margin: 5px;
 }
 
 .checkbox-text {
   display: flex;
   justify-content: flex-start;
+  align-items: baseline;
   word-break: keep-all;
   font-size: 0.8rem;
+  margin: 5px;
 }

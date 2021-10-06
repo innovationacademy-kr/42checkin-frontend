@@ -56,10 +56,8 @@ const CheckInPage = () => {
   return (
     <div id='checkin-wrapper'>
       <h2>CHECK IN</h2>
-      {/* <div id='checkinout'> */}
       <StatusBoard />
       <ProfileCard />
-      {/* </div> */}
     </div>
   );
 };

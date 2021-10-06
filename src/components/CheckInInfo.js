@@ -1,7 +1,5 @@
 import { useSelector, shallowEqual } from 'react-redux';
 
-import '../styles/ProfileCard.css';
-
 const CheckInInfo = () => {
   const { cardNum } = useSelector(
     state => ({
@@ -11,9 +9,12 @@ const CheckInInfo = () => {
   );
 
   return (
-    <>
-      <h3>Card Number : {cardNum}</h3>
-    </>
+    <div>
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ fontSize: 20 }}>Card Number</div>
+        <div style={{ fontSize: 70 }}>{cardNum}</div>
+      </div>
+    </div>
   );
 };
 export default CheckInInfo;

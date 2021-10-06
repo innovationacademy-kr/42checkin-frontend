@@ -103,11 +103,14 @@ const ProfileCard = () => {
           setCheckStatus={setCheckStatus}
         />
       ) : (
-        <CheckInInfo />
+        <>
+          <hr className='divider' />
+          <CheckInInfo />
+        </>
       )}
       <Button
         className={
-          status === 'out' ? `submitBtn ${readySubmit ? ' ready' : ''}` : 'submitBtn ready'
+          status === 'out' ? `submitBtn out ${readySubmit ? 'ready' : ''}` : 'submitBtn in'
         }
         handleClick={status === 'out' ? handleCheckIn : handleCheckOut}
         text={btnText}
