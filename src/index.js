@@ -6,7 +6,6 @@ import configureStore from './redux/configureStore';
 
 import reportWebVitals from './reportWebVitals';
 import './index.css';
-import './fonts/Futura.ttc';
 
 ReactDOM.render(
   <Provider store={configureStore}>

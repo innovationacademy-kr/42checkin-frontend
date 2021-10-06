@@ -16,3 +16,11 @@ export const getCookieValue = key => {
 export const getTime = strDate => {
   return new Date(strDate).toLocaleTimeString();
 };
+
+export const sec2hour = seconds => {
+  let m = parseInt(seconds / 60);
+  const h = parseInt(m / 60);
+  const s = seconds % 60;
+  m = m % 60;
+  return h + ':' + `0${m}`.slice(-2) + ':' + `0${s}`.slice(-2);
+};

@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { checkAdmin, getUsingCard } from '../api/api';
@@ -7,6 +7,8 @@ import { logout } from '../redux/modules/user';
 
 import StatusBoard from '../components/StatusBoard';
 import ProfileCard from '../components/ProfileCard';
+import TimeLog from '../components/TimeLog';
+
 import { setUser } from '../redux/modules/user';
 import '../styles/CheckInPage.css';
 
@@ -19,6 +21,8 @@ const CheckInPage = () => {
     }),
     shallowEqual
   );
+
+  const [isFlip, setIsFlip] = useState(false);
 
   const getUserData = useCallback(async () => {
     try {
@@ -57,7 +61,7 @@ const CheckInPage = () => {
     <div id='checkin-wrapper'>
       <h2>CHECK IN</h2>
       <StatusBoard />
-      <ProfileCard />
+      {!isFlip ? <ProfileCard setIsFlip={setIsFlip} /> : <TimeLog setIsFlip={setIsFlip} />}
     </div>
   );
 };

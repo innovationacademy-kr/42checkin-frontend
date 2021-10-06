@@ -5,13 +5,13 @@ import Button from '../components/Button';
 import Profile from '../components/Profile';
 import CheckInForm from '../components/CheckInForm';
 import CheckInInfo from '../components/CheckInInfo';
-
 import { checkOut, checkIn } from '../api/api';
 
 import { setCardNum } from '../redux/modules/user';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import '../styles/ProfileCard.css';
 
-const ProfileCard = () => {
+const ProfileCard = ({ setIsFlip }) => {
   const history = useHistory();
   const { cardNum, status } = useSelector(
     state => ({
@@ -75,6 +75,10 @@ const ProfileCard = () => {
     }
   }, [cardNum, checkAll]);
 
+  const handleFlip = e => {
+    setIsFlip(state => !state);
+  };
+
   useEffect(() => {
     if (status === 'out') {
       checkSubmitCondition();
@@ -94,6 +98,7 @@ const ProfileCard = () => {
 
   return (
     <div id='profile-card-wrapper'>
+      {status === 'in' && <AutorenewIcon onClick={handleFlip} />}
       <Profile />
       {status === 'out' ? (
         <CheckInForm
