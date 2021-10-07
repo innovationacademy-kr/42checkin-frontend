@@ -2,6 +2,14 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
+  height: 80vh;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  width: 100%;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 
 #time-log-wrapper {
@@ -16,9 +24,13 @@ ul {
   flex: 1;
   backface-visibility: hidden;
   transform: rotateY(180deg);
+  flex-grow: 1;
 }
 
 li {
   text-align: center;
   color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }

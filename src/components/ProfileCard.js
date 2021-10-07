@@ -11,7 +11,7 @@ import { setCardNum } from '../redux/modules/user';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import '../styles/ProfileCard.css';
 
-const ProfileCard = ({ setIsFlip, handleFlip }) => {
+const ProfileCard = ({ handleFlip }) => {
   const history = useHistory();
   const { cardNum, status } = useSelector(
     state => ({
@@ -94,7 +94,19 @@ const ProfileCard = ({ setIsFlip, handleFlip }) => {
 
   return (
     <div id='profile-card-wrapper'>
-      {status === 'in' && <AutorenewIcon onClick={handleFlip} />}
+      {status === 'in' && (
+        <div
+          style={{
+            textAlign: 'right',
+            width: '100%'
+            // position: 'fixed',
+            // top: '30px',
+            // right: '30px'
+          }}
+        >
+          <AutorenewIcon onClick={handleFlip} />
+        </div>
+      )}
       <Profile />
       {status === 'out' ? (
         <CheckInForm
