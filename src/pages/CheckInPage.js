@@ -10,6 +10,8 @@ import ProfileCard from '../components/ProfileCard';
 import TimeLog from '../components/TimeLog';
 
 import { setUser } from '../redux/modules/user';
+import { DEFAULT_PROFILE } from '../utils/utils';
+
 import '../styles/CheckInPage.css';
 
 const CheckInPage = () => {
@@ -32,7 +34,8 @@ const CheckInPage = () => {
         setUser({
           id: user.login,
           cardNum: user.card !== null ? user.card : '',
-          status: user.card !== null ? 'in' : 'out'
+          status: user.card !== null ? 'in' : 'out',
+          profile: user.profile || DEFAULT_PROFILE
         })
       );
     } catch (err) {

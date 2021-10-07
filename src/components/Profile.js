@@ -2,19 +2,17 @@ import { useSelector, shallowEqual } from 'react-redux';
 import '../styles/Profile.css';
 
 const Profile = () => {
-  const { id } = useSelector(
+  const { id, profile } = useSelector(
     state => ({
-      id: state.user.id
+      id: state.user.id,
+      profile: state.user.profile
     }),
     shallowEqual
   );
 
   return (
     <div id='profile-wrapper'>
-      <img
-        src='https://sports-phinf.pstatic.net/team/kbo/default/LT.png?type=f108_108'
-        alt='profile'
-      />
+      <img id='profile' src={profile} alt='profile' />
       <h2>{id}</h2>
     </div>
   );

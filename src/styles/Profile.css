@@ -1,3 +1,9 @@
 #profile-wrapper {
   text-align: center;
 }
+
+#profile {
+  object-fit: cover;
+  border-radius: 100%;
+  width: 42%;
+}

@@ -1,3 +1,5 @@
+export const DEFAULT_PROFILE = 'https://cdn.intra.42.fr/users/medium_default.png';
+
 export const getCookieValue = key => {
   let cookieKey = key + '=';
   let result = '';
