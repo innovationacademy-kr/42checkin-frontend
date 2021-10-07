@@ -11,7 +11,7 @@ import { setCardNum } from '../redux/modules/user';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import '../styles/ProfileCard.css';
 
-const ProfileCard = ({ setIsFlip }) => {
+const ProfileCard = ({ setIsFlip, handleFlip }) => {
   const history = useHistory();
   const { cardNum, status } = useSelector(
     state => ({
@@ -74,10 +74,6 @@ const ProfileCard = ({ setIsFlip }) => {
       setReadySubmit(false);
     }
   }, [cardNum, checkAll]);
-
-  const handleFlip = e => {
-    setIsFlip(state => !state);
-  };
 
   useEffect(() => {
     if (status === 'out') {

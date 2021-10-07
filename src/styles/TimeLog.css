@@ -14,6 +14,8 @@ ul {
   border-radius: 13px;
   padding: 1rem;
   flex: 1;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
 }
 
 li {

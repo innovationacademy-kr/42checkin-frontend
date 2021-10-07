@@ -51,6 +51,16 @@ const CheckInPage = () => {
     }
   }, [dispatch]);
 
+  const handleFlip = e => {
+    setIsFlip(state => !state);
+    const elem = document.getElementById('checkin-card-wrapper');
+    if (elem.style.transform == 'rotateY(180deg)') {
+      elem.style.transform = 'rotateY(0deg)';
+    } else {
+      elem.style.transform = 'rotateY(180deg)';
+    }
+  };
+
   useEffect(() => {
     if (!isLogin) history.push('/');
     getUserData();
@@ -61,7 +71,13 @@ const CheckInPage = () => {
     <div id='checkin-wrapper'>
       <h2>CHECK IN</h2>
       <StatusBoard />
-      {!isFlip ? <ProfileCard setIsFlip={setIsFlip} /> : <TimeLog setIsFlip={setIsFlip} />}
+      <div id='checkin-card-wrapper'>
+        {!isFlip ? (
+          <ProfileCard setIsFlip={setIsFlip} handleFlip={handleFlip} />
+        ) : (
+          <TimeLog setIsFlip={setIsFlip} handleFlip={handleFlip} />
+        )}
+      </div>
     </div>
   );
 };

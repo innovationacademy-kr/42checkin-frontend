@@ -23,11 +23,7 @@ const mockData = [
   }
 ];
 
-const TimeLog = ({ setIsFlip }) => {
-  const handleFlip = e => {
-    setIsFlip(state => !state);
-  };
-
+const TimeLog = ({ setIsFlip, handleFlip }) => {
   return (
     <div id='time-log-wrapper'>
       <AutorenewIcon onClick={handleFlip} />
