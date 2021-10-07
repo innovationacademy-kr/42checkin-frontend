@@ -14,14 +14,14 @@ const SlideButton = ({ value, setValue }) => {
     const checkSliderValue = (e) => {
       const currentValue = e.target.value;
       if (currentValue < 80) {
-        slider.style.background = "white";
+        // slider.style.background = "white";
         setValue(0);
       } else setValue(100);
     };
     const changeSliderBackground = (e) => {
       const currentValue = e.target.value;
-      if (currentValue > 80) slider.style.background = "red";
-      else slider.style.background = "white";
+      // if (currentValue > 80) slider.style.background = "red";
+      // else slider.style.background = "white";
     };
     slider.addEventListener("mouseup", checkSliderValue);
     slider.addEventListener("touchend", checkSliderValue);

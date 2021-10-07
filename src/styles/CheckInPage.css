@@ -13,6 +13,7 @@
   max-width: 512px;
   user-select: none;
   text-align: center;
+  margin: 0 auto;
 }
 
 .input-wrapper {
