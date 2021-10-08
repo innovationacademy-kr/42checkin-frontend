@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import Checkbox from '../components/Checkbox';
 import TextField from '@material-ui/core/TextField';
 
@@ -10,6 +10,12 @@ import '../styles/CheckInForm.css';
 
 const CheckInForm = ({ checkAll, setCheckAll, checkStatus, setCheckStatus }) => {
   const dispatch = useDispatch();
+  const { cardNum } = useSelector(
+    state => ({
+      cardNum: state.user.cardNum
+    }),
+    shallowEqual
+  );
 
   const handleCheckAll = useCallback(
     e => {
@@ -42,6 +48,7 @@ const CheckInForm = ({ checkAll, setCheckAll, checkStatus, setCheckStatus }) => 
       <TextField
         id='standard-basic'
         label='Card Number'
+        value={cardNum}
         onChange={e => {
           dispatch(setCardNum(e.target.value));
         }}
