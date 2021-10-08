@@ -151,7 +151,7 @@ function CheckInPage() {
         <h3> Intra ID : {id}</h3>
         {status === "in" ? (
           <>
-            <h3>Card Number : {cardNum}</h3>
+            <h3>카드 번호: {cardNum}</h3>
             <div>
               <SlideButton value={sliderValue} setValue={setSliderValue}></SlideButton>
             </div>
@@ -178,7 +178,7 @@ function CheckInPage() {
               </div>
             </div>
             <UserInput
-              label="Card Number"
+              label="카드 번호"
               type="number"
               placeholder="카드 번호를 입력해주세요"
               value={cardNum}

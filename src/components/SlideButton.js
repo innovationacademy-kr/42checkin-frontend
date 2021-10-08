@@ -20,8 +20,8 @@ const SlideButton = ({ value, setValue }) => {
     };
     const changeSliderBackground = (e) => {
       const currentValue = e.target.value;
-      // if (currentValue > 80) slider.style.background = "red";
-      // else slider.style.background = "white";
+      if (currentValue > 80) slider.style.background = "rgba(211, 211, 211, 1)";
+      else slider.style.background = "";
     };
     slider.addEventListener("mouseup", checkSliderValue);
     slider.addEventListener("touchend", checkSliderValue);
@@ -37,7 +37,7 @@ const SlideButton = ({ value, setValue }) => {
   return (
     <div className="slider-container">
       <input placeholder="slide to quit" type="range" value={value} min={1} max={100} onChange={setSlideValue} id="slider"></input>
-      <span className="slider-text">slide to checkout</span>
+      <p className="slider-text">슬라이드 시 체크아웃</p>
     </div>
   );
 };
