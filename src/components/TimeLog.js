@@ -144,7 +144,7 @@ const TimeLog = ({ handleFlip }) => {
       const to = moment(new Date(today.getFullYear(), today.getMonth() + 1, 1))
         .tz('Asia/Seoul')
         .format('YYYY-MM-DD HH:mm:ss');
-      const response = getDailyUsage(from, to);
+      const response = await getDailyUsage(from, to);
       if (response.data) {
         const wallet = response.data.filter(({ seconds }) => +seconds > FOUR_HOURS).length * 1;
         setCount(wallet);
@@ -167,12 +167,13 @@ const TimeLog = ({ handleFlip }) => {
       </div>
       <h4>CLUSTER LOG</h4>
       <div style={{ width: '100%', textAlign: 'right', marginBottom: '1rem' }}>ALL: {count}₳</div>
+      <li>
+        <div>DATE</div>
+        <div>TIME</div>
+        <div>WALLET</div>
+      </li>
+      <hr className='divider' />
       <ul>
-        <li>
-          <div>DATE</div>
-          <div>TIME</div>
-          <div>WALLET</div>
-        </li>
         {logs.reverse().map(({ date, seconds }, idx) => (
           <div key={idx}>
             <li>
