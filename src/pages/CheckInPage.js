@@ -78,7 +78,7 @@ const CheckInPage = () => {
 
   return (
     <div id='checkin-wrapper'>
-      <h2>CHECK IN</h2>
+      <h2 style={{ marginBottom: '0' }}>CHECK IN</h2>
       <StatusBoard />
       <div id='checkin-card-wrapper'>
         {!isFlip ? (

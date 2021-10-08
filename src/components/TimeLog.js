@@ -167,16 +167,16 @@ const TimeLog = ({ handleFlip }) => {
       </div>
       <h4>CLUSTER LOG</h4>
       <div style={{ width: '100%', textAlign: 'right', marginBottom: '1rem' }}>ALL: {count}₳</div>
-      <li>
+      <li className='log-data'>
         <div>DATE</div>
         <div>TIME</div>
         <div>WALLET</div>
       </li>
       <hr className='divider' />
-      <ul>
+      <ul id='log-data-wrapper'>
         {logs.reverse().map(({ date, seconds }, idx) => (
           <div key={idx}>
-            <li>
+            <li className='log-data'>
               <time dateTime={date}>{date}</time>
               <div>{sec2hour(seconds)}</div>
               <div>{+seconds > FOUR_HOURS && '1₳'}</div>

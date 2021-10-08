@@ -1,4 +1,4 @@
-ul {
+#log-data-wrapper {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -27,7 +27,7 @@ ul {
   flex-grow: 1;
 }
 
-li {
+.log-data {
   text-align: center;
   color: rgba(0, 0, 0, 0.6);
   width: 100%;

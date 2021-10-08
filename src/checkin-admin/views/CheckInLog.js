@@ -161,10 +161,15 @@ function CheckInLog() {
   }, [checkAdmin, getHeadCount]);
 
   return (
-    <div style={{}}>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <StatusBoard></StatusBoard>
-      </div>
+    <div
+      style={{
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        margin: 'auto'
+      }}
+    >
+      <StatusBoard></StatusBoard>
       <div style={{ marginBottom: '5px' }}>
         <Button
           className={classes.settingBtn}
