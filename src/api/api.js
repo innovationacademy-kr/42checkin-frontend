@@ -25,10 +25,18 @@ export const checkOut = async cardNum => {
   return await instance.post(`/user/checkOut`);
 };
 
-export const getMaxCapacity = async (date) => {
-  return await instance.get(`/config`, { params: { date }});
+export const getMaxCapacity = async date => {
+  return await instance.get(`/config`, { params: { date } });
 };
 
 export const getUsingCard = async () => {
   return await instance.get(`/user/using`);
+};
+
+export const getUsageList = async (from, to) => {
+  return await instance.get(`/user/usage`, { params: { from, to } });
+};
+
+export const getDailyUsage = async (from, to) => {
+  return await instance.get(`/user/usage/daily`, { params: { from, to } });
 };

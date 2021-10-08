@@ -1,0 +1,46 @@
+#profile-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: white;
+  color: black;
+  border-radius: 13px;
+  padding: 1rem;
+  flex-grow: 1;
+  backface-visibility: hidden;
+}
+
+.submitBtn {
+  font-family: 'Spoqa Han Sans Neo';
+  border-radius: 3px;
+  padding: 10px;
+  background: none;
+  font-size: 1rem;
+  width: 90%;
+  font-weight: bold;
+  margin: 0 auto;
+}
+
+.in {
+  color: white;
+  background-color: rgb(237, 118, 126);
+  border: 2px solid rgb(237, 118, 126);
+}
+
+.out.ready {
+  color: whitesmoke;
+  background-color: rgb(83, 227, 173);
+  border: 2px solid rgb(83, 227, 173);
+}
+
+.out {
+  color: rgb(83, 227, 173);
+  border: 2px solid rgb(83, 227, 173);
+  background: none;
+}
+
+.divider {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  width: 90%;
+}

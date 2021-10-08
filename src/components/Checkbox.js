@@ -9,18 +9,16 @@ function Checkbox(props) {
   };
 
   return (
-    <div>
-      <label htmlFor={idx} className='checkbox-text'>
-        <input
-          id={idx}
-          className='checkbox'
-          type='checkbox'
-          checked={checkStatus[idx]}
-          onChange={handleChange}
-        />
-        {text}
-      </label>
-    </div>
+    <label htmlFor={idx} className='checkbox-text'>
+      <input
+        id={idx}
+        className='checkbox'
+        type='checkbox'
+        checked={checkStatus[idx]}
+        onChange={handleChange}
+      />
+      <div>{text}</div>
+    </label>
   );
 }
 export default Checkbox;

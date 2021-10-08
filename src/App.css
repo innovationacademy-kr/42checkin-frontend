@@ -1,23 +1,23 @@
 html {
   color: white;
-  background-image: url('https://signin.intra.42.fr/assets/background_login-a4e0666f73c02f025f590b474b394fd86e1cae20e95261a6e4862c2d0faa1b04.jpg');
+  background-color: rgb(45, 46, 51);
+  font-family: 'Spoqa Han Sans Neo';
 }
 
 #page-wrapper {
-  font-family: 'Futura', 'Sans serif';
   width: 100vw;
   height: fit-content;
   min-height: 100vh;
-  min-height: calc(var(--vh, 1vh) * 100);
+  /* min-height: calc(var(--vh, 1vh) * 100); */
+  min-height: calc(var(--vh, 1vh) * 90);
   touch-action: pan-y;
   /* margin: 1em 0; */
+  perspective: 700px;
 }
 
 #version {
-  color: whitesmoke;
-  font-family: 'Futura', 'Sans serif';
   font-size: smaller;
   text-align: center;
-  color: rgb(45, 50, 65);
+  color: rgba(255, 255, 255, 0.3);
   margin-top: 1em;
 }

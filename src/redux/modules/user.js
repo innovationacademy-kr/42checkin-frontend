@@ -1,3 +1,5 @@
+import { DEFAULT_PROFILE } from '../../utils/utils';
+
 // actions
 const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
@@ -36,7 +38,8 @@ const initalState = {
   isLogin: false,
   id: '',
   cardNum: '',
-  status: 'out'
+  status: 'out',
+  profile: DEFAULT_PROFILE
 };
 
 // reducer
@@ -57,7 +60,8 @@ export const user = (state = initalState, action) => {
         ...state,
         id: action.payload.id,
         cardNum: action.payload.cardNum,
-        status: action.payload.cardNum ? 'in' : 'out'
+        status: action.payload.status,
+        profile: action.payload.profile
       };
     case SET_CARDNUM:
       return {

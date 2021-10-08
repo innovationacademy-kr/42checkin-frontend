@@ -2,6 +2,9 @@ import { useEffect } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import StatusBoard from '../components/StatusBoard';
+// import StatusChart from '../components/StatusChart';
+import Button from '../components/Button';
+
 import '../styles/LandingPage.css';
 
 function LandingPage() {
@@ -24,11 +27,10 @@ function LandingPage() {
 
   return (
     <div id='landing-wrapper'>
-      <h1>42 Check In</h1>
+      <h1>Check In Cluster</h1>
       <StatusBoard />
-      <button id='login-btn' onClick={handleLogin}>
-        Log In
-      </button>
+      {/* <StatusChart /> */}
+      <Button className='submitBtn ready out' handleClick={handleLogin} text={'LOG IN'} />
     </div>
   );
 }

@@ -3,19 +3,8 @@
   min-height: inherit;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-#login-btn {
-  font-family: 'Futura', 'Sans serif';
-  border-radius: 3px;
-  width: 50%;
-  max-width: 256px;
-  color: black;
-  padding: 10px;
-  background-color: whitesmoke;
-  font-size: 1rem;
-  border: none;
-  margin: 1.5rem 0;
+  justify-content: space-around;
+  width: 90vw;
+  max-width: 512px;
+  margin: auto;
 }
