@@ -41,13 +41,16 @@
   width: 40px;
   height: 40px;
   cursor: pointer;
+  z-index: 100;
 }
 
-.slider-text {
-  margin: 1rem 0 0 0;
-  text-align: center;
-  color: white;
+.slider-background-text {
+  position: absolute;
+  top: 40%;
+  left:30%;
+  font-size: 12px;
+  opacity: .5;
   font-weight: bold;
-  font-size: 1.17rem;
-  white-space: nowrap;
+  z-index: 99;
+  transition: all .2s;
 }

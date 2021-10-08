@@ -11,22 +11,28 @@ const SlideButton = ({ value, setValue }) => {
 
   useEffect(() => {
     const slider = document.getElementById("slider");
+    const sliderText = document.querySelector(".slider-background-text");
+
     const checkSliderValue = (e) => {
       const currentValue = e.target.value;
+
       if (currentValue < 80) {
         // slider.style.background = "white";
+        sliderText.style.opacity=.5
         setValue(0);
       } else setValue(100);
     };
-    const changeSliderBackground = (e) => {
+
+    const changeSlider = (e) => {
       const currentValue = e.target.value;
+      if (currentValue > 20) sliderText.style.opacity= 0;
       if (currentValue > 80) slider.style.background = "rgba(211, 211, 211, 1)";
       else slider.style.background = "";
     };
     slider.addEventListener("mouseup", checkSliderValue);
     slider.addEventListener("touchend", checkSliderValue);
-    slider.addEventListener("mousemove", changeSliderBackground);
-    slider.addEventListener("touchmove", changeSliderBackground);
+    slider.addEventListener("mousemove", changeSlider);
+    slider.addEventListener("touchmove", changeSlider);
     return () => {
       setValue(0);
       slider.removeEventListener("mouseup", checkSliderValue);
@@ -37,7 +43,7 @@ const SlideButton = ({ value, setValue }) => {
   return (
     <div className="slider-container">
       <input placeholder="slide to quit" type="range" value={value} min={1} max={100} onChange={setSlideValue} id="slider"></input>
-      <p className="slider-text">슬라이드 시 체크아웃</p>
+      <div className="slider-background-text">슬라이드 시 체크아웃</div>
     </div>
   );
 };
