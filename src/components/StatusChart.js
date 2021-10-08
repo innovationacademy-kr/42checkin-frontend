@@ -14,7 +14,6 @@ const StatusChart = () => {
     gaepo: state.status.gaepo,
     seocho: state.status.seocho
   }));
-  console.log(gaepo, maxGaepo);
 
   const gaepoData = {
     datasets: [

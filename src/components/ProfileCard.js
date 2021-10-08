@@ -32,7 +32,6 @@ const ProfileCard = ({ handleFlip }) => {
   const handleCheckIn = useCallback(async () => {
     if (readySubmit) {
       try {
-        console.log('cardNum', cardNum);
         await checkIn(cardNum);
         history.push('/end');
       } catch (err) {

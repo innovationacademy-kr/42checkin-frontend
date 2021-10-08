@@ -7,7 +7,7 @@ import { sec2hour } from '../utils/utils';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import '../styles/TimeLog.css';
 
-const FOUR_HOURS = 14400;
+const FOUR_HOURS = 4 * 60 * 60;
 
 const TimeLog = ({ handleFlip }) => {
   const [logs, setLogs] = useState([]);
@@ -141,12 +141,12 @@ const TimeLog = ({ handleFlip }) => {
       const from = moment(new Date(today.getFullYear(), today.getMonth(), 1))
         .tz('Asia/Seoul')
         .format('YYYY-MM-DD HH:mm:ss');
-      const to = moment(new Date(today.getFullYear(), today.getMonth() + 1, 0))
+      const to = moment(new Date(today.getFullYear(), today.getMonth() + 1, 1))
         .tz('Asia/Seoul')
         .format('YYYY-MM-DD HH:mm:ss');
       const response = getDailyUsage(from, to);
       if (response.data) {
-        const wallet = response.data.filter(({ seconds }) => +seconds > FOUR_HOURS).length;
+        const wallet = response.data.filter(({ seconds }) => +seconds > FOUR_HOURS).length * 1;
         setCount(wallet);
         setLogs(response.data);
       }
