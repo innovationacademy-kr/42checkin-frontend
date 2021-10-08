@@ -51,19 +51,17 @@ const ProfileCard = ({ handleFlip }) => {
   }, [cardNum, readySubmit, history, dispatch]);
 
   const handleCheckOut = useCallback(async () => {
-    if (window.confirm('퇴실 하시겠습니까?')) {
-      try {
-        await checkOut();
-        history.push('/end');
-      } catch (err) {
-        if (!err.response) {
-          alert('정상적으로 처리되지 않았습니다.\n네트워크 연결 상태를 확인해주세요.');
-        } else if (err.response.data.code === 404) {
-          alert('이미 체크아웃 되었습니다.');
-          history.push('/');
-        } else {
-          alert(err.response.data.message);
-        }
+    try {
+      await checkOut();
+      history.push('/end');
+    } catch (err) {
+      if (!err.response) {
+        alert('정상적으로 처리되지 않았습니다.\n네트워크 연결 상태를 확인해주세요.');
+      } else if (err.response.data.code === 404) {
+        alert('이미 체크아웃 되었습니다.');
+        history.push('/');
+      } else {
+        alert(err.response.data.message);
       }
     }
   }, [history]);
