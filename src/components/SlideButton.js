@@ -43,7 +43,7 @@ const SlideButton = ({ value, setValue }) => {
   return (
     <div className="slider-container">
       <input placeholder="slide to quit" type="range" value={value} min={1} max={100} onChange={setSlideValue} id="slider"></input>
-      <div className="slider-background-text">슬라이드 시 체크아웃</div>
+      <div className="slider-background-text">밀어서 체크아웃</div>
     </div>
   );
 };
