@@ -29,13 +29,19 @@ const CheckInPage = () => {
   const getUserData = useCallback(async () => {
     try {
       const response = await checkAdmin();
-      const { user } = response.data;
+      const { user, cluster } = response.data;
       dispatch(
         setUser({
           id: user.login,
           cardNum: user.card !== null ? user.card : '',
           status: user.card !== null ? 'in' : 'out',
-          profile: user.profile || DEFAULT_PROFILE
+          profile: user.profile_image_url || DEFAULT_PROFILE
+        })
+      );
+      dispatch(
+        setHeadCount({
+          gaepo: cluster.gaepo,
+          seocho: cluster.seocho
         })
       );
     } catch (err) {
@@ -45,14 +51,14 @@ const CheckInPage = () => {
     }
   }, [dispatch]);
 
-  const getHeadCount = useCallback(async () => {
-    try {
-      const response = await getUsingCard();
-      dispatch(setHeadCount(response.data));
-    } catch (err) {
-      console.log(err);
-    }
-  }, [dispatch]);
+  // const getHeadCount = useCallback(async () => {
+  //   try {
+  //     const response = await getUsingCard();
+  //     dispatch(setHeadCount(response.data));
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }, [dispatch]);
 
   const handleFlip = e => {
     setIsFlip(state => !state);
@@ -67,8 +73,8 @@ const CheckInPage = () => {
   useEffect(() => {
     if (!isLogin) history.push('/');
     getUserData();
-    getHeadCount();
-  }, [isLogin, history, getUserData, getHeadCount]);
+    // getHeadCount();
+  }, [isLogin, history, getUserData]);
 
   return (
     <div id='checkin-wrapper'>
