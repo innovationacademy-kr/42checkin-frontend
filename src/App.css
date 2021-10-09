@@ -7,9 +7,9 @@ html {
 #page-wrapper {
   width: 100vw;
   height: fit-content;
-  min-height: 100vh;
+  /* min-height: 50vh; */
   /* min-height: calc(var(--vh, 1vh) * 100); */
-  min-height: calc(var(--vh, 1vh) * 90);
+  min-height: calc(var(--vh, 1vh) * 70);
   touch-action: pan-y;
   /* margin: 1em 0; */
   perspective: 700px;

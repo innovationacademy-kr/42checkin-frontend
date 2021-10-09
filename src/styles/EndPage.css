@@ -1,6 +1,7 @@
 #text-wrapper {
   height: fit-content;
   min-height: inherit;
+  /* min-height: calc(var(--vh, 1vh) * 90); */
   display: flex;
   justify-content: center;
   align-items: center;

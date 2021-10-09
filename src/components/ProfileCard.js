@@ -27,6 +27,7 @@ const ProfileCard = ({ handleFlip }) => {
   const [checkAll, setCheckAll] = useState(false);
   const [checkStatus, setCheckStatus] = useState([false, false, false]);
   const [readySubmit, setReadySubmit] = useState(false);
+  const [isFold, setIsFold] = useState(false);
 
   const btnText = status === 'out' ? 'CHECK IN' : 'CHECK OUT';
 
@@ -83,8 +84,10 @@ const ProfileCard = ({ handleFlip }) => {
   useEffect(() => {
     if (JSON.stringify(checkStatus) === JSON.stringify([true, true, true])) {
       setCheckAll(true);
+      setIsFold(true);
     } else {
       setCheckAll(false);
+      setIsFold(false);
     }
     return () => {
       setCheckAll(false);
@@ -117,6 +120,8 @@ const ProfileCard = ({ handleFlip }) => {
           setCheckAll={setCheckAll}
           checkStatus={checkStatus}
           setCheckStatus={setCheckStatus}
+          isFold={isFold}
+          setIsFold={setIsFold}
         />
       ) : (
         <>

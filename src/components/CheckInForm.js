@@ -8,7 +8,7 @@ import { checkLists } from '../utils/notice';
 import { setCardNum } from '../redux/modules/user';
 import '../styles/CheckInForm.css';
 
-const CheckInForm = ({ checkAll, setCheckAll, checkStatus, setCheckStatus }) => {
+const CheckInForm = ({ checkAll, setCheckAll, checkStatus, setCheckStatus, isFold, setIsFold }) => {
   const dispatch = useDispatch();
   const { cardNum } = useSelector(
     state => ({
@@ -22,10 +22,14 @@ const CheckInForm = ({ checkAll, setCheckAll, checkStatus, setCheckStatus }) => 
       const isChecked = e.target.checked;
       setCheckAll(isChecked);
       setCheckStatus([isChecked, isChecked, isChecked]);
+      setIsFold(true);
     },
-    [setCheckAll, setCheckStatus]
+    [setCheckAll, setCheckStatus, setIsFold]
   );
 
+  // const handleClick = () => {
+  //   setIsFold(state => !state);
+  // };
   return (
     <>
       <div id='check-in-form-wrapper'>
@@ -33,6 +37,8 @@ const CheckInForm = ({ checkAll, setCheckAll, checkStatus, setCheckStatus }) => 
           <input id='allCheck' type='checkbox' checked={checkAll} onChange={handleCheckAll} />
           모두 동의
         </label>
+        {/* <button onClick={handleClick}>hi</button> */}
+        {/* {!isFold && ( */}
         <div>
           {checkLists.map((checkList, idx) => (
             <Checkbox
@@ -44,15 +50,18 @@ const CheckInForm = ({ checkAll, setCheckAll, checkStatus, setCheckStatus }) => 
             />
           ))}
         </div>
+        {/* )} */}
       </div>
-      <TextField
-        id='standard-basic'
-        label='Card Number'
-        value={cardNum}
-        onChange={e => {
-          dispatch(setCardNum(e.target.value));
-        }}
-      />
+      <div style={{ marginBottom: '10px' }}>
+        <TextField
+          id='standard-basic'
+          label='Card Number'
+          value={cardNum}
+          onChange={e => {
+            dispatch(setCardNum(e.target.value));
+          }}
+        />
+      </div>
     </>
   );
 };

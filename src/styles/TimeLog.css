@@ -2,10 +2,11 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  height: 80vh;
+  height: 0;
   overflow-y: scroll;
   -ms-overflow-style: none;
   width: 100%;
+  flex-grow: 1;
 }
 
 ::-webkit-scrollbar {
@@ -15,7 +16,7 @@
 #time-log-wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   align-items: center;
   background-color: white;
   color: black;
