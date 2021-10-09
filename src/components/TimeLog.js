@@ -4,7 +4,7 @@ import moment from 'moment-timezone';
 import { getDailyUsage } from '../api/api';
 import { sec2hour } from '../utils/utils';
 
-import AutorenewIcon from '@mui/icons-material/Autorenew';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import '../styles/TimeLog.css';
 
 const FOUR_HOURS = 4 * 60 * 60;
@@ -148,7 +148,7 @@ const TimeLog = ({ handleFlip }) => {
       if (response.data) {
         const wallet = response.data.filter(({ seconds }) => +seconds > FOUR_HOURS).length * 1;
         setCount(wallet);
-        setLogs(response.data);
+        setLogs(response.data.reverse());
       }
       // const wallet = logs.filter(({ seconds }) => +seconds > FOUR_HOURS).length;
       // setCount(wallet);
@@ -163,7 +163,7 @@ const TimeLog = ({ handleFlip }) => {
   return (
     <div id='time-log-wrapper'>
       <div style={{ textAlign: 'right', width: '100%' }}>
-        <AutorenewIcon onClick={handleFlip} />
+        <AccountBoxIcon onClick={handleFlip} />
       </div>
       <h4 style={{ marginBottom: '0' }}>CLUSTER LOG</h4>
       <div style={{ width: '100%', textAlign: 'right', marginBottom: '1rem' }}>ALL: {count}₳</div>
@@ -174,7 +174,7 @@ const TimeLog = ({ handleFlip }) => {
       </li>
       <hr className='divider' />
       <ul id='log-data-wrapper'>
-        {logs.reverse().map(({ date, seconds }, idx) => (
+        {logs.map(({ date, seconds }, idx) => (
           <div key={idx}>
             <li className='log-data'>
               <time dateTime={date}>{date}</time>

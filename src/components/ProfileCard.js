@@ -8,7 +8,7 @@ import CheckInInfo from '../components/CheckInInfo';
 import { checkOut, checkIn } from '../api/api';
 
 import { setCardNum } from '../redux/modules/user';
-import AutorenewIcon from '@mui/icons-material/Autorenew';
+import ListIcon from '@mui/icons-material/List';
 import '../styles/ProfileCard.css';
 import SlideButton from '../components/SlideButton';
 
@@ -100,47 +100,39 @@ const ProfileCard = ({ handleFlip }) => {
   }, [handleCheckOut, sliderValue]);
   return (
     <div id='profile-card-wrapper'>
-      {status === 'in' && (
-        <div
-          style={{
-            textAlign: 'right',
-            width: '100%'
-            // position: 'fixed',
-            // top: '30px',
-            // right: '30px'
-          }}
-        >
-          <AutorenewIcon onClick={handleFlip} />
-        </div>
-      )}
+      <div
+        style={{
+          textAlign: 'right',
+          width: '100%'
+        }}
+      >
+        <ListIcon onClick={handleFlip} />
+      </div>
       <Profile />
       {status === 'out' ? (
-        <CheckInForm
-          checkAll={checkAll}
-          setCheckAll={setCheckAll}
-          checkStatus={checkStatus}
-          setCheckStatus={setCheckStatus}
-          isFold={isFold}
-          setIsFold={setIsFold}
-        />
+        <>
+          <CheckInForm
+            checkAll={checkAll}
+            setCheckAll={setCheckAll}
+            checkStatus={checkStatus}
+            setCheckStatus={setCheckStatus}
+            isFold={isFold}
+            setIsFold={setIsFold}
+          />
+          <Button
+            className={
+              status === 'out' ? `submitBtn out ${readySubmit ? 'ready' : ''}` : 'submitBtn in'
+            }
+            handleClick={status === 'out' ? handleCheckIn : handleCheckOut}
+            text={btnText}
+          />
+        </>
       ) : (
         <>
           <hr className='divider' />
           <CheckInInfo />
-        </>
-      )}
-      {status === 'out' ? (
-        <Button
-          className={
-            status === 'out' ? `submitBtn out ${readySubmit ? 'ready' : ''}` : 'submitBtn in'
-          }
-          handleClick={status === 'out' ? handleCheckIn : handleCheckOut}
-          text={btnText}
-        />
-      ) : (
-        <div>
           <SlideButton value={sliderValue} setValue={setSliderValue}></SlideButton>
-        </div>
+        </>
       )}
     </div>
   );
