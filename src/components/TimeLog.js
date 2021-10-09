@@ -145,10 +145,11 @@ const TimeLog = ({ handleFlip }) => {
         .tz('Asia/Seoul')
         .format('YYYY-MM-DD HH:mm:ss');
       const response = await getDailyUsage(from, to);
-      if (response.data) {
-        const wallet = response.data.filter(({ seconds }) => +seconds > FOUR_HOURS).length * 1;
+      if (response.data.list) {
+        const logData = response.data.list;
+        const wallet = logData.filter(({ seconds }) => +seconds > FOUR_HOURS).length * 1;
         setCount(wallet);
-        setLogs(response.data.reverse());
+        setLogs(logData.reverse());
       }
       // const wallet = logs.filter(({ seconds }) => +seconds > FOUR_HOURS).length;
       // setCount(wallet);
