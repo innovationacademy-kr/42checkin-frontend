@@ -8,6 +8,7 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import '../styles/TimeLog.css';
 
 const FOUR_HOURS = 4 * 60 * 60;
+const WALLET_PER_HOUR = 1;
 
 const TimeLog = ({ handleFlip }) => {
   const [logs, setLogs] = useState([]);
@@ -147,7 +148,8 @@ const TimeLog = ({ handleFlip }) => {
       const response = await getDailyUsage(from, to);
       if (response.data.list) {
         const logData = response.data.list;
-        const wallet = logData.filter(({ seconds }) => +seconds > FOUR_HOURS).length * 1;
+        const wallet =
+          logData.filter(({ seconds }) => +seconds >= FOUR_HOURS).length * WALLET_PER_HOUR;
         setCount(wallet);
         setLogs(logData.reverse());
       }
@@ -180,7 +182,7 @@ const TimeLog = ({ handleFlip }) => {
             <li className='log-data'>
               <time dateTime={date}>{date}</time>
               <div>{sec2hour(seconds)}</div>
-              <div>{+seconds > FOUR_HOURS && '1₳'}</div>
+              <div>{+seconds >= FOUR_HOURS && `${WALLET_PER_HOUR}₳`}</div>
             </li>
             <hr className='divider' />
           </div>
