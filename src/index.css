@@ -1,10 +1,23 @@
+html {
+  color: white;
+  background-color: rgb(45, 46, 51);
+  font-family: 'D2Coding';
+}
+
 body {
   margin: 0;
-  font-family: 'Spoqa Han Sans Neo';
+  font-family: 'D2Coding';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: 'Spoqa Han Sans Neo';
+@font-face {
+  font-family: 'D2Coding';
+  src: url('./assets/fonts/D2Coding.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'D2Coding';
+  font-weight: bold;
+  src: url('./assets/fonts/D2Coding.ttf') format('truetype');
 }

@@ -27,7 +27,8 @@ const styles = {
   },
   title: {
     fontSize: '1rem',
-    fontWeight: '800'
+    fontWeight: '800',
+    fontFamily: 'D2Coding'
   }
 };
 
