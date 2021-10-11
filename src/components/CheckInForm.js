@@ -33,11 +33,17 @@ const CheckInForm = ({ checkAll, setCheckAll, checkStatus, setCheckStatus, isFol
   return (
     <>
       <div id='check-in-form-wrapper'>
-        <label htmlFor='allCheck' style={{ fontSize: '1em' }}>
-          <input id='allCheck' type='checkbox' checked={checkAll} onChange={handleCheckAll} />
-          모두 동의
+        <input
+          id='allCheck'
+          style={{ fontSize: '1em', margin: '5px' }}
+          type='checkbox'
+          checked={checkAll}
+          onChange={handleCheckAll}
+        />
+        <label for='allCheck' style={{ fontSize: '1em' }}>
+          <span>모두 동의</span>
+          <span style={{ color: 'red', fontWeight: 'bold' }}>*</span>
         </label>
-        {/* <button onClick={handleClick}>hi</button> */}
         {/* {!isFold && ( */}
         <div>
           {checkLists.map((checkList, idx) => (
