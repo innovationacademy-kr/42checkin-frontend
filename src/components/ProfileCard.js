@@ -120,11 +120,13 @@ const ProfileCard = ({ handleFlip }) => {
             setIsFold={setIsFold}
           />
           <Button
-            className={
-              status === 'out' ? `submitBtn out ${readySubmit ? 'ready' : ''}` : 'submitBtn in'
-            }
+            // className={
+            //   status === 'out' ? `submitBtn out ${readySubmit ? 'ready' : ''}` : 'submitBtn in'
+            // }
+            className="submitBtn"
             handleClick={status === 'out' ? handleCheckIn : handleCheckOut}
             text={btnText}
+            disabled={!readySubmit}
           />
         </>
       ) : (
