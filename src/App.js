@@ -1,7 +1,7 @@
 import { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { getCookieValue, getTime } from './utils/utils';
+import { getCookieValue } from './utils/utils';
 import { login, logout } from './redux/modules/user';
 import { setConfig } from './redux/modules/config';
 import { setHeadCount } from './redux/modules/status';
@@ -56,8 +56,8 @@ function App() {
       const response = await getMaxCapacity(today.toISOString().slice(0, 10));
       dispatch(
         setConfig({
-          // openAt: getTime(response.data.open_at),
-          // closeAt: getTime(response.data.close_at),
+          // openAt: response.data.open_at,
+          // closeAt: response.data.close_at,
           seocho: response.data.seocho,
           gaepo: response.data.gaepo
         })

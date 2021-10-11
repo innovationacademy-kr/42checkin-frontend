@@ -15,10 +15,10 @@ export const getCookieValue = key => {
   return result;
 };
 
-export const getTime = strDate => {
-  if (!strDate) return null;
-  return new Date(strDate).toLocaleTimeString();
-};
+// export const getTime = strDate => {
+//   if (!strDate) return null;
+//   return new Date(strDate).toLocaleTimeString();
+// };
 
 export const sec2hour = seconds => {
   let m = parseInt(seconds / 60);
