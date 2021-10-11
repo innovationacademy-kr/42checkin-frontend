@@ -17,7 +17,7 @@ function Checkbox(props) {
         checked={checkStatus[idx]}
         onChange={handleChange}
       />
-      <label for={idx}>{text}</label>
+      <label htmlFor={idx}>{text}</label>
     </div>
   );
 }
