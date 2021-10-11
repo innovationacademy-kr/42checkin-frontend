@@ -37,9 +37,9 @@ const useStyles = makeStyles(styles);
 function App() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  // const { beginAt, endAt } = useSelector(state => ({
-  //   beginAt: state.config.beginAt,
-  //   endAt: state.config.endAt
+  // const { openAt, closeAt } = useSelector(state => ({
+  //   openAt: state.config.openAt,
+  //   closeAt: state.config.closeAt
   // }));
 
   const vh = window.innerHeight * 0.01;
@@ -56,8 +56,8 @@ function App() {
       const response = await getMaxCapacity(today.toISOString().slice(0, 10));
       dispatch(
         setConfig({
-          // beginAt: getTime(response.data.begin_at),
-          // endAt: getTime(response.data.end_at),
+          // openAt: getTime(response.data.open_at),
+          // closeAt: getTime(response.data.close_at),
           seocho: response.data.seocho,
           gaepo: response.data.gaepo
         })
@@ -92,9 +92,10 @@ function App() {
       <BrowserRouter>
         <div id='page-wrapper'>
           {window.location.pathname.split('/')[1] !== 'admin' && (
+            /* openAt && closeAt &&  */
             <Alert severity='info' variant='filled' className={classes.info}>
               <AlertTitle className={classes.title}>
-                {/* 운영 시간: {beginAt} ~ {endAt} */}
+                {/* 운영 시간: {openAt} ~ {closeAt} */}
                 운영 시간: 오전 7:00:00 ~ 오후 10:00:00
               </AlertTitle>
               <span>※ 사회적 거리두기 단계에 따라 운영시간 변경 가능</span>

@@ -3,12 +3,12 @@ const SET_CONFIG = 'SET_CONFIG';
 
 // action creators
 export const setConfig = data => {
-  const { beginAt, endAt, seocho, gaepo } = data;
+  const { openAt, closeAt, seocho, gaepo } = data;
   return {
     type: SET_CONFIG,
     payload: {
-      beginAt: beginAt,
-      endAt: endAt,
+      openAt: openAt,
+      closeAt: closeAt,
       seocho: seocho,
       gaepo: gaepo
     }
@@ -17,8 +17,8 @@ export const setConfig = data => {
 
 // initalState
 const initalState = {
-  beginAt: null,
-  endAt: null,
+  openAt: null,
+  closeAt: null,
   seocho: 0,
   gaepo: 0
 };
@@ -29,8 +29,8 @@ export const config = (state = initalState, action) => {
     case SET_CONFIG:
       return {
         ...state,
-        beginAt: action.payload.beginAt,
-        endAt: action.payload.endAt,
+        openAt: action.payload.openAt,
+        closeAt: action.payload.closeAt,
         seocho: action.payload.seocho,
         gaepo: action.payload.gaepo
       };

@@ -16,6 +16,7 @@ export const getCookieValue = key => {
 };
 
 export const getTime = strDate => {
+  if (!strDate) return null;
   return new Date(strDate).toLocaleTimeString();
 };
 
