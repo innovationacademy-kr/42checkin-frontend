@@ -168,7 +168,7 @@ const TimeLog = ({ handleFlip }) => {
       <div style={{ textAlign: 'right', width: '100%' }}>
         <AccountBoxIcon onClick={handleFlip} />
       </div>
-      <h4 style={{ marginBottom: '0' }}>CLUSTER LOG</h4>
+      <h4 style={{ margin: '0 auto' }}>CLUSTER LOG</h4>
       <div style={{ width: '100%', textAlign: 'right', marginBottom: '1rem' }}>ALL: {count}₳</div>
       <li className='log-data'>
         <div>DATE</div>
