@@ -40,7 +40,7 @@ const CheckInForm = ({ checkAll, setCheckAll, checkStatus, setCheckStatus, isFol
           checked={checkAll}
           onChange={handleCheckAll}
         />
-        <label for='allCheck' style={{ fontSize: '1em' }}>
+        <label htmlFor='allCheck' style={{ fontSize: '1em' }}>
           <span>모두 동의</span>
           <span style={{ color: 'red', fontWeight: 'bold' }}>*</span>
         </label>
