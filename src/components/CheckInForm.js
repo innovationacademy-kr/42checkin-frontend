@@ -62,6 +62,7 @@ const CheckInForm = ({ checkAll, setCheckAll, checkStatus, setCheckStatus, isFol
         <TextField
           id='standard-basic'
           label='Card Number'
+          type='number'
           value={cardNum}
           onChange={e => {
             dispatch(setCardNum(e.target.value));
