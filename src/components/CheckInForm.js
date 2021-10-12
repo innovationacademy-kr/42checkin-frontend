@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import Checkbox from '../components/Checkbox';
-import TextField from '@material-ui/core/TextField';
 
 import { checkLists } from '../utils/notice';
 
@@ -58,12 +57,13 @@ const CheckInForm = ({ checkAll, setCheckAll, checkStatus, setCheckStatus, isFol
         </div>
         {/* )} */}
       </div>
-      <div style={{ marginBottom: '10px' }}>
-        <TextField
-          id='standard-basic'
-          label='Card Number'
+      <div style={{ margin: '10px 0' }}>
+        <input
+          id='cardNumber'
           type='number'
           value={cardNum}
+          inputMode='numeric' /* 숫자형 키패드 */
+          placeholder='카드 번호'
           onChange={e => {
             dispatch(setCardNum(e.target.value));
           }}

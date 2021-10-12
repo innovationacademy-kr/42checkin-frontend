@@ -4,3 +4,27 @@
   border-radius: 3px;
   padding: 1rem 0;
 }
+
+#cardNumber {
+  border-style: none;
+  border-bottom: 1px solid rgba(105, 105, 105, 0.2);
+  padding: 0.3rem;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+#cardNumber::placeholder {
+  color: rgba(105, 105, 105, 0.2);
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
