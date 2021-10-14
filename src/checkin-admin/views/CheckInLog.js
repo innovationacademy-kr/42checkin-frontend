@@ -246,13 +246,15 @@ function CheckInLog() {
                     log.card_no,
                     log.card_no > 999 ? '서초' : '개포',
                     logType === 3 ||
-                    (logType === 0 && log['User.card_no'] === log.card_no) ||
-                    ((logType === 1 || logType === 2) && log.User.card_no === log.card_no) ? (
+                    // (logType === 0 && log['User.card_no'] === log.card_no) ||
+                    // ((logType === 1 || logType === 2) && log.User.card_no === log.card_no) ? (
+                    log.User.card_no === log.card_no ? (
                       <button
                         className='force-out-Btn'
                         onClick={checkOutOnClick}
                         data-idx={
-                          logType === 0 ? log['User._id'] : logType === 3 ? log._id : log.User._id
+                          logType === 3 ? log._id : log.User._id
+                          // logType === 0 ? log['User._id'] : logType === 3 ? log._id : log.User._id
                         }
                       >
                         퇴실 처리
