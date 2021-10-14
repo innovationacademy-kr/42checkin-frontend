@@ -26,10 +26,10 @@ export const setUser = (user: User) => {
   };
 };
 
-export const setCardNum = (cardNum: string) => {
+export const setCardNum = (param: { cardNum: string }) => {
   return {
     type: SET_CARD_NUM,
-    payload: cardNum,
+    payload: param,
   };
 };
 
@@ -73,7 +73,7 @@ export const user = (state = initalState, action: UserActions) => {
     case SET_CARD_NUM:
       return {
         ...state,
-        cardNum: action.payload,
+        cardNum: action.payload.cardNum,
       };
     default:
       return state;

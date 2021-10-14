@@ -4,14 +4,14 @@ import "../styles/StatusBoard.css";
 
 const StatusBoard = () => {
   const { maxGaepo, maxSeocho } = useSelector(
-    (state) => ({
+    (state: RootState) => ({
       maxGaepo: state.config.gaepo,
       maxSeocho: state.config.seocho,
     }),
     shallowEqual,
   );
 
-  const { gaepo, seocho } = useSelector((state) => ({
+  const { gaepo, seocho } = useSelector((state: RootState) => ({
     gaepo: state.status.gaepo,
     seocho: state.status.seocho,
   }));

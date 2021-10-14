@@ -149,11 +149,12 @@ const TimeLog: React.FC<IProps> = ({ handleFlip }) => {
       const to = moment(new Date(today.getFullYear(), today.getMonth() + 1, 1))
         .tz("Asia/Seoul")
         .format("YYYY-MM-DD HH:mm:ss");
+
       const response = await getDailyUsage(from, to);
       if (response.data.list) {
         const logData = response.data.list;
         const wallet =
-          // TODO: type찾기
+          // TODO: seconds 타입
           logData.filter(({ seconds }: { seconds: any }) => +seconds >= FOUR_HOURS).length *
           WALLET_PER_HOUR;
         setCount(wallet);

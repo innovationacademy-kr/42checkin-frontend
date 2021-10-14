@@ -1,5 +1,3 @@
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 // TODO: fix lint rule
 import React, { useCallback } from "react";
 
@@ -8,20 +6,28 @@ import Checkbox from "./Checkbox";
 import { checkLists } from "../utils/notice";
 import { setCardNum } from "../redux/modules/user";
 import "../styles/CheckInForm.css";
+import { RootState } from "../redux/modules";
 
-// interface IProps {
-//   checkAll: boolean;
-//   setCheckAll: string;
-//   checkStatus: string;
-//   setCheckStatus: string;
-//   isFold: string;
-//   setIsFold: string;
-// }
+interface IProps {
+  checkAll: boolean;
+  setCheckAll: React.Dispatch<React.SetStateAction<boolean>>;
+  checkStatus: boolean[];
+  setCheckStatus: React.Dispatch<React.SetStateAction<boolean[]>>;
+  isFold: boolean;
+  setIsFold: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-const CheckInForm = ({ checkAll, setCheckAll, checkStatus, setCheckStatus, isFold, setIsFold }) => {
+const CheckInForm: React.FC<IProps> = ({
+  checkAll,
+  setCheckAll,
+  checkStatus,
+  setCheckStatus,
+  isFold,
+  setIsFold,
+}) => {
   const dispatch = useDispatch();
   const { cardNum } = useSelector(
-    (state) => ({
+    (state: RootState) => ({
       cardNum: state.user.cardNum,
     }),
     shallowEqual,
@@ -66,7 +72,6 @@ const CheckInForm = ({ checkAll, setCheckAll, checkStatus, setCheckStatus, isFol
             />
           ))}
         </div>
-        {/* )} */}
       </div>
       <div style={{ margin: "10px 0" }}>
         <input
@@ -76,7 +81,7 @@ const CheckInForm = ({ checkAll, setCheckAll, checkStatus, setCheckStatus, isFol
           inputMode='numeric' /* 숫자형 키패드 */
           placeholder='카드 번호'
           onChange={(e) => {
-            dispatch(setCardNum(e.target.value));
+            dispatch(setCardNum({ cardNum: e.target.value }));
           }}
         />
       </div>
