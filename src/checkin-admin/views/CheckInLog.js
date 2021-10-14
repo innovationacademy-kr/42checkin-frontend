@@ -241,15 +241,21 @@ function CheckInLog() {
                   return [
                     log._id ?? (page - 1) * listSize + idx + 1,
                     moment(log.created_at).format('MM월 DD일 HH:mm') ?? null,
-                    log.type,
+                    logType === 3 ? log.state : log.type,
                     log.login,
                     log.card_no,
                     log.card_no > 999 ? '서초' : '개포',
-                    !log.User ? null : log.card_no === log.User.card_no ? (
+                    // log.card_no ?? log.User.card_no,
+                    // (log.card_no && log.card_no > 999) ||
+                    // (log.User.card_no && log.User.card_no > 999)
+                    //   ? '서초'
+                    //   : '개포',
+                    log.state === 'checkIn' || log.type === 'checkIn' ? (
+                      // log.card_no !== null ? (
                       <button
                         className='force-out-Btn'
                         onClick={checkOutOnClick}
-                        data-idx={log.User._id}
+                        data-idx={log._id}
                       >
                         퇴실 처리
                       </button>
