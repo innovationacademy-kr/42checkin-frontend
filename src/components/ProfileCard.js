@@ -34,10 +34,15 @@ const ProfileCard = ({ handleFlip }) => {
   const handleCheckIn = useCallback(async () => {
     if (readySubmit) {
       try {
-        await checkIn(cardNum);
-        history.push('/end');
+        const response = await checkIn(cardNum);
+        if (!response.data.result) {
+          alert(response.data.message);
+        } else {
+          history.push('/end');
+        }
       } catch (err) {
-        if (err.response.data.code === 404) {
+        if (err.response.data.message) {
+          // if (err.response.data.code === 404) {
           alert(err.response.data.message);
         } else {
           alert('체크인을 처리할 수 없습니다. 제한 인원 초과가 아닌 경우 관리자에게 문의해주세요.');
@@ -123,7 +128,7 @@ const ProfileCard = ({ handleFlip }) => {
             // className={
             //   status === 'out' ? `submitBtn out ${readySubmit ? 'ready' : ''}` : 'submitBtn in'
             // }
-            className="submitBtn"
+            className='submitBtn'
             handleClick={status === 'out' ? handleCheckIn : handleCheckOut}
             text={btnText}
             disabled={!readySubmit}
