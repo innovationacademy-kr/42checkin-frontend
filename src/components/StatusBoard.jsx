@@ -4,7 +4,7 @@ import "../styles/StatusBoard.css";
 
 const StatusBoard = () => {
   const { maxGaepo, maxSeocho } = useSelector(
-    (state: RootState) => ({
+    (state) => ({
       maxGaepo: state.config.gaepo,
       maxSeocho: state.config.seocho,
     }),

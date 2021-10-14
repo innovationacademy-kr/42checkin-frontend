@@ -10,5 +10,5 @@
     "import/prefer-default-export": "warn",
     "react/button-has-type":"off"
   },
-  "ignorePatterns": ["src/admin/**/*", "src/checkin-admin/**/*"]
+  "ignorePatterns": ["src/admin/**/*", "src/checkin-admin/**/*","src/**/*"]
 }

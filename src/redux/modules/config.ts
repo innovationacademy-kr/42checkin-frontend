@@ -1,8 +1,8 @@
 // actions
-const SET_CONFIG = 'SET_CONFIG';
+const SET_CONFIG = "SET_CONFIG" as const;
 
 // action creators
-export const setConfig = data => {
+export const setConfig = (data: Config) => {
   const { openAt, closeAt, seocho, gaepo } = data;
   return {
     type: SET_CONFIG,
@@ -10,21 +10,24 @@ export const setConfig = data => {
       openAt: openAt,
       closeAt: closeAt,
       seocho: seocho,
-      gaepo: gaepo
-    }
+      gaepo: gaepo,
+    },
   };
 };
 
+//type
+type ConfigActions = ReturnType<typeof setConfig>;
+
 // initalState
-const initalState = {
-  openAt: null,
-  closeAt: null,
+const initalState: Config = {
+  openAt: "",
+  closeAt: "",
   seocho: 0,
-  gaepo: 0
+  gaepo: 0,
 };
 
 // reducer
-export const config = (state = initalState, action) => {
+export const config = (state = initalState, action: ConfigActions): Config => {
   switch (action.type) {
     case SET_CONFIG:
       return {
@@ -32,7 +35,7 @@ export const config = (state = initalState, action) => {
         openAt: action.payload.openAt,
         closeAt: action.payload.closeAt,
         seocho: action.payload.seocho,
-        gaepo: action.payload.gaepo
+        gaepo: action.payload.gaepo,
       };
     default:
       return state;

@@ -3,10 +3,11 @@ interface User {
   id: string;
   cardNum: string;
   status: "in" | "out";
+  profile: string;
 }
 interface Config {
-  beginAt: string;
-  endAt: string;
+  openAt: string;
+  closeAt: string;
   seocho: number;
   gaepo: number;
 }
