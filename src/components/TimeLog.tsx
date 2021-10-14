@@ -11,7 +11,7 @@ const FOUR_HOURS = 4 * 60 * 60;
 const WALLET_PER_HOUR = 1;
 
 interface IProps {
-  handleFlip: () => void;
+  handleFlip: (e:React.MouseEvent) => void;
 }
 const TimeLog: React.FC<IProps> = ({ handleFlip }) => {
   const [logs, setLogs] = useState([]);

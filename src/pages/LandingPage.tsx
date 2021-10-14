@@ -1,19 +1,20 @@
-import { useEffect } from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import StatusBoard from '../components/StatusBoard';
+import { useEffect } from "react";
+import { useSelector, shallowEqual } from "react-redux";
+import { useHistory } from "react-router-dom";
+import StatusBoard from "../components/StatusBoard";
 // import StatusChart from '../components/StatusChart';
-import Button from '../components/Button';
+import Button from "../components/Button";
 
-import '../styles/LandingPage.css';
+import "../styles/LandingPage.css";
+import { RootState } from "../redux/modules";
 
 function LandingPage() {
   const history = useHistory();
   const { isLogin } = useSelector(
-    state => ({
-      isLogin: state.user.isLogin
+    (state: RootState) => ({
+      isLogin: state.user.isLogin,
     }),
-    shallowEqual
+    shallowEqual,
   );
   const handleLogin = () => {
     window.location.href = `${
@@ -22,7 +23,7 @@ function LandingPage() {
   };
 
   useEffect(() => {
-    if (isLogin) history.push('/checkin');
+    if (isLogin) history.push("/checkin");
   }, [history, isLogin]);
 
   return (
@@ -30,7 +31,7 @@ function LandingPage() {
       <h1>Check In Cluster</h1>
       <StatusBoard />
       {/* <StatusChart /> */}
-      <Button className='submitBtn ready out' handleClick={handleLogin} text={'LOG IN'} />
+      <Button type="button" className='submitBtn ready out' handleClick={handleLogin} text={"LOG IN"} />
     </div>
   );
 }

@@ -1,28 +1,29 @@
-import { useState, useEffect, useCallback } from 'react';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { checkAdmin, getUsingCard } from '../api/api';
-import { setHeadCount } from '../redux/modules/status';
-import { logout } from '../redux/modules/user';
+import { useState, useEffect, useCallback } from "react";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { checkAdmin, getUsingCard } from "../api/api";
+import { setHeadCount } from "../redux/modules/status";
+import { logout } from "../redux/modules/user";
 
-import StatusBoard from '../components/StatusBoard';
-import ProfileCard from '../components/ProfileCard';
-import TimeLog from '../components/TimeLog';
+import StatusBoard from "../components/StatusBoard";
+import ProfileCard from "../components/ProfileCard";
+import TimeLog from "../components/TimeLog";
 
-import { setUser } from '../redux/modules/user';
-import { DEFAULT_PROFILE } from '../utils/utils';
+import { setUser } from "../redux/modules/user";
+import { DEFAULT_PROFILE } from "../utils/utils";
 
-import '../styles/CheckInPage.css';
-import SlideButton from '../components/SlideButton';
+import "../styles/CheckInPage.css";
+import SlideButton from "../components/SlideButton";
+import { RootState } from "../redux/modules";
 
 const CheckInPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { isLogin } = useSelector(
-    state => ({
-      isLogin: state.user.isLogin
+    (state: RootState) => ({
+      isLogin: state.user.isLogin,
     }),
-    shallowEqual
+    shallowEqual,
   );
 
   const [isFlip, setIsFlip] = useState(false);
@@ -33,17 +34,18 @@ const CheckInPage = () => {
       const { user, cluster } = response.data;
       dispatch(
         setUser({
+          isLogin,
           id: user.login,
-          cardNum: user.card !== null ? user.card : '',
-          status: user.card !== null ? 'in' : 'out',
-          profile: user.profile_image_url || DEFAULT_PROFILE
-        })
+          cardNum: user.card !== null ? user.card : "",
+          status: user.card !== null ? "in" : "out",
+          profile: user.profile_image_url || DEFAULT_PROFILE,
+        }),
       );
       dispatch(
         setHeadCount({
           gaepo: cluster.gaepo,
-          seocho: cluster.seocho
-        })
+          seocho: cluster.seocho,
+        }),
       );
     } catch (err) {
       console.log(err);
@@ -61,18 +63,15 @@ const CheckInPage = () => {
   //   }
   // }, [dispatch]);
 
-  const handleFlip = e => {
-    setIsFlip(state => !state);
-    const elem = document.getElementById('checkin-card-wrapper');
-    if (elem.style.transform == 'rotateY(180deg)') {
-      elem.style.transform = 'rotateY(0deg)';
-    } else {
-      elem.style.transform = 'rotateY(180deg)';
-    }
+  const handleFlip = (e: React.MouseEvent) => {
+    setIsFlip((state) => !state);
+    const elem = document.getElementById("checkin-card-wrapper") as HTMLElement;
+    if (elem.style.transform == "rotateY(180deg)") elem.style.transform = "rotateY(0deg)";
+    else elem.style.transform = "rotateY(180deg)";
   };
 
   useEffect(() => {
-    if (!isLogin) history.push('/');
+    if (!isLogin) history.push("/");
     getUserData();
     // getHeadCount();
   }, [isLogin, history, getUserData]);
@@ -88,9 +87,9 @@ const CheckInPage = () => {
       <StatusBoard />
       <div id='checkin-card-wrapper'>
         {!isFlip ? (
-          <ProfileCard setIsFlip={setIsFlip} handleFlip={handleFlip} />
+          <ProfileCard handleFlip={handleFlip} />
         ) : (
-          <TimeLog setIsFlip={setIsFlip} handleFlip={handleFlip} />
+          <TimeLog  handleFlip={handleFlip} />
         )}
       </div>
     </div>

@@ -14,7 +14,7 @@ import SlideButton from "./SlideButton";
 import { RootState } from "../redux/configureStore";
 
 interface IProps {
-  handleFlip: () => void;
+  handleFlip: (e:React.MouseEvent) => void;
 }
 
 const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
