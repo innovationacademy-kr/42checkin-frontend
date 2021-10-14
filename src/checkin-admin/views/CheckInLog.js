@@ -245,17 +245,15 @@ function CheckInLog() {
                     log.login,
                     log.card_no,
                     log.card_no > 999 ? '서초' : '개포',
-                    // log.card_no ?? log.User.card_no,
-                    // (log.card_no && log.card_no > 999) ||
-                    // (log.User.card_no && log.User.card_no > 999)
-                    //   ? '서초'
-                    //   : '개포',
-                    log.state === 'checkIn' || log.type === 'checkIn' ? (
-                      // log.card_no !== null ? (
+                    logType === 3 ||
+                    (logType === 0 && log['User.card_no'] === log.card_no) ||
+                    ((logType === 1 || logType === 2) && log.User.card_no === log.card_no) ? (
                       <button
                         className='force-out-Btn'
                         onClick={checkOutOnClick}
-                        data-idx={log._id}
+                        data-idx={
+                          logType === 0 ? log['User._id'] : logType === 3 ? log._id : log.User._id
+                        }
                       >
                         퇴실 처리
                       </button>
