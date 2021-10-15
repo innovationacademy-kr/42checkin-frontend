@@ -1,16 +1,18 @@
-import { useSelector, shallowEqual } from 'react-redux';
+import React from "react";
+import { useSelector, shallowEqual } from "react-redux";
+import { RootState } from "../redux/configureStore";
 
 const CheckInInfo = () => {
   const { cardNum } = useSelector(
-    state => ({
-      cardNum: state.user.cardNum
+    (state: RootState) => ({
+      cardNum: state.user.cardNum,
     }),
-    shallowEqual
+    shallowEqual,
   );
 
   return (
     <div>
-      <div style={{ textAlign: 'center' }}>
+      <div style={{ textAlign: "center" }}>
         <div style={{ fontSize: 20 }}>Card Number</div>
         <div style={{ fontSize: 70 }}>{cardNum}</div>
       </div>

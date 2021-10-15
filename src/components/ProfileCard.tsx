@@ -1,25 +1,30 @@
-import { useState, useEffect, useCallback } from 'react';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import Button from '../components/Button';
-import Profile from '../components/Profile';
-import CheckInForm from '../components/CheckInForm';
-import CheckInInfo from '../components/CheckInInfo';
-import { checkOut, checkIn } from '../api/api';
+import React, { useState, useEffect, useCallback } from "react";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import { useHistory } from "react-router-dom";
+import ListIcon from "@mui/icons-material/List";
+import Button from "./Button";
+import Profile from "./Profile";
+import CheckInForm from "./CheckInForm";
+import CheckInInfo from "./CheckInInfo";
+import { checkOut, checkIn } from "../api/api";
 
-import { setCardNum } from '../redux/modules/user';
-import ListIcon from '@mui/icons-material/List';
-import '../styles/ProfileCard.css';
-import SlideButton from '../components/SlideButton';
+import { setCardNum } from "../redux/modules/user";
+import "../styles/ProfileCard.css";
+import SlideButton from "./SlideButton";
+import { RootState } from "../redux/configureStore";
 
-const ProfileCard = ({ handleFlip }) => {
+interface IProps {
+  handleFlip: (e:React.MouseEvent) => void;
+}
+
+const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
   const history = useHistory();
   const { cardNum, status } = useSelector(
-    state => ({
+    (state: RootState) => ({
       cardNum: state.user.cardNum,
-      status: state.user.status
+      status: state.user.status,
     }),
-    shallowEqual
+    shallowEqual,
   );
 
   const dispatch = useDispatch();
@@ -29,29 +34,19 @@ const ProfileCard = ({ handleFlip }) => {
   const [readySubmit, setReadySubmit] = useState(false);
   const [isFold, setIsFold] = useState(false);
 
-  const btnText = status === 'out' ? 'CHECK IN' : 'CHECK OUT';
+  const btnText = status === "out" ? "CHECK IN" : "CHECK OUT";
 
   const handleCheckIn = useCallback(async () => {
     if (readySubmit) {
       try {
-        const response = await checkIn(cardNum);
-        if (!response.data.result) {
-          alert(response.data.message);
-        } else {
-          history.push('/end');
-        }
-      } catch (err) {
-        if (err.response.data.message) {
-          // if (err.response.data.code === 404) {
-          alert(err.response.data.message);
-        } else {
-          alert('체크인을 처리할 수 없습니다. 제한 인원 초과가 아닌 경우 관리자에게 문의해주세요.');
-        }
-        dispatch(
-          setCardNum({
-            cardNum: ''
-          })
-        );
+        await checkIn(cardNum);
+        history.push("/end");
+      } catch (err: any) {
+        if (err.response.data.code === 404) alert(err.response.data.message);
+        else
+          alert("체크인을 처리할 수 없습니다. 제한 인원 초과가 아닌 경우 관리자에게 문의해주세요.");
+
+        dispatch(setCardNum({ cardNum: "" }));
       }
     }
   }, [cardNum, readySubmit, history, dispatch]);
@@ -59,13 +54,13 @@ const ProfileCard = ({ handleFlip }) => {
   const handleCheckOut = useCallback(async () => {
     try {
       await checkOut();
-      history.push('/end');
-    } catch (err) {
+      history.push("/end");
+    } catch (err: any) {
       if (!err.response) {
-        alert('정상적으로 처리되지 않았습니다.\n네트워크 연결 상태를 확인해주세요.');
+        alert("정상적으로 처리되지 않았습니다.\n네트워크 연결 상태를 확인해주세요.");
       } else if (err.response.data.code === 404) {
-        alert('이미 체크아웃 되었습니다.');
-        history.push('/');
+        alert("이미 체크아웃 되었습니다.");
+        history.push("/");
       } else {
         alert(err.response.data.message);
       }
@@ -81,7 +76,7 @@ const ProfileCard = ({ handleFlip }) => {
   }, [cardNum, checkAll]);
 
   useEffect(() => {
-    if (status === 'out') {
+    if (status === "out") {
       checkSubmitCondition();
     }
   }, [cardNum, status, checkSubmitCondition]);
@@ -98,7 +93,7 @@ const ProfileCard = ({ handleFlip }) => {
       setCheckAll(false);
     };
   }, [checkStatus]);
-  //slider
+  // slider
   const [sliderValue, setSliderValue] = useState(0);
   useEffect(() => {
     if (sliderValue === 100) handleCheckOut();
@@ -107,14 +102,14 @@ const ProfileCard = ({ handleFlip }) => {
     <div id='profile-card-wrapper'>
       <div
         style={{
-          textAlign: 'right',
-          width: '100%'
+          textAlign: "right",
+          width: "100%",
         }}
       >
         <ListIcon onClick={handleFlip} />
       </div>
       <Profile />
-      {status === 'out' ? (
+      {status === "out" ? (
         <>
           <CheckInForm
             checkAll={checkAll}
@@ -124,12 +119,12 @@ const ProfileCard = ({ handleFlip }) => {
             isFold={isFold}
             setIsFold={setIsFold}
           />
+
+          {/* TODO:버튼은 폼에 잇는게 맞음 추후에 수정 */}
           <Button
-            // className={
-            //   status === 'out' ? `submitBtn out ${readySubmit ? 'ready' : ''}` : 'submitBtn in'
-            // }
+            type='button'
             className='submitBtn'
-            handleClick={status === 'out' ? handleCheckIn : handleCheckOut}
+            handleClick={status === "out" ? handleCheckIn : handleCheckOut}
             text={btnText}
             disabled={!readySubmit}
           />
@@ -138,7 +133,7 @@ const ProfileCard = ({ handleFlip }) => {
         <>
           <hr className='divider' />
           <CheckInInfo />
-          <SlideButton value={sliderValue} setValue={setSliderValue}></SlideButton>
+          <SlideButton value={sliderValue} setValue={setSliderValue} />
         </>
       )}
     </div>

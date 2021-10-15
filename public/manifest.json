@@ -1,6 +1,16 @@
 {
+<<<<<<< Updated upstream
+<<<<<<< HEAD
   "short_name": "42CheckIn",
   "name": "42CheckIn",
+=======
+  "short_name": "React App",
+  "name": "Create React App Sample",
+>>>>>>> 817155d (Initialize project using Create React App)
+=======
+  "short_name": "42CheckIn",
+  "name": "42CheckIn",
+>>>>>>> Stashed changes
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,9 +18,26 @@
       "type": "image/x-icon"
     },
     {
+<<<<<<< Updated upstream
+<<<<<<< HEAD
       "src": "apple-touch-icon.png",
       "type": "image/png",
       "sizes": "180x180"
+=======
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+>>>>>>> 817155d (Initialize project using Create React App)
+=======
+      "src": "apple-touch-icon.png",
+      "type": "image/png",
+      "sizes": "180x180"
+>>>>>>> Stashed changes
     }
   ],
   "start_url": ".",

@@ -1,13 +1,15 @@
-import { useSelector, shallowEqual } from 'react-redux';
-import '../styles/Profile.css';
+import React from "react";
+import { useSelector, shallowEqual } from "react-redux";
+import { RootState } from "../redux/configureStore";
+import "../styles/Profile.css";
 
 const Profile = () => {
   const { id, profile } = useSelector(
-    state => ({
+    (state: RootState) => ({
       id: state.user.id,
-      profile: state.user.profile
+      profile: state.user.profile,
     }),
-    shallowEqual
+    shallowEqual,
   );
 
   return (
