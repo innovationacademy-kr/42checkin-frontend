@@ -1,18 +1,19 @@
-import { useSelector, shallowEqual } from 'react-redux';
-import '../styles/StatusBoard.css';
+import React, { useSelector, shallowEqual } from "react-redux";
+import { RootState } from "../redux/configureStore";
+import "../styles/StatusBoard.css";
 
 const StatusBoard = () => {
   const { maxGaepo, maxSeocho } = useSelector(
-    state => ({
+    (state: RootState) => ({
       maxGaepo: state.config.gaepo,
-      maxSeocho: state.config.seocho
+      maxSeocho: state.config.seocho,
     }),
-    shallowEqual
+    shallowEqual,
   );
 
-  const { gaepo, seocho } = useSelector(state => ({
+  const { gaepo, seocho } = useSelector((state) => ({
     gaepo: state.status.gaepo,
-    seocho: state.status.seocho
+    seocho: state.status.seocho,
   }));
 
   return (

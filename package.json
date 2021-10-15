@@ -1,6 +1,6 @@
 {
-  "name": "42checkin",
-  "version": "2.01.01",
+  "name": "checkin_front_tsc",
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.4.1",
@@ -10,9 +10,13 @@
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@mui/icons-material": "^5.0.1",
     "@mui/material": "^5.0.2",
-    "@testing-library/jest-dom": "^5.11.10",
-    "@testing-library/react": "^11.2.6",
-    "@testing-library/user-event": "^12.8.3",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
     "axios": "^0.21.1",
     "chart.js": "^3.5.1",
     "classnames": "^2.3.1",
@@ -26,7 +30,18 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "redux": "^4.1.1",
-    "web-vitals": "^1.1.1"
+    "redux-devtools-extension": "^2.13.9",
+    "redux-logger": "^3.0.6",
+    "typescript": "^4.1.2",
+    "web-vitals": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/react-router-dom": "^5.3.1",
+    "@types/redux-logger": "^3.0.9",
+    "dotenv-cli": "^4.0.0",
+    "eslint": "7.32.0",
+    "eslint-config-airbnb-typescript-prettier": "^4.2.0",
+    "prettier": "2.4.1"
   },
   "scripts": {
     "start": "PORT=3001 react-scripts start",
@@ -53,10 +68,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "dotenv-cli": "^4.0.0",
-    "redux-devtools-extension": "^2.13.9",
-    "redux-logger": "^3.0.6"
   }
 }

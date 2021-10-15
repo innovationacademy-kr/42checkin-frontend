@@ -1,0 +1,14 @@
+{
+  "extends": ["airbnb-typescript-prettier"],
+  "rules": {
+    "prettier/prettier": "warn",
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-filename-extension": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "import/prefer-default-export": "warn",
+    "react/button-has-type":"off"
+  },
+  "ignorePatterns": ["src/admin/**/*", "src/checkin-admin/**/*"]
+}
