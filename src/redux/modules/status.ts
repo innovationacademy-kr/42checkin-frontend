@@ -1,27 +1,27 @@
 // actions
-const SET_HEADCOUNT = 'SET_HEADCOUNT' as const
+const SET_HEADCOUNT = "SET_HEADCOUNT" as const;
 
 // action creators
 export const setHeadCount = (data: Status) => {
-  const { seocho, gaepo } = data
+  const { seocho, gaepo } = data;
   return {
     type: SET_HEADCOUNT,
     payload: {
       seocho,
       gaepo,
     },
-  }
-}
+  };
+};
 
 // type
 
-type StatusActions = ReturnType<typeof setHeadCount>
+type StatusActions = ReturnType<typeof setHeadCount>;
 
 // initalState
 const initalState: Status = {
   seocho: 0,
   gaepo: 0,
-}
+};
 
 // reducer
 export const status = (state = initalState, action: StatusActions): Status => {
@@ -31,8 +31,8 @@ export const status = (state = initalState, action: StatusActions): Status => {
         ...state,
         seocho: action.payload.seocho,
         gaepo: action.payload.gaepo,
-      }
+      };
     default:
-      return state
+      return state;
   }
-}
+};

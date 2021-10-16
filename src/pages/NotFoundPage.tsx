@@ -1,22 +1,23 @@
-import { useHistory } from 'react-router-dom';
-import { Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import React from "react";
+import { useHistory } from "react-router-dom";
+import { Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   homeBtn: {
-    color: 'black',
-    background: 'white',
-    fontFamily: 'Futura',
-    border: 'none',
-    '&:hover': {
-      background: 'white'
-    }
-  }
+    color: "black",
+    background: "white",
+    fontFamily: "Futura",
+    border: "none",
+    "&:hover": {
+      background: "white",
+    },
+  },
 });
 
 function NotFoundPage() {
@@ -24,7 +25,7 @@ function NotFoundPage() {
   const history = useHistory();
 
   const handleClick = () => {
-    history.push('/');
+    history.push("/");
   };
 
   return (

@@ -1,6 +1,8 @@
 import React, { useEffect, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { Alert, AlertTitle } from "@material-ui/lab";
+import { makeStyles } from "@material-ui/core/styles";
 import { getCookieValue } from "./utils/utils";
 import { login, logout } from "./redux/modules/user";
 import { setConfig } from "./redux/modules/config";
@@ -14,8 +16,6 @@ import NotFoundPage from "./pages/NotFoundPage";
 import CheckInLog from "./checkin-admin/views/CheckInLog";
 import CheckInSetting from "./checkin-admin/views/CheckInSetting";
 
-import { Alert, AlertTitle } from "@material-ui/lab";
-import { makeStyles } from "@material-ui/core/styles";
 import "./App.css";
 
 const useStyles = makeStyles(() => ({
@@ -40,11 +40,11 @@ function App() {
   //   closeAt: state.config.closeAt
   // }));
 
-  const vh = window.innerHeight * 0.01;
+  let vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty("--vh", `${vh}px`);
 
   window.addEventListener("resize", () => {
-    const vh = window.innerHeight * 0.01;
+    vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   });
 
@@ -75,7 +75,7 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    const token = getCookieValue(process.env.REACT_APP_AUTH_KEY!);
+    const token = getCookieValue(process.env.REACT_APP_AUTH_KEY);
     if (!token) {
       dispatch(logout());
       getHeadCount();
@@ -100,7 +100,7 @@ function App() {
             </Alert>
           )}
           <Switch>
-            <Route path='/' exact={true} component={LandingPage} />
+            <Route path='/' exact component={LandingPage} />
             <Route path='/checkin' exact component={CheckInPage} />
             <Route path='/end' exact component={EndPage} />
             <Route path='/admin/log' exact component={CheckInLog} />

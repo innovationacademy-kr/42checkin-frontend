@@ -22,7 +22,7 @@ const CheckInForm: React.FC<IProps> = ({
   setCheckAll,
   checkStatus,
   setCheckStatus,
-  isFold,
+  // isFold,
   setIsFold,
 }) => {
   const dispatch = useDispatch();
@@ -49,14 +49,14 @@ const CheckInForm: React.FC<IProps> = ({
   return (
     <>
       <div id='check-in-form-wrapper'>
-        <input
-          id='allCheck'
-          style={{ fontSize: "1em", margin: "5px" }}
-          type='checkbox'
-          checked={checkAll}
-          onChange={handleCheckAll}
-        />
         <label htmlFor='allCheck' style={{ fontSize: "1em" }}>
+          <input
+            id='allCheck'
+            style={{ fontSize: "1em", margin: "5px" }}
+            type='checkbox'
+            checked={checkAll}
+            onChange={handleCheckAll}
+          />
           <span>모두 동의</span>
           <span style={{ color: "red", fontWeight: "bold" }}>*</span>
         </label>
@@ -64,7 +64,7 @@ const CheckInForm: React.FC<IProps> = ({
         <div>
           {checkLists.map((checkList, idx) => (
             <Checkbox
-              key={idx}
+              key={checkList}
               idx={idx}
               text={checkList}
               checkStatus={checkStatus}

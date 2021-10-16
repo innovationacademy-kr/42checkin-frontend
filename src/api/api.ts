@@ -34,10 +34,10 @@ export const getUsingCard = () => {
   return instance.get(`/user/using`);
 };
 
-export const getUsageList = async (from: any, to: any) => {
+export const getUsageList = async (from: string, to: string) => {
   return instance.get(`/user/usage`, { params: { from, to } });
 };
 
-export const getDailyUsage = async (from: any, to: any) => {
+export const getDailyUsage = async (from: string, to: string) => {
   return instance.get(`/user/usage/daily`, { params: { from, to } });
 };

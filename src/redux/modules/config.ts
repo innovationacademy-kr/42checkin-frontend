@@ -7,15 +7,15 @@ export const setConfig = (data: Config) => {
   return {
     type: SET_CONFIG,
     payload: {
-      openAt: openAt,
-      closeAt: closeAt,
-      seocho: seocho,
-      gaepo: gaepo,
+      openAt,
+      closeAt,
+      seocho,
+      gaepo,
     },
   };
 };
 
-//type
+// type
 type ConfigActions = ReturnType<typeof setConfig>;
 
 // initalState

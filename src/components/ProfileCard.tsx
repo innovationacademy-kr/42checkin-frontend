@@ -14,7 +14,7 @@ import SlideButton from "./SlideButton";
 import { RootState } from "../redux/configureStore";
 
 interface IProps {
-  handleFlip: (e:React.MouseEvent) => void;
+  handleFlip: (e: React.MouseEvent) => void;
 }
 
 const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
@@ -93,6 +93,7 @@ const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
       setCheckAll(false);
     };
   }, [checkStatus]);
+
   // slider
   const [sliderValue, setSliderValue] = useState(0);
   useEffect(() => {

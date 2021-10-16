@@ -1,68 +1,68 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { setHeadCount } from '../../redux/modules/status';
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { setHeadCount } from "../../redux/modules/status";
 
-import * as moment from 'moment';
-import { makeStyles } from '@material-ui/core/styles';
-import GridItem from '../components/Grid/GridItem.js';
-import GridContainer from '../components/Grid/GridContainer.js';
-import Table from '../components/Table/Table.js';
-import Card from '../components/Card/Card.js';
-import CardHeader from '../components/Card/CardHeader.js';
-import CardBody from '../components/Card/CardBody.js';
-import Paper from '@material-ui/core/Paper';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import SettingsIcon from '@material-ui/icons/Settings';
+import * as moment from "moment";
+import { makeStyles } from "@material-ui/core/styles";
+import GridItem from "../components/Grid/GridItem.js";
+import GridContainer from "../components/Grid/GridContainer.js";
+import Table from "../components/Table/Table.js";
+import Card from "../components/Card/Card.js";
+import CardHeader from "../components/Card/CardHeader.js";
+import CardBody from "../components/Card/CardBody.js";
+import Paper from "@material-ui/core/Paper";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Button from "@material-ui/core/Button";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import SettingsIcon from "@material-ui/icons/Settings";
 
-import PaginationRounded from '../components/Paging';
-import SearchBar from '../components/SearchBar';
-import StatusBoard from '../../components/StatusBoard';
-import { forceCheckOut, checkAdmin as getCheckAdmin, getUsingCard } from '../api/api';
+import PaginationRounded from "../components/Paging";
+import SearchBar from "../components/SearchBar";
+import StatusBoard from "../../components/StatusBoard";
+import { forceCheckOut, checkAdmin as getCheckAdmin, getUsingCard } from "../api/api";
 
-import '../assets/styles/AdminPage.css';
+import "../assets/styles/AdminPage.css";
 
 const LOGTYPE = {
-  0: '클러스터',
-  1: '인트라 ID',
-  2: '카드 번호',
-  3: '미반납 카드'
+  0: "클러스터",
+  1: "인트라 ID",
+  2: "카드 번호",
+  3: "미반납 카드",
 };
 const styles = {
   root: {
     flexGrow: 1,
-    maxWidth: ''
+    maxWidth: "",
   },
   cardTitleWhite: {
-    color: '#FFFFFF',
-    marginTop: '0px',
-    minHeight: 'auto',
-    fontWeight: '500',
+    color: "#FFFFFF",
+    marginTop: "0px",
+    minHeight: "auto",
+    fontWeight: "500",
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    marginBottom: '3px',
-    textDecoration: 'none',
-    '& small': {
-      color: '#777',
-      fontSize: '65%',
-      fontWeight: '400',
-      lineHeight: '1'
-    }
+    marginBottom: "3px",
+    textDecoration: "none",
+    "& small": {
+      color: "#777",
+      fontSize: "65%",
+      fontWeight: "400",
+      lineHeight: "1",
+    },
   },
   header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center'
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   settingBtn: {
-    background: 'white',
-    '&:hover': {
-      background: 'white'
-    }
-  }
+    background: "white",
+    "&:hover": {
+      background: "white",
+    },
+  },
 };
 
 const useStyles = makeStyles(styles);
@@ -70,7 +70,7 @@ const useStyles = makeStyles(styles);
 function a11yProps(index) {
   return {
     id: `full-width-tab-${index}`,
-    'aria-controls': `full-width-tabpanel-${index}`
+    "aria-controls": `full-width-tabpanel-${index}`,
   };
 }
 
@@ -81,8 +81,8 @@ function CheckInLog() {
   const [logs, setLogs] = useState([]);
   const [page, setPage] = useState(1);
 
-  const [clusterType, setClusterType] = useState('0');
-  const [login, setLogin] = useState('');
+  const [clusterType, setClusterType] = useState("0");
+  const [login, setLogin] = useState("");
   const [cardId, setCardId] = useState(0);
 
   const [lastPage, setLastPage] = useState(1);
@@ -90,16 +90,16 @@ function CheckInLog() {
   const ref = useRef();
 
   const classes = useStyles();
-  const tableHead = ['ID', '시간', '출/입', '인트라 ID', '카드 번호', '클러스터', '강제 퇴실'];
+  const tableHead = ["ID", "시간", "출/입", "인트라 ID", "카드 번호", "클러스터", "강제 퇴실"];
 
   const [listSize, setListSize] = useState(50);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleClick = event => {
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = e => {
+  const handleClose = (e) => {
     setListSize(e.target.innerText);
     setAnchorEl(null);
   };
@@ -109,7 +109,7 @@ function CheckInLog() {
       setLogs([]);
       setPage(1);
       setLogType(newValue);
-      setLogin('');
+      setLogin("");
       setCardId(0);
       setLastPage(0);
     }
@@ -119,27 +119,27 @@ function CheckInLog() {
     try {
       const response = await getCheckAdmin();
       if (!(response.data && response.data.isAdmin)) {
-        window.alert('접근 권한이 없습니다.');
-        history.push('/');
+        window.alert("접근 권한이 없습니다.");
+        history.push("/");
       }
     } catch (err) {
       console.log(err);
-      window.alert('오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      window.alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
       document.cookie = `${process.env.REACT_APP_AUTH_KEY}=; expires=Thu, 01 Jan 1970 00:00:01 GMT; domain=${process.env.REACT_APP_COOKIE_DOMAIN}`;
-      history.push('/');
+      history.push("/");
     }
   }, [history]);
 
-  const checkOutOnClick = async e => {
+  const checkOutOnClick = async (e) => {
     try {
       const userId = e.target.dataset.idx;
       if (userId) {
-        window.confirm('퇴실 처리 하시겠습니까?');
+        window.confirm("퇴실 처리 하시겠습니까?");
         await forceCheckOut(userId);
         setLogs([]);
         ref.current.onSubmit(e);
       } else {
-        window.alert('유효한 인트라 ID가 아닙니다.');
+        window.alert("유효한 인트라 ID가 아닙니다.");
       }
     } catch (err) {
       console.log(err);
@@ -153,7 +153,7 @@ function CheckInLog() {
     } catch (err) {
       console.log(err);
     }
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     checkAdmin();
@@ -163,19 +163,19 @@ function CheckInLog() {
   return (
     <div
       style={{
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        margin: 'auto'
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        margin: "auto",
       }}
     >
       <StatusBoard></StatusBoard>
-      <div style={{ marginBottom: '5px' }}>
+      <div style={{ marginBottom: "5px" }}>
         <Button
           className={classes.settingBtn}
           startIcon={<SettingsIcon />}
           onClick={() => {
-            history.push('/admin/setting');
+            history.push("/admin/setting");
           }}
         >
           Setting
@@ -240,24 +240,24 @@ function CheckInLog() {
                 tableData={logs.map((log, idx) => {
                   return [
                     log._id ?? (page - 1) * listSize + idx + 1,
-                    moment(log.created_at).format('MM월 DD일 HH:mm') ?? null,
+                    moment(log.created_at).format("MM월 DD일 HH:mm") ?? null,
                     logType === 3 ? log.state : log.type,
                     log.login,
                     log.card_no,
-                    log.card_no > 999 ? '서초' : '개포',
+                    log.card_no > 999 ? "서초" : "개포",
                     logType === 3 ||
-                    (logType === 0 && log['User.card_no'] === log.card_no) ||
+                    (logType === 0 && log["User.card_no"] === log.card_no) ||
                     ((logType === 1 || logType === 2) && log.User.card_no === log.card_no) ? (
                       <button
                         className='force-out-Btn'
                         onClick={checkOutOnClick}
                         data-idx={
-                          logType === 0 ? log['User._id'] : logType === 3 ? log._id : log.User._id
+                          logType === 0 ? log["User._id"] : logType === 3 ? log._id : log.User._id
                         }
                       >
                         퇴실 처리
                       </button>
-                    ) : null
+                    ) : null,
                   ];
                 })}
               />

@@ -11,7 +11,7 @@ const FOUR_HOURS = 4 * 60 * 60;
 const WALLET_PER_HOUR = 1;
 
 interface IProps {
-  handleFlip: (e:React.MouseEvent) => void;
+  handleFlip: (e: React.MouseEvent) => void;
 }
 const TimeLog: React.FC<IProps> = ({ handleFlip }) => {
   const [logs, setLogs] = useState([]);
@@ -155,7 +155,7 @@ const TimeLog: React.FC<IProps> = ({ handleFlip }) => {
         const logData = response.data.list;
         const wallet =
           // TODO: seconds 타입
-          logData.filter(({ seconds }: { seconds: any }) => +seconds >= FOUR_HOURS).length *
+          logData.filter(({ seconds }: { seconds: string }) => +seconds >= FOUR_HOURS).length *
           WALLET_PER_HOUR;
         setCount(wallet);
         setLogs(logData.reverse());
@@ -189,7 +189,7 @@ const TimeLog: React.FC<IProps> = ({ handleFlip }) => {
           <div key={idx.toString()}>
             <li className='log-data'>
               <time dateTime={date}>{date}</time>
-              <div>{sec2hour(seconds)}</div>
+              <div>{sec2hour(+seconds)}</div>
               <div>{+seconds >= FOUR_HOURS && `${WALLET_PER_HOUR}₳`}</div>
             </li>
             <hr className='divider' />

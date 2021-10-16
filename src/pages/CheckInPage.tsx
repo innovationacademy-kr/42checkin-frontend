@@ -1,19 +1,17 @@
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { checkAdmin, getUsingCard } from "../api/api";
+import { checkAdmin } from "../api/api";
 import { setHeadCount } from "../redux/modules/status";
-import { logout } from "../redux/modules/user";
+import { logout, setUser } from "../redux/modules/user";
 
 import StatusBoard from "../components/StatusBoard";
 import ProfileCard from "../components/ProfileCard";
 import TimeLog from "../components/TimeLog";
 
-import { setUser } from "../redux/modules/user";
 import { DEFAULT_PROFILE } from "../utils/utils";
 
 import "../styles/CheckInPage.css";
-import SlideButton from "../components/SlideButton";
 import { RootState } from "../redux/modules";
 
 const CheckInPage = () => {
@@ -52,7 +50,7 @@ const CheckInPage = () => {
       document.cookie = `${process.env.REACT_APP_AUTH_KEY}=; expires=Thu, 01 Jan 1970 00:00:01 GMT; domain=${process.env.REACT_APP_COOKIE_DOMAIN}`;
       dispatch(logout());
     }
-  }, [dispatch]);
+  }, [dispatch, isLogin]);
 
   // const getHeadCount = useCallback(async () => {
   //   try {
@@ -63,10 +61,10 @@ const CheckInPage = () => {
   //   }
   // }, [dispatch]);
 
-  const handleFlip = (e: React.MouseEvent) => {
+  const handleFlip = () => {
     setIsFlip((state) => !state);
     const elem = document.getElementById("checkin-card-wrapper") as HTMLElement;
-    if (elem.style.transform == "rotateY(180deg)") elem.style.transform = "rotateY(0deg)";
+    if (elem.style.transform === "rotateY(180deg)") elem.style.transform = "rotateY(0deg)";
     else elem.style.transform = "rotateY(180deg)";
   };
 
@@ -86,11 +84,7 @@ const CheckInPage = () => {
       {/* <h2 style={{ marginBottom: '0' }}>CHECK IN</h2> */}
       <StatusBoard />
       <div id='checkin-card-wrapper'>
-        {!isFlip ? (
-          <ProfileCard handleFlip={handleFlip} />
-        ) : (
-          <TimeLog  handleFlip={handleFlip} />
-        )}
+        {!isFlip ? <ProfileCard handleFlip={handleFlip} /> : <TimeLog handleFlip={handleFlip} />}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, shallowEqual } from "react-redux";
 import { useHistory } from "react-router-dom";
 import StatusBoard from "../components/StatusBoard";
@@ -31,7 +31,12 @@ function LandingPage() {
       <h1>Check In Cluster</h1>
       <StatusBoard />
       {/* <StatusChart /> */}
-      <Button type="button" className='submitBtn ready out' handleClick={handleLogin} text={"LOG IN"} />
+      <Button
+        type='button'
+        className='submitBtn ready out'
+        handleClick={handleLogin}
+        text='LOG IN'
+      />
     </div>
   );
 }
