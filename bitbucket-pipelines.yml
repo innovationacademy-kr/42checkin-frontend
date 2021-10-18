@@ -1,0 +1,32 @@
+image: node:10.15.3
+pipelines:
+  branches:
+    develop:
+      - step:
+          name: Install and Build
+          script:
+            - npm install
+            - REACT_APP_ENVIRONMENT=production npm run build_dev
+          artifacts:
+            - build/**
+      - step:
+          name: Deploy to S3
+          deployment: production
+          script:
+            - pipe: atlassian/aws-s3-deploy:1.1.0
+              variables:
+                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+                S3_BUCKET: checkin.dev.42seoul.io
+                ACL: 'public-read'
+                LOCAL_PATH: 'build'
+      - step:
+          name: Invalidate Cloudfront Cache
+          script:
+            - pipe: atlassian/aws-cloudfront-invalidate:0.6.0
+              variables:
+                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+                DISTRIBUTION_ID: E2Y9ERNT06QE7K
