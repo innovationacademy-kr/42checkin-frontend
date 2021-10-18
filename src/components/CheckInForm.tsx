@@ -34,7 +34,7 @@ const CheckInForm: React.FC<IProps> = ({
   );
 
   const handleCheckAll = useCallback(
-    (e) => {
+    (e: React.ChangeEvent<HTMLInputElement>) => {
       const isChecked = e.target.checked;
       setCheckAll(isChecked);
       setCheckStatus([isChecked, isChecked, isChecked]);
@@ -80,7 +80,7 @@ const CheckInForm: React.FC<IProps> = ({
           value={cardNum}
           inputMode='numeric' /* 숫자형 키패드 */
           placeholder='카드 번호'
-          onChange={(e) => {
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             dispatch(setCardNum({ cardNum: e.target.value }));
           }}
         />

@@ -1,6 +1,5 @@
 import React, { useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
 import { getCookieValue } from "./utils/utils";
@@ -9,12 +8,7 @@ import { setConfig } from "./redux/modules/config";
 import { setHeadCount } from "./redux/modules/status";
 import { getMaxCapacity, getUsingCard } from "./api/api";
 
-import LandingPage from "./pages/LandingPage";
-import CheckInPage from "./pages/CheckInPage";
-import EndPage from "./pages/EndPage";
-import NotFoundPage from "./pages/NotFoundPage";
-import CheckInLog from "./checkin-admin/views/CheckInLog";
-import CheckInSetting from "./checkin-admin/views/CheckInSetting";
+import AppRouter from "./components/AppRouter";
 
 import "./App.css";
 
@@ -67,8 +61,7 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    const token = getCookieValue(process.env.REACT_APP_AUTH_KEY);
-    if (!token) {
+    if (getCookieValue(process.env.REACT_APP_AUTH_KEY || "")) {
       dispatch(logout());
       getHeadCount();
     } else {
@@ -78,41 +71,33 @@ function App() {
   }, [dispatch, getConfig, getHeadCount]);
 
   useEffect(() => {
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
-
-    window.addEventListener("resize", () => {
-      vh = window.innerHeight * 0.01;
+    const vh = window.innerHeight * 0.01;
+    const handleResize = () => {
       document.documentElement.style.setProperty("--vh", `${vh}px`);
-    });
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   return (
     <>
-      <BrowserRouter>
-        <div id='page-wrapper'>
-          {window.location.pathname.split("/")[1] !== "admin" && (
-            /* openAt && closeAt &&  */
-            <Alert severity='info' variant='filled' className={classes.info}>
-              <AlertTitle className={classes.title}>
-                {/* 운영 시간: {openAt} ~ {closeAt} */}
-                운영 시간: 오전 7:00:00 ~ 오후 10:00:00
-              </AlertTitle>
-              <span>※ 사회적 거리두기 단계에 따라 운영시간 변경 가능</span>
-            </Alert>
-          )}
-          <Switch>
-            <Route path='/' exact component={LandingPage} />
-            <Route path='/checkin' exact component={CheckInPage} />
-            <Route path='/end' exact component={EndPage} />
-            <Route path='/admin/log' exact component={CheckInLog} />
-            <Route path='/admin/setting' exact component={CheckInSetting} />
-            <Redirect from='/submit' to='/checkin' />
-            <Redirect from='/admin' to='/admin/log' />
-            <Route component={NotFoundPage} />
-          </Switch>
-        </div>
-      </BrowserRouter>
+      <div id='page-wrapper'>
+        {window.location.pathname.split("/")[1] !== "admin" && (
+          /* openAt && closeAt &&  */
+          <Alert severity='info' variant='filled' className={classes.info}>
+            <AlertTitle className={classes.title}>
+              {/* 운영 시간: {openAt} ~ {closeAt} */}
+              운영 시간: 오전 7:00:00 ~ 오후 10:00:00
+            </AlertTitle>
+            <span>※ 사회적 거리두기 단계에 따라 운영시간 변경 가능</span>
+          </Alert>
+        )}
+      </div>
+      <AppRouter />
       <footer id='version'>v{process.env.REACT_APP_VERSION}</footer>
     </>
   );
