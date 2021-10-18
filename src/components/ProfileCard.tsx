@@ -45,7 +45,6 @@ const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
         if (err.response.data.code === 404) alert(err.response.data.message);
         else
           alert("체크인을 처리할 수 없습니다. 제한 인원 초과가 아닌 경우 관리자에게 문의해주세요.");
-
         dispatch(setCardNum({ cardNum: "" }));
       }
     }

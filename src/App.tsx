@@ -61,7 +61,7 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (getCookieValue(process.env.REACT_APP_AUTH_KEY || "")) {
+    if (!getCookieValue(process.env.REACT_APP_AUTH_KEY || "")) {
       dispatch(logout());
       getHeadCount();
     } else {
@@ -96,8 +96,8 @@ function App() {
             <span>※ 사회적 거리두기 단계에 따라 운영시간 변경 가능</span>
           </Alert>
         )}
+        <AppRouter />
       </div>
-      <AppRouter />
       <footer id='version'>v{process.env.REACT_APP_VERSION}</footer>
     </>
   );
