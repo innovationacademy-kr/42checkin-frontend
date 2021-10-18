@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment-timezone";
-
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import { getDailyUsage } from "../api/api";
-import { sec2hour } from "../utils/utils";
 
 import "../styles/TimeLog.css";
 
@@ -13,6 +11,7 @@ const WALLET_PER_HOUR = 1;
 interface IProps {
   handleFlip: (e: React.MouseEvent) => void;
 }
+
 const TimeLog: React.FC<IProps> = ({ handleFlip }) => {
   const [logs, setLogs] = useState([]);
   /* const [logs, setLogs] = useState([
@@ -189,7 +188,7 @@ const TimeLog: React.FC<IProps> = ({ handleFlip }) => {
           <div key={idx.toString()}>
             <li className='log-data'>
               <time dateTime={date}>{date}</time>
-              <div>{sec2hour(+seconds)}</div>
+              <div>{moment.utc(+seconds * 1000).format("HH:mm:ss")}</div>
               <div>{+seconds >= FOUR_HOURS && `${WALLET_PER_HOUR}₳`}</div>
             </li>
             <hr className='divider' />

@@ -14,18 +14,3 @@ export const getCookieValue = (key: string | undefined): string => {
   }
   return result;
 };
-
-// export const getTime = (strDate: string): string => {
-//   return new Date(strDate).toLocaleTimeString()
-// }
-
-// TODO: seconds타입
-export const sec2hour = (seconds: number): string => {
-  let minute = seconds / 60;
-  const second = seconds % 60;
-  const hh = minute / 60;
-  minute %= 60;
-  const mm = `0${minute}`.slice(-2);
-  const ss = `0${second}`.slice(-2);
-  return `${hh}:${mm}:${ss}`;
-};
