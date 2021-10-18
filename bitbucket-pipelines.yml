@@ -6,7 +6,7 @@ pipelines:
           name: Install and Build
           script:
             - npm install
-            - REACT_APP_ENVIRONMENT=production npm run build_dev
+            - REACT_APP_ENVIRONMENT=production npm run test_build
           artifacts:
             - build/**
       - step:
