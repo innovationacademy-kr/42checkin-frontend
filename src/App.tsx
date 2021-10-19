@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
 import { getCookieValue } from "./utils/utils";
@@ -7,8 +7,8 @@ import { login, logout } from "./redux/modules/user";
 import { setConfig } from "./redux/modules/config";
 import { setHeadCount } from "./redux/modules/status";
 import { getMaxCapacity, getUsingCard } from "./api/api";
-
 import AppRouter from "./components/AppRouter";
+import { RootState } from "./redux/modules";
 
 import "./App.css";
 
@@ -29,10 +29,10 @@ const useStyles = makeStyles(() => ({
 function App() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  // const { openAt, closeAt } = useSelector(state => ({
-  //   openAt: state.config.openAt,
-  //   closeAt: state.config.closeAt
-  // }));
+  const { openAt, closeAt } = useSelector((state: RootState) => ({
+    openAt: state.config.openAt,
+    closeAt: state.config.closeAt,
+  }));
 
   const getConfig = useCallback(async () => {
     try {
@@ -40,8 +40,8 @@ function App() {
       const response = await getMaxCapacity(today.toISOString().slice(0, 10));
       dispatch(
         setConfig({
-          openAt: "",
-          closeAt: "",
+          openAt: response.data.open_at,
+          closeAt: response.data.close_at,
           seocho: response.data.seocho,
           gaepo: response.data.gaepo,
         }),
@@ -86,12 +86,10 @@ function App() {
   return (
     <>
       <div id='page-wrapper'>
-        {window.location.pathname.split("/")[1] !== "admin" && (
-          /* openAt && closeAt &&  */
+        {window.location.pathname.split("/")[1] !== "admin" && openAt && closeAt && (
           <Alert severity='info' variant='filled' className={classes.info}>
             <AlertTitle className={classes.title}>
-              {/* 운영 시간: {openAt} ~ {closeAt} */}
-              운영 시간: 오전 7:00:00 ~ 오후 10:00:00
+              운영 시간: {openAt} ~ {closeAt}
             </AlertTitle>
             <span>※ 사회적 거리두기 단계에 따라 운영시간 변경 가능</span>
           </Alert>

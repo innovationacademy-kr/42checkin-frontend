@@ -6,8 +6,8 @@ interface User {
   profile: string;
 }
 interface Config {
-  openAt: string;
-  closeAt: string;
+  openAt: string | null;
+  closeAt: string | null;
   seocho: number;
   gaepo: number;
 }
