@@ -32,6 +32,7 @@
     "redux": "^4.1.1",
     "redux-devtools-extension": "^2.13.9",
     "redux-logger": "^3.0.6",
+    "typesafe-actions": "^5.1.0",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
   },

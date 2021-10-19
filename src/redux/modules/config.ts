@@ -1,22 +1,15 @@
+import { createAction, ActionType } from "typesafe-actions";
+
 // actions
-const SET_CONFIG = "SET_CONFIG" as const;
+const SET_CONFIG = "config/SET_CONFIG";
 
 // action creators
-export const setConfig = (data: Config) => {
-  const { openAt, closeAt, seocho, gaepo } = data;
-  return {
-    type: SET_CONFIG,
-    payload: {
-      openAt,
-      closeAt,
-      seocho,
-      gaepo,
-    },
-  };
-};
+
+export const setConfig = createAction(SET_CONFIG)<Config>();
 
 // type
-type ConfigActions = ReturnType<typeof setConfig>;
+const actions = { setConfig };
+type ConfigActions = ActionType<typeof actions>;
 
 // initalState
 const initalState: Config = {
@@ -27,7 +20,7 @@ const initalState: Config = {
 };
 
 // reducer
-export const config = (state = initalState, action: ConfigActions): Config => {
+const configReducer = (state = initalState, action: ConfigActions): Config => {
   switch (action.type) {
     case SET_CONFIG:
       return {
@@ -41,3 +34,5 @@ export const config = (state = initalState, action: ConfigActions): Config => {
       return state;
   }
 };
+
+export default configReducer;

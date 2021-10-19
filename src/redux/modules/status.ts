@@ -1,21 +1,14 @@
+import { createAction, ActionType } from "typesafe-actions";
+
 // actions
-const SET_HEADCOUNT = "SET_HEADCOUNT" as const;
+const SET_HEADCOUNT = "status/SET_HEADCOUNT";
 
 // action creators
-export const setHeadCount = (data: Status) => {
-  const { seocho, gaepo } = data;
-  return {
-    type: SET_HEADCOUNT,
-    payload: {
-      seocho,
-      gaepo,
-    },
-  };
-};
+const setHeadCount = createAction(SET_HEADCOUNT)<Status>();
 
 // type
-
-type StatusActions = ReturnType<typeof setHeadCount>;
+const actions = { setHeadCount };
+type StatusActions = ActionType<typeof actions>;
 
 // initalState
 const initalState: Status = {
@@ -24,7 +17,7 @@ const initalState: Status = {
 };
 
 // reducer
-export const status = (state = initalState, action: StatusActions): Status => {
+const statusReducer = (state = initalState, action: StatusActions): Status => {
   switch (action.type) {
     case SET_HEADCOUNT:
       return {
@@ -36,3 +29,5 @@ export const status = (state = initalState, action: StatusActions): Status => {
       return state;
   }
 };
+
+export default statusReducer;

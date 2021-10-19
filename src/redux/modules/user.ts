@@ -1,44 +1,21 @@
+import { createAction, ActionType } from "typesafe-actions";
 import { DEFAULT_PROFILE } from "../../utils/utils";
 
 // actions
-const LOGIN = "LOGIN" as const;
-const LOGOUT = "LOGOUT" as const;
-const SET_USER = "SET_USER" as const;
-const SET_CARD_NUM = "SET_CARD_NUM" as const;
+const LOGIN = "user/LOGIN";
+const LOGOUT = "user/LOGOUT";
+const SET_USER = "user/SET_USER";
+const SET_CARD_NUM = "user/SET_CARD_NUM";
 
 // action creators
-export const login = () => {
-  return {
-    type: LOGIN,
-  };
-};
-
-export const logout = () => {
-  return {
-    type: LOGOUT,
-  };
-};
-
-export const setUser = (user: User) => {
-  return {
-    type: SET_USER,
-    payload: user,
-  };
-};
-
-export const setCardNum = (param: { cardNum: string }) => {
-  return {
-    type: SET_CARD_NUM,
-    payload: param,
-  };
-};
+export const login = createAction(LOGIN)();
+export const logout = createAction(LOGOUT)();
+export const setUser = createAction(SET_USER)<User>();
+export const setCardNum = createAction(SET_CARD_NUM)<{ cardNum: string }>();
 
 // type
-type UserActions =
-  | ReturnType<typeof login>
-  | ReturnType<typeof logout>
-  | ReturnType<typeof setUser>
-  | ReturnType<typeof setCardNum>;
+const actions = { setCardNum, setUser, login, logout };
+type UserActions = ActionType<typeof actions>;
 
 // initalState
 const initalState: User = {
@@ -50,7 +27,7 @@ const initalState: User = {
 };
 
 // reducer
-export const user = (state = initalState, action: UserActions) => {
+const userReducer = (state = initalState, action: UserActions) => {
   switch (action.type) {
     case LOGIN:
       return {
@@ -79,3 +56,5 @@ export const user = (state = initalState, action: UserActions) => {
       return state;
   }
 };
+
+export default userReducer;
