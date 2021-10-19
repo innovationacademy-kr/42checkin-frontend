@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { useHistory } from "react-router-dom";
 import ListIcon from "@mui/icons-material/List";
 import Button from "./Button";
@@ -8,10 +7,9 @@ import CheckInForm from "./CheckInForm";
 import CheckInInfo from "./CheckInInfo";
 import { checkOut, checkIn } from "../api/api";
 
-import { setCardNum } from "../redux/modules/user";
 import "../styles/ProfileCard.css";
 import SlideButton from "./SlideButton";
-import { RootState } from "../redux/configureStore";
+import useUser from "../utils/hooks/useUser";
 
 interface IProps {
   handleFlip: (e: React.MouseEvent) => void;
@@ -19,15 +17,17 @@ interface IProps {
 
 const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
   const history = useHistory();
-  const { cardNum, status } = useSelector(
-    (state: RootState) => ({
-      cardNum: state.user.cardNum,
-      status: state.user.status,
-    }),
-    shallowEqual,
-  );
-
-  const dispatch = useDispatch();
+  // const { cardNum, status } = useSelector(
+  //   (state: RootState) => ({
+  //     cardNum: state.userReducer.cardNum,
+  //     status: state.userReducer.status,
+  //   }),
+  //   shallowEqual,
+  // );
+  const {
+    user: { cardNum, status },
+    setCardNum,
+  } = useUser();
 
   const [checkAll, setCheckAll] = useState(false);
   const [checkStatus, setCheckStatus] = useState([false, false, false]);
@@ -45,10 +45,10 @@ const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
         if (err.response.data.code === 404) alert(err.response.data.message);
         else
           alert("체크인을 처리할 수 없습니다. 제한 인원 초과가 아닌 경우 관리자에게 문의해주세요.");
-        dispatch(setCardNum({ cardNum: "" }));
+        setCardNum({ cardNum: "" });
       }
     }
-  }, [cardNum, readySubmit, history, dispatch]);
+  }, [readySubmit, cardNum, history, setCardNum]);
 
   const handleCheckOut = useCallback(async () => {
     try {

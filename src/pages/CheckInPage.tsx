@@ -1,10 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { checkAdmin } from "../api/api";
-import { setHeadCount } from "../redux/modules/status";
-import { logout, setUser } from "../redux/modules/user";
-
 import StatusBoard from "../components/StatusBoard";
 import ProfileCard from "../components/ProfileCard";
 import TimeLog from "../components/TimeLog";
@@ -12,45 +8,48 @@ import TimeLog from "../components/TimeLog";
 import { DEFAULT_PROFILE } from "../utils/utils";
 
 import "../styles/CheckInPage.css";
-import { RootState } from "../redux/modules";
+import useUser from "../utils/hooks/useUser";
+import useStatus from "../utils/hooks/useStatus";
 
 const CheckInPage = () => {
-  const dispatch = useDispatch();
   const history = useHistory();
-  const { isLogin } = useSelector(
-    (state: RootState) => ({
-      isLogin: state.user.isLogin,
-    }),
-    shallowEqual,
-  );
-
+  // const { isLogin } = useSelector(
+  //   (state: RootState) => ({
+  //     isLogin: state.userReducer.isLogin,
+  //   }),
+  //   shallowEqual,
+  // );
+  const {
+    user: { isLogin },
+    setUser,
+    logout,
+  } = useUser();
+  const { setHeadCount } = useStatus();
   const [isFlip, setIsFlip] = useState(false);
 
   const getUserData = useCallback(async () => {
     try {
       const response = await checkAdmin();
       const { user, cluster } = response.data;
-      dispatch(
-        setUser({
-          isLogin,
-          id: user.login,
-          cardNum: user.card !== null ? user.card : "",
-          status: user.card !== null ? "in" : "out",
-          profile: user.profile_image_url || DEFAULT_PROFILE,
-        }),
-      );
-      dispatch(
-        setHeadCount({
-          gaepo: cluster.gaepo,
-          seocho: cluster.seocho,
-        }),
-      );
+
+      setUser({
+        isLogin,
+        id: user.login,
+        cardNum: user.card !== null ? user.card : "",
+        status: user.card !== null ? "in" : "out",
+        profile: user.profile_image_url || DEFAULT_PROFILE,
+      });
+
+      setHeadCount({
+        gaepo: cluster.gaepo,
+        seocho: cluster.seocho,
+      });
     } catch (err) {
       console.log(err);
       document.cookie = `${process.env.REACT_APP_AUTH_KEY}=; expires=Thu, 01 Jan 1970 00:00:01 GMT; domain=${process.env.REACT_APP_COOKIE_DOMAIN}`;
-      dispatch(logout());
+      logout();
     }
-  }, [dispatch, isLogin]);
+  }, [isLogin, logout, setHeadCount, setUser]);
 
   // const getHeadCount = useCallback(async () => {
   //   try {

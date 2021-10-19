@@ -12,7 +12,7 @@ function LandingPage() {
   const history = useHistory();
   const { isLogin } = useSelector(
     (state: RootState) => ({
-      isLogin: state.user.isLogin,
+      isLogin: state.userReducer.isLogin,
     }),
     shallowEqual,
   );

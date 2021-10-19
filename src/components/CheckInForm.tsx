@@ -1,12 +1,9 @@
 // TODO: fix lint rule
 import React, { useCallback } from "react";
-
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import Checkbox from "./Checkbox";
 import { checkLists } from "../utils/notice";
-import { setCardNum } from "../redux/modules/user";
 import "../styles/CheckInForm.css";
-import { RootState } from "../redux/modules";
+import useUser from "../utils/hooks/useUser";
 
 interface IProps {
   checkAll: boolean;
@@ -25,13 +22,16 @@ const CheckInForm: React.FC<IProps> = ({
   // isFold,
   setIsFold,
 }) => {
-  const dispatch = useDispatch();
-  const { cardNum } = useSelector(
-    (state: RootState) => ({
-      cardNum: state.user.cardNum,
-    }),
-    shallowEqual,
-  );
+  // const { cardNum } = useSelector(
+  //   (state: RootState) => ({
+  //     cardNum: state.userReducer.cardNum,
+  //   }),
+  //   shallowEqual,
+  // );
+  const {
+    user: { cardNum },
+    setCardNum,
+  } = useUser();
 
   const handleCheckAll = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,7 +81,7 @@ const CheckInForm: React.FC<IProps> = ({
           inputMode='numeric' /* 숫자형 키패드 */
           placeholder='카드 번호'
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            dispatch(setCardNum({ cardNum: e.target.value }));
+            setCardNum({ cardNum: e.target.value });
           }}
         />
       </div>
