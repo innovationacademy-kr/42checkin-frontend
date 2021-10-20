@@ -1,14 +1,12 @@
-#profile-card-wrapper {
+.landing-wrapper {
+  height: fit-content;
+  min-height: inherit;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: center;
-  background-color: white;
-  color: black;
-  border-radius: 13px;
-  padding: 1rem;
-  flex-grow: 1;
-  backface-visibility: hidden;
+  width: 90vw;
+  max-width: 512px;
+  margin: auto;
 }
 
 .submitBtn {
@@ -29,8 +27,4 @@
   border-color: #696969;
   background-color: #696969;
   opacity: 0.2;
-}
-.divider {
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  width: 90%;
 }

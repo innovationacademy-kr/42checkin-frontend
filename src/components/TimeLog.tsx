@@ -3,7 +3,7 @@ import moment from "moment-timezone";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import { getDailyUsage } from "../api/api";
 
-import "../styles/TimeLog.css";
+import classes from "../styles/TimeLog.module.css";
 
 const FOUR_HOURS = 4 * 60 * 60;
 const WALLET_PER_HOUR = 1;
@@ -46,28 +46,28 @@ const TimeLog: React.FC<IProps> = ({ handleFlip }) => {
   }, []);
 
   return (
-    <div id='time-log-wrapper'>
-      <div style={{ textAlign: "right", width: "100%" }}>
+    <div className={classes["time-log-wrapper"]}>
+      <div className={classes["util-box"]}>
         <AccountBoxIcon onClick={handleFlip} />
       </div>
-      <h4 style={{ margin: "0 auto" }}>CLUSTER LOG</h4>
-      <div style={{ width: "100%", textAlign: "right", marginBottom: "1rem" }}>ALL: {count}₳</div>
-      <li className='log-data'>
+      <h4 className={classes["time-log-title"]}>CLUSTER LOG</h4>
+      <div className={classes["time-log-all-count"]}>ALL: {count}₳</div>
+      <li className={classes["log-data"]}>
         <div>DATE</div>
         <div>TIME</div>
         <div>WALLET</div>
       </li>
-      <hr className='divider' />
-      <ul id='log-data-wrapper'>
+      <hr className={classes.divider} />
+      <ul className={classes["log-data-wrapper"]}>
         {logs.map(({ date, seconds }, idx) => (
           // TODO: change key
           <div key={idx.toString()}>
-            <li className='log-data'>
+            <li className={classes["log-data"]}>
               <time dateTime={date}>{date}</time>
               <div>{moment.utc(+seconds * 1000).format("HH:mm:ss")}</div>
               <div>{+seconds >= FOUR_HOURS && `${WALLET_PER_HOUR}₳`}</div>
             </li>
-            <hr className='divider' />
+            <hr className={classes.divider} />
           </div>
         ))}
       </ul>

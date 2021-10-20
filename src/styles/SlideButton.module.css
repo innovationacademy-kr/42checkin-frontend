@@ -1,9 +1,9 @@
-.slider-container {
+.slider-wrapper{
   width: 150px;
   position: relative;
 }
 
-#slider {
+.slider {
   pointer-events: none;
   appearance: none;
   background-color: #e5e5e5;
@@ -13,7 +13,7 @@
   transition: all 0.3s linear;
 }
 
-#slider::-webkit-slider-thumb {
+.slider::-webkit-slider-thumb {
   width: 40px;
   height: 40px;
   pointer-events: all;
@@ -25,7 +25,7 @@
   z-index: 100;
 }
 
-.slider-background-text {
+.slider-backgroundText {
   margin-left: 20px;
   position: absolute;
   top: 50%;

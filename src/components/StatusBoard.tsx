@@ -1,6 +1,6 @@
 import React, { useSelector, shallowEqual } from "react-redux";
 import { RootState } from "../redux/configureStore";
-import "../styles/StatusBoard.css";
+import classes from "../styles/StatusBoard.module.css";
 
 const StatusBoard = () => {
   const { maxGaepo, maxSeocho } = useSelector(
@@ -17,7 +17,7 @@ const StatusBoard = () => {
   }));
 
   return (
-    <div id='status-board-wrapper'>
+    <div className={classes["status-board-wrapper"]}>
       <h3>개포</h3>
       <h3>
         {gaepo} / {maxGaepo}

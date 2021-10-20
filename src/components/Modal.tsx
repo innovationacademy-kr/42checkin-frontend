@@ -1,5 +1,6 @@
 import React from "react";
-import "../styles/Modal.css";
+
+import classes from "../styles/Modal.module.css";
 
 const Modal = () => {
   const copyText = () => {
@@ -15,12 +16,12 @@ const Modal = () => {
   };
 
   return (
-    <div id='myModal' className='modal'>
-      <div className='modal-content'>
-        <p className='text'>42 Wi-Fi를 이용해주세요</p>
-        <p className='text'>Wi-Fi : 42 Guest</p>
-        <p className='text'>pw : WeL0ve42Seoul</p>
-        <button type='button' className='close' onClick={copyText}>
+    <div id='myModal' className={classes.modal}>
+      <div className={classes["modal-content"]}>
+        <p className={classes.text}>42 Wi-Fi를 이용해주세요</p>
+        <p className={classes.text}>Wi-Fi : 42 Guest</p>
+        <p className={classes.text}>pw : WeL0ve42Seoul</p>
+        <button type='button' className={classes.close} onClick={copyText}>
           Copy
         </button>
       </div>

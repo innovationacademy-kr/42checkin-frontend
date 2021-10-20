@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import "../styles/EndPage.css";
+import classes from "../styles/EndPage.module.css";
 
 const EndPage = () => {
   const history = useHistory();
@@ -10,8 +10,8 @@ const EndPage = () => {
   });
 
   return (
-    <div id='text-wrapper'>
-      <h1 id='ending-text'>Complete!</h1>
+    <div className={classes["text-wrapper"]}>
+      <h1 className={classes["ending-text"]}>Complete!</h1>
     </div>
   );
 };

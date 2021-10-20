@@ -7,7 +7,7 @@ import CheckInForm from "./CheckInForm";
 import CheckInInfo from "./CheckInInfo";
 import { postCheckOut, postCheckIn } from "../api/api";
 
-import "../styles/ProfileCard.css";
+import classes from "../styles/ProfileCard.module.css";
 import SlideButton from "./SlideButton";
 import useUser from "../utils/hooks/useUser";
 
@@ -99,7 +99,7 @@ const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
     if (sliderValue === 100) handleCheckOut();
   }, [handleCheckOut, sliderValue]);
   return (
-    <div id='profile-card-wrapper'>
+    <div className={classes.profileCard}>
       <div
         style={{
           textAlign: "right",
@@ -123,7 +123,7 @@ const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
           {/* TODO:버튼은 폼에 잇는게 맞음 추후에 수정 */}
           <Button
             type='button'
-            className='submitBtn'
+            className={classes.submitBtn}
             handleClick={status === "out" ? handleCheckIn : handleCheckOut}
             text={btnText}
             disabled={!readySubmit}
@@ -131,7 +131,7 @@ const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
         </>
       ) : (
         <>
-          <hr className='divider' />
+          <hr className={classes.divider} />
           <CheckInInfo />
           <SlideButton value={sliderValue} setValue={setSliderValue} />
         </>

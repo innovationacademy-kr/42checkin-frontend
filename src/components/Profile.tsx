@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, shallowEqual } from "react-redux";
 import { RootState } from "../redux/configureStore";
-import "../styles/Profile.css";
+import classes from "../styles/Profile.module.css";
 
 const Profile = () => {
   const { id, profile } = useSelector(
@@ -13,8 +13,8 @@ const Profile = () => {
   );
 
   return (
-    <div id='profile-wrapper'>
-      <img id='profile' src={profile} alt='profile' />
+    <div className={classes["profile-wrapper"]}>
+      <img className={classes.profile} src={profile} alt='profile' />
       <h2>{id}</h2>
     </div>
   );
