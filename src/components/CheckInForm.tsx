@@ -2,7 +2,7 @@
 import React, { useCallback } from "react";
 import Checkbox from "./Checkbox";
 import { checkLists } from "../utils/notice";
-import "../styles/CheckInForm.css";
+import classes from "../styles/CheckInForm.module.css";
 import useUser from "../utils/hooks/useUser";
 
 interface IProps {
@@ -43,22 +43,13 @@ const CheckInForm: React.FC<IProps> = ({
     [setCheckAll, setCheckStatus, setIsFold],
   );
 
-  // const handleClick = () => {
-  //   setIsFold(state => !state);
-  // };
   return (
     <>
-      <div id='check-in-form-wrapper'>
-        <label htmlFor='allCheck' style={{ fontSize: "1em" }}>
-          <input
-            id='allCheck'
-            style={{ fontSize: "1em", margin: "5px" }}
-            type='checkbox'
-            checked={checkAll}
-            onChange={handleCheckAll}
-          />
+      <div className={classes["check-in-form-wrapper"]}>
+        <label htmlFor='allCheck' className={classes.allCheck}>
+          <input id='allCheck' type='checkbox' checked={checkAll} onChange={handleCheckAll} />
           <span>모두 동의</span>
-          <span style={{ color: "red", fontWeight: "bold" }}>*</span>
+          <span className={classes.asterisk}>*</span>
         </label>
         {/* {!isFold && ( */}
         <div>
@@ -73,9 +64,9 @@ const CheckInForm: React.FC<IProps> = ({
           ))}
         </div>
       </div>
-      <div style={{ margin: "10px 0" }}>
+      <div className={classes["cardNumber-wrapper"]}>
         <input
-          id='cardNumber'
+          className={classes.cardNumber}
           type='number'
           value={cardNum}
           inputMode='numeric' /* 숫자형 키패드 */

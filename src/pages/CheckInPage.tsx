@@ -1,15 +1,17 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { getUserStatus } from "../api/api";
 import ProfileCard from "../components/ProfileCard";
 import StatusBoard from "../components/StatusBoard";
 import TimeLog from "../components/TimeLog";
-import "../styles/CheckInPage.css";
 import useStatus from "../utils/hooks/useStatus";
 import useUser from "../utils/hooks/useUser";
 import { DEFAULT_PROFILE } from "../utils/utils";
 
+import classes from "../styles/CheckInPage.module.css";
+
 const CheckInPage = () => {
+  const checkinCardWrapper = useRef<HTMLDivElement>(null);
   const history = useHistory();
   const {
     user: { isLogin },
@@ -54,7 +56,11 @@ const CheckInPage = () => {
 
   const handleFlip = () => {
     setIsFlip((state) => !state);
-    const elem = document.getElementById("checkin-card-wrapper") as HTMLElement;
+    const elem = checkinCardWrapper.current;
+    if (!elem) {
+      alert("에러ㅠ");
+      return;
+    }
     if (elem.style.transform === "rotateY(180deg)") elem.style.transform = "rotateY(0deg)";
     else elem.style.transform = "rotateY(180deg)";
   };
@@ -66,10 +72,10 @@ const CheckInPage = () => {
   }, [isLogin, history, getUserData]);
 
   return (
-    <div id='checkin-wrapper'>
+    <div className={classes["checkin-wrapper"]}>
       {/* <h2 style={{ marginBottom: '0' }}>CHECK IN</h2> */}
       <StatusBoard />
-      <div id='checkin-card-wrapper'>
+      <div ref={checkinCardWrapper} className={classes["checkin-card-wrapper"]}>
         {!isFlip ? <ProfileCard handleFlip={handleFlip} /> : <TimeLog handleFlip={handleFlip} />}
       </div>
     </div>

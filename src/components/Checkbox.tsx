@@ -1,5 +1,5 @@
-import "../styles/Checkbox.css";
 import React from "react";
+import classes from "../styles/Checkbox.module.css";
 
 interface IProps {
   idx: number;
@@ -19,10 +19,10 @@ const Checkbox = (props: IProps) => {
 
   return (
     <div>
-      <label htmlFor={idx.toString()} className='checkbox-text'>
+      <label htmlFor={idx.toString()} className={classes["checkbox-text"]}>
         <input
           id={idx.toString()}
-          className='checkbox'
+          className={classes.checkbox}
           type='checkbox'
           checked={checkStatus[idx]}
           onChange={handleChange}

@@ -1,8 +1,9 @@
-#profile-wrapper {
+
+.profileWrapper {
   text-align: center;
 }
 
-#profile {
+.profile {
   object-fit: cover;
   border-radius: 50%;
   max-width: 200px;

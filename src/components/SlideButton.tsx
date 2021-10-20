@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import "../styles/Slider.css";
+import classes from "../styles/SlideButton.module.css";
 
 // TODO: 로직 지저분함 추후에 개선
 interface IProps {
@@ -37,7 +37,7 @@ const SlideButton: React.FC<IProps> = ({ value, setValue }) => {
   };
 
   return (
-    <div className='slider-container'>
+    <div className={classes.sliderContainer}>
       <input
         onMouseUp={checkSliderValue}
         onTouchEnd={checkSliderValue}
@@ -49,9 +49,9 @@ const SlideButton: React.FC<IProps> = ({ value, setValue }) => {
         min={1}
         max={100}
         onChange={setSlideValue}
-        id='slider'
+        className={classes.slider}
       />
-      <p ref={sliderText} className='slider-background-text'>
+      <p ref={sliderText} className={classes.sliderBackgroundText}>
         밀어서 체크아웃
       </p>
     </div>

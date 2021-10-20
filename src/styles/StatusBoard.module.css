@@ -1,4 +1,4 @@
-#status-board-wrapper {
+.status-board-wrapper {
   display: flex;
   justify-content: space-around;
   background-color: rgba(244, 244, 245, 0.1);

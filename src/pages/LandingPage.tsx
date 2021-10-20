@@ -5,7 +5,7 @@ import StatusBoard from "../components/StatusBoard";
 // import StatusChart from '../components/StatusChart';
 import Button from "../components/Button";
 
-import "../styles/LandingPage.css";
+import classes from "../styles/LandingPage.module.css";
 import { RootState } from "../redux/modules";
 
 function LandingPage() {
@@ -27,16 +27,11 @@ function LandingPage() {
   }, [history, isLogin]);
 
   return (
-    <div id='landing-wrapper'>
+    <div className={classes["landing-wrapper"]}>
       <h1>Check In Cluster</h1>
       <StatusBoard />
       {/* <StatusChart /> */}
-      <Button
-        type='button'
-        className='submitBtn ready out'
-        handleClick={handleLogin}
-        text='LOG IN'
-      />
+      <Button type='button' className={classes.submitBtn} handleClick={handleLogin} text='LOG IN' />
     </div>
   );
 }

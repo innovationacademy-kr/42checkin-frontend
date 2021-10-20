@@ -1,4 +1,4 @@
-#text-wrapper {
+.text-wrapper {
   height: fit-content;
   min-height: inherit;
   /* min-height: calc(var(--vh, 1vh) * 90); */
@@ -7,6 +7,6 @@
   align-items: center;
 }
 
-#ending-text {
+.ending-text {
   /* font-family: 'Spoqa Han Sans Neo'; */
 }
