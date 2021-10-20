@@ -10,24 +10,9 @@ interface IProps {
   setCheckAll: React.Dispatch<React.SetStateAction<boolean>>;
   checkStatus: boolean[];
   setCheckStatus: React.Dispatch<React.SetStateAction<boolean[]>>;
-  isFold: boolean;
-  setIsFold: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CheckInForm: React.FC<IProps> = ({
-  checkAll,
-  setCheckAll,
-  checkStatus,
-  setCheckStatus,
-  // isFold,
-  setIsFold,
-}) => {
-  // const { cardNum } = useSelector(
-  //   (state: RootState) => ({
-  //     cardNum: state.userReducer.cardNum,
-  //   }),
-  //   shallowEqual,
-  // );
+const CheckInForm: React.FC<IProps> = ({ checkAll, setCheckAll, checkStatus, setCheckStatus }) => {
   const {
     user: { cardNum },
     setCardNum,
@@ -38,9 +23,8 @@ const CheckInForm: React.FC<IProps> = ({
       const isChecked = e.target.checked;
       setCheckAll(isChecked);
       setCheckStatus([isChecked, isChecked, isChecked]);
-      setIsFold(true);
     },
-    [setCheckAll, setCheckStatus, setIsFold],
+    [setCheckAll, setCheckStatus],
   );
 
   return (
@@ -51,7 +35,6 @@ const CheckInForm: React.FC<IProps> = ({
           <span>모두 동의</span>
           <span className={classes.asterisk}>*</span>
         </label>
-        {/* {!isFold && ( */}
         <div>
           {checkLists.map((checkList, idx) => (
             <Checkbox
