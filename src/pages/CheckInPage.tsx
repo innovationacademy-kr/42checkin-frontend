@@ -1,24 +1,16 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { checkAdmin } from "../api/api";
-import StatusBoard from "../components/StatusBoard";
+import { getUserStatus } from "../api/api";
 import ProfileCard from "../components/ProfileCard";
+import StatusBoard from "../components/StatusBoard";
 import TimeLog from "../components/TimeLog";
-
-import { DEFAULT_PROFILE } from "../utils/utils";
-
 import "../styles/CheckInPage.css";
-import useUser from "../utils/hooks/useUser";
 import useStatus from "../utils/hooks/useStatus";
+import useUser from "../utils/hooks/useUser";
+import { DEFAULT_PROFILE } from "../utils/utils";
 
 const CheckInPage = () => {
   const history = useHistory();
-  // const { isLogin } = useSelector(
-  //   (state: RootState) => ({
-  //     isLogin: state.userReducer.isLogin,
-  //   }),
-  //   shallowEqual,
-  // );
   const {
     user: { isLogin },
     setUser,
@@ -29,7 +21,7 @@ const CheckInPage = () => {
 
   const getUserData = useCallback(async () => {
     try {
-      const response = await checkAdmin();
+      const response = await getUserStatus();
       const { user, cluster } = response.data;
 
       setUser({
@@ -73,11 +65,6 @@ const CheckInPage = () => {
     // getHeadCount();
   }, [isLogin, history, getUserData]);
 
-  // //slider
-  // const [sliderValue, setSliderValue] = useState(0);
-  // useEffect(() => {
-  //   if (sliderValue === 100) handleCheckOut();
-  // }, [handleCheckOut, sliderValue]);
   return (
     <div id='checkin-wrapper'>
       {/* <h2 style={{ marginBottom: '0' }}>CHECK IN</h2> */}

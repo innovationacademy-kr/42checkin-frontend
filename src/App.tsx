@@ -1,15 +1,13 @@
-import React, { useEffect, useCallback } from "react";
-import { Alert, AlertTitle } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
-import { getCookieValue } from "./utils/utils";
-import { getMaxCapacity, getUsingCard } from "./api/api";
-import AppRouter from "./components/AppRouter";
-import { RootState } from "./redux/modules";
-
+import { Alert, AlertTitle } from "@material-ui/lab";
+import React, { useCallback, useEffect } from "react";
+import { getConfig, getUsingCard } from "./api/api";
 import "./App.css";
+import AppRouter from "./components/AppRouter";
 import useConfig from "./utils/hooks/useConfig";
 import useStatus from "./utils/hooks/useStatus";
 import useUser from "./utils/hooks/useUser";
+import { getCookieValue } from "./utils/utils";
 
 const useStyles = makeStyles(() => ({
   info: {
@@ -38,10 +36,10 @@ function App() {
   //   closeAt: state.config.closeAt
   // }));
 
-  const getConfig = useCallback(async () => {
+  const getConfigByDate = useCallback(async () => {
     try {
       const today = new Date();
-      const response = await getMaxCapacity(today.toISOString().slice(0, 10));
+      const response = await getConfig(today.toISOString().slice(0, 10));
       setConfig({
         openAt: "",
         closeAt: "",
@@ -69,8 +67,8 @@ function App() {
     } else {
       login();
     }
-    getConfig();
-  }, [getConfig, getHeadCount, login, logout]);
+    getConfigByDate();
+  }, [getConfigByDate, getHeadCount, login, logout]);
 
   useEffect(() => {
     const vh = window.innerHeight * 0.01;

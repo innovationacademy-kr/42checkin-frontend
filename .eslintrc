@@ -10,7 +10,8 @@
     "import/prefer-default-export": "warn",
     "react/button-has-type": "off",
     "no-alert": "off",
-    "@typescript-eslint/no-explicit-any": "off"
+    "@typescript-eslint/no-explicit-any": "off",
+    "camelcase": "off"
   },
   "ignorePatterns": ["src/admin/**/*", "src/checkin-admin/**/*"]
 }

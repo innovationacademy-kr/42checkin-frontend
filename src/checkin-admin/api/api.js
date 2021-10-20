@@ -14,7 +14,7 @@ const instance = axios.create({
   }
 });
 
-export const checkAdmin = async () => {
+export const getUserStatus = async () => {
   return await instance.get(`/user/status`);
 };
 
