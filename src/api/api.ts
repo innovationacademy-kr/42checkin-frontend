@@ -66,7 +66,7 @@ interface GetConfig {
       open_at: string;
       seocho: number;
       updated_at: string | null;
-      _id: 1;
+      _id: number;
     }>
   >;
 }
