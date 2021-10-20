@@ -13,7 +13,7 @@ const Profile = () => {
   );
 
   return (
-    <div className={classes.profileWrapper}>
+    <div className={classes["profile-wrapper"]}>
       <img className={classes.profile} src={profile} alt='profile' />
       <h2>{id}</h2>
     </div>

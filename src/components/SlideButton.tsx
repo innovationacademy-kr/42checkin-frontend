@@ -37,7 +37,7 @@ const SlideButton: React.FC<IProps> = ({ value, setValue }) => {
   };
 
   return (
-    <div className={classes.sliderContainer}>
+    <div className={classes["slider-wrapper"]}>
       <input
         onMouseUp={checkSliderValue}
         onTouchEnd={checkSliderValue}
@@ -51,7 +51,7 @@ const SlideButton: React.FC<IProps> = ({ value, setValue }) => {
         onChange={setSlideValue}
         className={classes.slider}
       />
-      <p ref={sliderText} className={classes.sliderBackgroundText}>
+      <p ref={sliderText} className={classes["slider-backgroundText"]}>
         밀어서 체크아웃
       </p>
     </div>

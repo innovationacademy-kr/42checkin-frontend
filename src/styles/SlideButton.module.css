@@ -1,4 +1,4 @@
-.sliderContainer {
+.slider-wrapper{
   width: 150px;
   position: relative;
 }
@@ -25,7 +25,7 @@
   z-index: 100;
 }
 
-.sliderBackgroundText {
+.slider-backgroundText {
   margin-left: 20px;
   position: absolute;
   top: 50%;
