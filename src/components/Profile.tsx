@@ -6,8 +6,8 @@ import "../styles/Profile.css";
 const Profile = () => {
   const { id, profile } = useSelector(
     (state: RootState) => ({
-      id: state.user.id,
-      profile: state.user.profile,
+      id: state.userReducer.id,
+      profile: state.userReducer.profile,
     }),
     shallowEqual,
   );

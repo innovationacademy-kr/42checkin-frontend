@@ -5,7 +5,7 @@ import { RootState } from "../redux/configureStore";
 const CheckInInfo = () => {
   const { cardNum } = useSelector(
     (state: RootState) => ({
-      cardNum: state.user.cardNum,
+      cardNum: state.userReducer.cardNum,
     }),
     shallowEqual,
   );

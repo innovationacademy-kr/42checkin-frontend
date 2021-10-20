@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
-import { user } from "./user";
-import { config } from "./config";
-import { status } from "./status";
+import userReducer from "./user";
+import configReducer from "./config";
+import statusReducer from "./status";
 
 const rootReducer = combineReducers({
-  user,
-  config,
-  status,
+  userReducer,
+  configReducer,
+  statusReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
