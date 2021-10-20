@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import moment from "moment-timezone";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import moment from "moment-timezone";
+import React, { useEffect, useState } from "react";
 import { getDailyUsage } from "../api/api";
-
 import classes from "../styles/TimeLog.module.css";
 
 const FOUR_HOURS = 4 * 60 * 60;
@@ -13,7 +12,7 @@ interface IProps {
 }
 
 const TimeLog: React.FC<IProps> = ({ handleFlip }) => {
-  const [logs, setLogs] = useState<Log[]>([]);
+  const [logs, setLogs] = useState<Usage[]>([]);
   const [count, setCount] = useState(0);
 
   const getLogs = async () => {
