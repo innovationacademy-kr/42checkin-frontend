@@ -13,130 +13,7 @@ interface IProps {
 }
 
 const TimeLog: React.FC<IProps> = ({ handleFlip }) => {
-  const [logs, setLogs] = useState([]);
-  /* const [logs, setLogs] = useState([
-     {
-       login: 'ohjongin',
-       date: '2021-10-01',
-       seconds: '1125435'
-     },
-     {
-       login: 'ohjongin',
-       date: '2021-10-02',
-       seconds: '176'
-     },
-     {
-       login: 'ohjongin',
-       date: '2021-11-03',
-       seconds: '300'
-     },
-     {
-       login: 'ohjongin',
-       date: '2021-10-04',
-       seconds: '1125435'
-     },
-     {
-       login: 'ohjongin',
-       date: '2021-10-05',
-       seconds: '176'
-     },
-     {
-       login: 'ohjongin',
-       date: '2021-11-06',
-       seconds: '300'
-     },
-     {
-       login: 'ohjongin',
-       date: '2021-10-07',
-       seconds: '1125435'
-     },
-     {
-       login: 'ohjongin',
-       date: '2021-10-08',
-       seconds: '176'
-     },
-     {
-       login: 'ohjongin',
-       date: '2021-11-09',
-       seconds: '300'
-     },
-     {
-       login: 'ohjongin',
-       date: '2021-10-10',
-       seconds: '1125435'
-     },
-     {
-       login: 'ohjongin',
-       date: '2021-10-11',
-       seconds: '176'
-     },
-     {
-       login: 'ohjongin',
-       date: '2021-11-12',
-       seconds: '300'
-     },
-     {
-       login: 'ohjongin',
-       date: '2021-10-13',
-       seconds: '1125435'
-     },
-     {
-       login: 'ohjongin',
-       date: '2021-10-14',
-       seconds: '176'
-     },
-     {
-       login: 'ohjongin',
-       date: '2021-11-15',
-       seconds: '300'
-     },
-     {
-       login: 'ohjongin',
-       date: '2021-10-16',
-       seconds: '1125435'
-     },
-     {
-       login: 'ohjongin',
-       date: '2021-10-17',
-       seconds: '176'
-     },
-     {
-       login: 'ohjongin',
-       date: '2021-11-18',
-       seconds: '300'
-     },
-     {
-       login: 'ohjongin',
-       date: '2021-10-19',
-       seconds: '1125435'
-     },
-     {
-       login: 'ohjongin',
-       date: '2021-10-20',
-       seconds: '176'
-     },
-     {
-       login: 'ohjongin',
-       date: '2021-11-21',
-       seconds: '300'
-     },
-     {
-       login: 'ohjongin',
-       date: '2021-10-22',
-       seconds: '1125435'
-     },
-     {
-       login: 'ohjongin',
-       date: '2021-10-23',
-       seconds: '176'
-     },
-     {
-       login: 'ohjongin',
-       date: '2021-11-24',
-       seconds: '300'
-     }
-   ]); */
-
+  const [logs, setLogs] = useState<Log[]>([]);
   const [count, setCount] = useState(0);
 
   const getLogs = async () => {
@@ -153,7 +30,6 @@ const TimeLog: React.FC<IProps> = ({ handleFlip }) => {
       if (response.data.list) {
         const logData = response.data.list;
         const wallet =
-          // TODO: seconds 타입
           logData.filter(({ seconds }: { seconds: string }) => +seconds >= FOUR_HOURS).length *
           WALLET_PER_HOUR;
         setCount(wallet);

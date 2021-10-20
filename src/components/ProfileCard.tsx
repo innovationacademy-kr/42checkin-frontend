@@ -5,7 +5,7 @@ import Button from "./Button";
 import Profile from "./Profile";
 import CheckInForm from "./CheckInForm";
 import CheckInInfo from "./CheckInInfo";
-import { checkOut, checkIn } from "../api/api";
+import { postCheckOut, postCheckIn } from "../api/api";
 
 import "../styles/ProfileCard.css";
 import SlideButton from "./SlideButton";
@@ -39,7 +39,7 @@ const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
   const handleCheckIn = useCallback(async () => {
     if (readySubmit) {
       try {
-        await checkIn(cardNum);
+        await postCheckIn(cardNum);
         history.push("/end");
       } catch (err: any) {
         if (err.response.data.code === 404) alert(err.response.data.message);
@@ -52,7 +52,7 @@ const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
 
   const handleCheckOut = useCallback(async () => {
     try {
-      await checkOut();
+      await postCheckOut();
       history.push("/end");
     } catch (err: any) {
       if (!err.response) {

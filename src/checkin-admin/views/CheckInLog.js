@@ -22,7 +22,7 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import PaginationRounded from "../components/Paging";
 import SearchBar from "../components/SearchBar";
 import StatusBoard from "../../components/StatusBoard";
-import { forceCheckOut, checkAdmin as getCheckAdmin, getUsingCard } from "../api/api";
+import { forceCheckOut, getUserStatus as getCheckAdmin, getUsingCard } from "../api/api";
 
 import "../assets/styles/AdminPage.css";
 
@@ -115,7 +115,7 @@ function CheckInLog() {
     }
   };
 
-  const checkAdmin = useCallback(async () => {
+  const getUserStatus = useCallback(async () => {
     try {
       const response = await getCheckAdmin();
       if (!(response.data && response.data.isAdmin)) {
@@ -156,9 +156,9 @@ function CheckInLog() {
   }, []);
 
   useEffect(() => {
-    checkAdmin();
+    getUserStatus();
     getHeadCount();
-  }, [checkAdmin, getHeadCount]);
+  }, [getUserStatus, getHeadCount]);
 
   return (
     <div

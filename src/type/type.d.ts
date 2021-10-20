@@ -15,3 +15,9 @@ interface Status {
   seocho: number;
   gaepo: number;
 }
+
+interface Usage {
+  login: string;
+  date: string;
+  seconds: string;
+}
