@@ -1,16 +1,15 @@
 import React, { useEffect, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
 import { getCookieValue } from "./utils/utils";
-import { login, logout } from "./redux/modules/user";
-import { setConfig } from "./redux/modules/config";
-import { setHeadCount } from "./redux/modules/status";
 import { getMaxCapacity, getUsingCard } from "./api/api";
 import AppRouter from "./components/AppRouter";
 import { RootState } from "./redux/modules";
 
 import "./App.css";
+import useConfig from "./utils/hooks/useConfig";
+import useStatus from "./utils/hooks/useStatus";
+import useUser from "./utils/hooks/useUser";
 
 const useStyles = makeStyles(() => ({
   info: {
@@ -28,47 +27,50 @@ const useStyles = makeStyles(() => ({
 
 function App() {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const { openAt, closeAt } = useSelector((state: RootState) => ({
-    openAt: state.config.openAt,
-    closeAt: state.config.closeAt,
-  }));
+  const {
+    setConfig,
+    config: { openAt, closeAt },
+  } = useConfig();
+  const { setHeadCount } = useStatus();
+  const { login, logout } = useUser();
+  // const { openAt, closeAt } = useSelector(state => ({
+  //   openAt: state.config.openAt,
+  //   closeAt: state.config.closeAt
+  // }));
 
   const getConfig = useCallback(async () => {
     try {
       const today = new Date();
       const response = await getMaxCapacity(today.toISOString().slice(0, 10));
-      dispatch(
-        setConfig({
-          openAt: response.data.open_at,
-          closeAt: response.data.close_at,
-          seocho: response.data.seocho,
-          gaepo: response.data.gaepo,
-        }),
-      );
+      setConfig({
+        openAt: "",
+        closeAt: "",
+        seocho: response.data.seocho,
+        gaepo: response.data.gaepo,
+      });
     } catch (err) {
       console.log(err);
     }
-  }, [dispatch]);
+  }, [setConfig]);
 
   const getHeadCount = useCallback(async () => {
     try {
       const response = await getUsingCard();
-      dispatch(setHeadCount(response.data));
+      setHeadCount(response.data);
     } catch (err) {
       console.log(err);
     }
-  }, [dispatch]);
+  }, [setHeadCount]);
 
   useEffect(() => {
     if (!getCookieValue(process.env.REACT_APP_AUTH_KEY || "")) {
-      dispatch(logout());
+      logout();
       getHeadCount();
     } else {
-      dispatch(login());
+      login();
     }
     getConfig();
-  }, [dispatch, getConfig, getHeadCount]);
+  }, [getConfig, getHeadCount, login, logout]);
 
   useEffect(() => {
     const vh = window.innerHeight * 0.01;

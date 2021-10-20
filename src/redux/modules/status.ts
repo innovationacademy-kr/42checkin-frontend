@@ -4,7 +4,7 @@ import { createAction, ActionType } from "typesafe-actions";
 const SET_HEADCOUNT = "status/SET_HEADCOUNT";
 
 // action creators
-const setHeadCount = createAction(SET_HEADCOUNT)<Status>();
+export const setHeadCount = createAction(SET_HEADCOUNT)<Status>();
 
 // type
 const actions = { setHeadCount };
