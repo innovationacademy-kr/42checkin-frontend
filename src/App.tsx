@@ -31,20 +31,16 @@ function App() {
   } = useConfig();
   const { setHeadCount } = useStatus();
   const { login, logout } = useUser();
-  // const { openAt, closeAt } = useSelector(state => ({
-  //   openAt: state.config.openAt,
-  //   closeAt: state.config.closeAt
-  // }));
 
   const getConfigByDate = useCallback(async () => {
     try {
       const today = new Date();
-      const response = await getConfig(today.toISOString().slice(0, 10));
+      const { data } = await getConfig(today.toISOString().slice(0, 10));
       setConfig({
-        openAt: "",
-        closeAt: "",
-        seocho: response.data.seocho,
-        gaepo: response.data.gaepo,
+        openAt: data.open_at,
+        closeAt: data.close_at,
+        seocho: data.seocho,
+        gaepo: data.gaepo,
       });
     } catch (err) {
       console.log(err);
