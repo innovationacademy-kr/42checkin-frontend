@@ -17,13 +17,6 @@ interface IProps {
 
 const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
   const history = useHistory();
-  // const { cardNum, status } = useSelector(
-  //   (state: RootState) => ({
-  //     cardNum: state.userReducer.cardNum,
-  //     status: state.userReducer.status,
-  //   }),
-  //   shallowEqual,
-  // );
   const {
     user: { cardNum, status },
     setCardNum,
@@ -32,7 +25,6 @@ const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
   const [checkAll, setCheckAll] = useState(false);
   const [checkStatus, setCheckStatus] = useState([false, false, false]);
   const [readySubmit, setReadySubmit] = useState(false);
-  const [isFold, setIsFold] = useState(false);
 
   const btnText = status === "out" ? "CHECK IN" : "CHECK OUT";
 
@@ -83,10 +75,8 @@ const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
   useEffect(() => {
     if (JSON.stringify(checkStatus) === JSON.stringify([true, true, true])) {
       setCheckAll(true);
-      setIsFold(true);
     } else {
       setCheckAll(false);
-      setIsFold(false);
     }
     return () => {
       setCheckAll(false);
@@ -116,8 +106,6 @@ const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
             setCheckAll={setCheckAll}
             checkStatus={checkStatus}
             setCheckStatus={setCheckStatus}
-            isFold={isFold}
-            setIsFold={setIsFold}
           />
 
           {/* TODO:버튼은 폼에 잇는게 맞음 추후에 수정 */}
