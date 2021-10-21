@@ -11,7 +11,8 @@
     "react/button-has-type": "off",
     "no-alert": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    "camelcase": "off"
+    "camelcase": "off",
+    "no-console": "off"
   },
   "ignorePatterns": ["src/admin/**/*", "src/checkin-admin/**/*"]
 }
