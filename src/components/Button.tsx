@@ -1,7 +1,7 @@
 import React from "react";
 
 interface IProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "type"> {
-  handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  handleClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   text: string;
   type: "button" | "submit" | "reset";
 }
