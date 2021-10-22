@@ -15,10 +15,22 @@ function App() {
     try {
       const today = new Date();
       const getConfigRes = await getConfig(today.toISOString().slice(0, 10));
-      const { seocho: seochoLimitation, gaepo: gaepoLimitation, open_at, close_at } = getConfigRes.data;
+      const {
+        seocho: seochoLimitation,
+        gaepo: gaepoLimitation,
+        open_at,
+        close_at,
+      } = getConfigRes.data;
       const getUsingCardRes = await getUsingCard();
       const { gaepo, seocho } = getUsingCardRes.data;
-      setCluster({ openAt: open_at, closeAt: close_at, seochoLimitation, gaepoLimitation, gaepo, seocho });
+      setCluster({
+        openAt: open_at,
+        closeAt: close_at,
+        seochoLimitation,
+        gaepoLimitation,
+        gaepo,
+        seocho,
+      });
     } catch (err) {
       console.log(err);
     }
