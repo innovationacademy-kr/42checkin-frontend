@@ -1,42 +1,34 @@
 // TODO: fix lint rule
 import React, { useCallback, useEffect, useState } from "react";
 import Checkbox from "./Checkbox";
-import { checkLists } from "../utils/notice";
+import { checkLists as checkListStrings } from "../utils/notice";
 import classes from "../styles/CheckInForm.module.css";
 import useUser from "../utils/hooks/useUser";
 import Button from "./Button";
 
 interface IProps {
-  checkAll: boolean;
-  setCheckAll: React.Dispatch<React.SetStateAction<boolean>>;
-  checkStatus: boolean[];
-  setCheckStatus: React.Dispatch<React.SetStateAction<boolean[]>>;
-  handleCheckIn: () => Promise<boolean>;
+  handleCheckIn: (e: React.FormEvent<HTMLFormElement>) => Promise<boolean>;
 }
-
-const CheckInForm: React.FC<IProps> = ({
-  checkAll,
-  setCheckAll,
-  checkStatus,
-  setCheckStatus,
-  handleCheckIn,
-}) => {
+const checkList = checkListStrings.map((v, idx) => ({ id: idx, text: v, checked: false }));
+const CheckInForm: React.FC<IProps> = ({ handleCheckIn }) => {
   const {
     user: { cardNum },
     setCardNum,
   } = useUser();
 
+  const [checkAll, setCheckAll] = useState(false);
+  const [checkStatus, setCheckStatus] = useState(checkList);
+  const [readySubmit, setReadySubmit] = useState(false);
+
   const handleCheckAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = e.target.checked;
     setCheckAll(isChecked);
-    setCheckStatus([isChecked, isChecked, isChecked]);
+    setCheckStatus((prev) => prev.map((v) => ({ ...v, checked: isChecked })));
   };
 
   const handleCardNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCardNum({ cardNum: e.target.value });
   };
-
-  const [readySubmit, setReadySubmit] = useState(false);
 
   const checkSubmitCondition = useCallback(() => {
     if (cardNum && checkAll) {
@@ -48,10 +40,26 @@ const CheckInForm: React.FC<IProps> = ({
 
   useEffect(() => {
     checkSubmitCondition();
+
+    return () => {
+      setReadySubmit(false);
+    };
   }, [checkSubmitCondition]);
 
+  useEffect(() => {
+    if (checkStatus.every((status) => status.checked)) {
+      setCheckAll(true);
+    } else {
+      setCheckAll(false);
+    }
+
+    return () => {
+      setCheckAll(false);
+    };
+  }, [checkStatus]);
+
   return (
-    <form className={classes.form}>
+    <form className={classes.form} onSubmit={handleCheckIn}>
       <div className={classes["check-in-form-wrapper"]}>
         <label htmlFor='allCheck' className={classes.allCheck}>
           <input id='allCheck' type='checkbox' checked={checkAll} onChange={handleCheckAll} />
@@ -59,12 +67,12 @@ const CheckInForm: React.FC<IProps> = ({
           <span className={classes.asterisk}>*</span>
         </label>
         <div>
-          {checkLists.map((checkList, idx) => (
+          {checkStatus.map((status) => (
             <Checkbox
-              key={checkList}
-              idx={idx}
-              text={checkList}
-              checkStatus={checkStatus}
+              key={status.id}
+              id={status.id}
+              text={status.text}
+              isChecked={status.checked}
               setCheckStatus={setCheckStatus}
             />
           ))}
@@ -80,13 +88,7 @@ const CheckInForm: React.FC<IProps> = ({
           onChange={handleCardNumberChange}
         />
       </div>
-      <Button
-        type='submit'
-        className={classes.submitBtn}
-        handleClick={handleCheckIn}
-        text='CHECK IN'
-        disabled={!readySubmit}
-      />
+      <Button type='submit' className={classes.submitBtn} text='CHECK IN' disabled={!readySubmit} />
     </form>
   );
 };
