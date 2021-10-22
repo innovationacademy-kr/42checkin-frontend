@@ -3,28 +3,30 @@ import { RootState } from "../redux/configureStore";
 import classes from "../styles/StatusBoard.module.css";
 
 const StatusBoard = () => {
-  const { maxGaepo, maxSeocho } = useSelector(
+  const { gaepoLimitation, seochoLimitation, gaepo, seocho } = useSelector(
     (state: RootState) => ({
-      maxGaepo: state.configReducer.gaepo,
-      maxSeocho: state.configReducer.seocho,
+      gaepoLimitation: state.configReducer.gaepoLimitation,
+      seochoLimitation: state.configReducer.seochoLimitation,
+      seocho: state.configReducer.seocho,
+      gaepo: state.configReducer.gaepo,
     }),
     shallowEqual,
   );
 
-  const { gaepo, seocho } = useSelector((state: RootState) => ({
-    gaepo: state.statusReducer.gaepo,
-    seocho: state.statusReducer.seocho,
-  }));
+  // const { gaepo, seocho } = useSelector((state: RootState) => ({
+  //   gaepo: state.statusReducer.gaepo,
+  //   seocho: state.statusReducer.seocho,
+  // }));
 
   return (
     <div className={classes["status-board-wrapper"]}>
       <h3>개포</h3>
       <h3>
-        {gaepo} / {maxGaepo}
+        {gaepo} / {gaepoLimitation}
       </h3>
       <h3>서초</h3>
       <h3>
-        {seocho} / {maxSeocho}
+        {seocho} / {seochoLimitation}
       </h3>
     </div>
   );

@@ -24,6 +24,7 @@ const initalState: User = {
   cardNum: "",
   status: "out",
   profile: DEFAULT_PROFILE,
+  isAdmin: false,
 };
 
 // reducer

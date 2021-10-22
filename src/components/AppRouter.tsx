@@ -6,7 +6,7 @@ import EndPage from "../pages/EndPage";
 import NotFoundPage from "../pages/NotFoundPage";
 import CheckInLog from "../checkin-admin/views/CheckInLog";
 import CheckInSetting from "../checkin-admin/views/CheckInSetting";
-import AuthRoute from "./hoc/Auth";
+import AuthRoute from "../routes/Auth";
 
 const AppRouter = () => {
   return (

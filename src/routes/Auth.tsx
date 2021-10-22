@@ -1,6 +1,6 @@
 import React, { ComponentType } from "react";
 import { RouteProps, Route, useHistory } from "react-router-dom";
-import useUser from "../../utils/hooks/useUser";
+import useUser from "../utils/hooks/useUser";
 
 interface IProps extends RouteProps {
   component: ComponentType<any>;

@@ -1,70 +1,37 @@
-import { makeStyles } from "@material-ui/core/styles";
-import { Alert, AlertTitle } from "@material-ui/lab";
 import React, { useCallback, useEffect } from "react";
 import { getConfig, getUsingCard } from "./api/api";
 import "./App.css";
 import AppRouter from "./components/AppRouter";
+import Notice from "./components/Notice";
 import useConfig from "./utils/hooks/useConfig";
-import useStatus from "./utils/hooks/useStatus";
 import useUser from "./utils/hooks/useUser";
 import { getCookieValue } from "./utils/utils";
 
-const useStyles = makeStyles(() => ({
-  info: {
-    background: "rgba(0, 0, 0, 0.5)",
-    "& span": {
-      fontSize: "0.6rem",
-    },
-  },
-  title: {
-    fontSize: "1rem",
-    fontWeight: "bolder",
-    fontFamily: "D2Coding",
-  },
-}));
-
 function App() {
-  const classes = useStyles();
-  const {
-    setConfig,
-    config: { openAt, closeAt },
-  } = useConfig();
-  const { setHeadCount } = useStatus();
+  const { setConfig } = useConfig();
   const { login, logout } = useUser();
 
   const getConfigByDate = useCallback(async () => {
     try {
       const today = new Date();
-      const { data } = await getConfig(today.toISOString().slice(0, 10));
-      setConfig({
-        openAt: data.open_at,
-        closeAt: data.close_at,
-        seocho: data.seocho,
-        gaepo: data.gaepo,
-      });
+      const getConfigRes = await getConfig(today.toISOString().slice(0, 10));
+      const { seocho: seochoLimitation, gaepo: gaepoLimitation, open_at, close_at } = getConfigRes.data;
+      const getUsingCardRes = await getUsingCard();
+      const { gaepo, seocho } = getUsingCardRes.data;
+      setConfig({ openAt: open_at, closeAt: close_at, seochoLimitation, gaepoLimitation, gaepo, seocho });
     } catch (err) {
       console.log(err);
     }
   }, [setConfig]);
 
-  const getHeadCount = useCallback(async () => {
-    try {
-      const response = await getUsingCard();
-      setHeadCount(response.data);
-    } catch (err) {
-      console.log(err);
-    }
-  }, [setHeadCount]);
-
   useEffect(() => {
     if (!getCookieValue(process.env.REACT_APP_AUTH_KEY || "")) {
       logout();
-      getHeadCount();
     } else {
       login();
     }
     getConfigByDate();
-  }, [getConfigByDate, getHeadCount, login, logout]);
+  }, [getConfigByDate, login, logout]);
 
   useEffect(() => {
     const vh = window.innerHeight * 0.01;
@@ -73,7 +40,6 @@ function App() {
     };
     handleResize();
     window.addEventListener("resize", handleResize);
-
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -82,14 +48,7 @@ function App() {
   return (
     <>
       <div id='page-wrapper'>
-        {window.location.pathname.split("/")[1] !== "admin" && openAt && closeAt && (
-          <Alert severity='info' variant='filled' className={classes.info}>
-            <AlertTitle className={classes.title}>
-              운영 시간: {openAt} ~ {closeAt}
-            </AlertTitle>
-            <span>※ 사회적 거리두기 단계에 따라 운영시간 변경 가능</span>
-          </Alert>
-        )}
+        <Notice />
         <AppRouter />
       </div>
       <footer id='version'>v{process.env.REACT_APP_VERSION}</footer>

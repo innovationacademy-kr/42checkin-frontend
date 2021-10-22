@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/modules";
-import { setConfig as sC } from "../../redux/modules/config";
+import { setConfig as sC, setCurrentUserCount as sCUC } from "../../redux/modules/config";
 
 const useConfig = () => {
   const dispatch = useDispatch();
@@ -13,8 +13,14 @@ const useConfig = () => {
     },
     [dispatch],
   );
+  const setCurrentUserCount = useCallback(
+    ({ gaepo, seocho }: { gaepo: number; seocho: number }) => {
+      dispatch(sCUC({ gaepo, seocho }));
+    },
+    [dispatch],
+  );
 
-  return { config, setConfig };
+  return { config, setConfig, setCurrentUserCount };
 };
 
 export default useConfig;
