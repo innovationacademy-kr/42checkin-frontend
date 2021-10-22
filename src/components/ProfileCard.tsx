@@ -2,9 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import ListIcon from "@mui/icons-material/List";
 import Button from "./Button";
-import Profile from "./Profile";
 import CheckInForm from "./CheckInForm";
-import CheckInInfo from "./CheckInInfo";
 import { postCheckOut, postCheckIn } from "../api/api";
 
 import classes from "../styles/ProfileCard.module.css";
@@ -18,28 +16,26 @@ interface IProps {
 const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
   const history = useHistory();
   const {
-    user: { cardNum, status },
+    user: { cardNum, status, id, profile },
     setCardNum,
   } = useUser();
 
   const [checkAll, setCheckAll] = useState(false);
   const [checkStatus, setCheckStatus] = useState([false, false, false]);
-  const [readySubmit, setReadySubmit] = useState(false);
-
-  const btnText = status === "out" ? "CHECK IN" : "CHECK OUT";
 
   const handleCheckIn = useCallback(async () => {
-    if (readySubmit) {
-      try {
-        await postCheckIn(cardNum);
-        history.push("/end");
-      } catch (err: any) {
-        if (err.response.data.code === 404) alert(err.response.data.message);
-        else alert("체크인을 처리할 수 없습니다. 제한 인원 초과가 아닌 경우 관리자에게 문의해주세요.");
-        setCardNum({ cardNum: "" });
-      }
+    try {
+      await postCheckIn(cardNum);
+      history.push("/end");
+      return true;
+    } catch (err: any) {
+      if (err.response.data.code === 404) alert(err.response.data.message);
+      else
+        alert("체크인을 처리할 수 없습니다. 제한 인원 초과가 아닌 경우 관리자에게 문의해주세요.");
+      setCardNum({ cardNum: "" });
     }
-  }, [readySubmit, cardNum, history, setCardNum]);
+    return false;
+  }, [cardNum, history, setCardNum]);
 
   const handleCheckOut = useCallback(async () => {
     try {
@@ -57,20 +53,6 @@ const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
     }
   }, [history]);
 
-  const checkSubmitCondition = useCallback(() => {
-    if (cardNum && checkAll) {
-      setReadySubmit(true);
-    } else {
-      setReadySubmit(false);
-    }
-  }, [cardNum, checkAll]);
-
-  useEffect(() => {
-    if (status === "out") {
-      checkSubmitCondition();
-    }
-  }, [cardNum, status, checkSubmitCondition]);
-
   useEffect(() => {
     if (JSON.stringify(checkStatus) === JSON.stringify([true, true, true])) {
       setCheckAll(true);
@@ -84,9 +66,11 @@ const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
 
   // slider
   const [sliderValue, setSliderValue] = useState(0);
+
   useEffect(() => {
     if (sliderValue === 100) handleCheckOut();
   }, [handleCheckOut, sliderValue]);
+
   return (
     <div className={classes.profileCard}>
       <div
@@ -97,29 +81,27 @@ const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
       >
         <ListIcon onClick={handleFlip} />
       </div>
-      <Profile />
+      <div className={classes["profile-wrapper"]}>
+        <img className={classes.profile} src={profile} alt='profile' />
+        <h2>{id}</h2>
+      </div>
       {status === "out" ? (
-        <>
-          <CheckInForm
-            checkAll={checkAll}
-            setCheckAll={setCheckAll}
-            checkStatus={checkStatus}
-            setCheckStatus={setCheckStatus}
-          />
-
-          {/* TODO:버튼은 폼에 잇는게 맞음 추후에 수정 */}
-          <Button
-            type='button'
-            className={classes.submitBtn}
-            handleClick={status === "out" ? handleCheckIn : handleCheckOut}
-            text={btnText}
-            disabled={!readySubmit}
-          />
-        </>
+        <CheckInForm
+          checkAll={checkAll}
+          setCheckAll={setCheckAll}
+          checkStatus={checkStatus}
+          setCheckStatus={setCheckStatus}
+          handleCheckIn={handleCheckIn}
+        />
       ) : (
         <>
           <hr className={classes.divider} />
-          <CheckInInfo />
+          <div>
+            <div style={{ textAlign: "center" }}>
+              <div style={{ fontSize: 20 }}>Card Number</div>
+              <div style={{ fontSize: 70 }}>{cardNum}</div>
+            </div>
+          </div>
           <SlideButton value={sliderValue} setValue={setSliderValue} />
         </>
       )}

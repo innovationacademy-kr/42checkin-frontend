@@ -8,7 +8,6 @@ interface IProps {
   setCheckStatus: (v: boolean[]) => void;
 }
 
-// TODO:로직 변경 필요
 const Checkbox = (props: IProps) => {
   const { idx, text, checkStatus, setCheckStatus } = props;
 
