@@ -19,8 +19,7 @@ const CheckInPage = () => {
     logout,
   } = useUser();
   const { setHeadCount } = useStatus();
-  const [isFlip, setIsFlip] = useState(false);
-
+  const [isFlipped, setIsFlipped] = useState(false);
   const getUserData = useCallback(async () => {
     try {
       const response = await getUserStatus();
@@ -55,7 +54,7 @@ const CheckInPage = () => {
   // }, [dispatch]);
 
   const handleFlip = () => {
-    setIsFlip((state) => !state);
+    setIsFlipped((state) => !state);
     const elem = checkinCardWrapper.current;
     if (!elem) {
       alert("에러ㅠ");
@@ -76,7 +75,7 @@ const CheckInPage = () => {
       {/* <h2 style={{ marginBottom: '0' }}>CHECK IN</h2> */}
       <StatusBoard />
       <div ref={checkinCardWrapper} className={classes["checkin-card-wrapper"]}>
-        {!isFlip ? <ProfileCard handleFlip={handleFlip} /> : <TimeLog handleFlip={handleFlip} />}
+        {!isFlipped ? <ProfileCard handleFlip={handleFlip} /> : <TimeLog handleFlip={handleFlip} />}
       </div>
     </div>
   );
