@@ -3,12 +3,12 @@ import { getConfig, getUsingCard } from "./api/api";
 import "./App.css";
 import AppRouter from "./components/AppRouter";
 import Notice from "./components/Notice";
-import useConfig from "./utils/hooks/useConfig";
+import useCluster from "./utils/hooks/useCluster";
 import useUser from "./utils/hooks/useUser";
 import { getCookieValue } from "./utils/utils";
 
 function App() {
-  const { setConfig } = useConfig();
+  const { setCluster } = useCluster();
   const { login, logout } = useUser();
 
   const getConfigByDate = useCallback(async () => {
@@ -18,11 +18,11 @@ function App() {
       const { seocho: seochoLimitation, gaepo: gaepoLimitation, open_at, close_at } = getConfigRes.data;
       const getUsingCardRes = await getUsingCard();
       const { gaepo, seocho } = getUsingCardRes.data;
-      setConfig({ openAt: open_at, closeAt: close_at, seochoLimitation, gaepoLimitation, gaepo, seocho });
+      setCluster({ openAt: open_at, closeAt: close_at, seochoLimitation, gaepoLimitation, gaepo, seocho });
     } catch (err) {
       console.log(err);
     }
-  }, [setConfig]);
+  }, [setCluster]);
 
   useEffect(() => {
     if (!getCookieValue(process.env.REACT_APP_AUTH_KEY || "")) {

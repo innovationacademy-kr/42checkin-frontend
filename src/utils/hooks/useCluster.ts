@@ -1,14 +1,14 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/modules";
-import { setConfig as sC, setCurrentUserCount as sCUC } from "../../redux/modules/config";
+import { setConfig as sC, setCurrentUserCount as sCUC } from "../../redux/modules/cluster";
 
-const useConfig = () => {
+const useCluster = () => {
   const dispatch = useDispatch();
-  const config = useSelector((state: RootState) => state.configReducer);
+  const cluster = useSelector((state: RootState) => state.clusterReducer);
 
-  const setConfig = useCallback(
-    (param: Config) => {
+  const setCluster = useCallback(
+    (param: Cluster) => {
       dispatch(sC(param));
     },
     [dispatch],
@@ -20,7 +20,7 @@ const useConfig = () => {
     [dispatch],
   );
 
-  return { config, setConfig, setCurrentUserCount };
+  return { cluster, setCluster, setCurrentUserCount };
 };
 
-export default useConfig;
+export default useCluster;

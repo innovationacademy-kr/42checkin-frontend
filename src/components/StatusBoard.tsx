@@ -1,22 +1,11 @@
-import React, { useSelector, shallowEqual } from "react-redux";
-import { RootState } from "../redux/configureStore";
+import React from "react-redux";
 import classes from "../styles/StatusBoard.module.css";
+import useCluster from "../utils/hooks/useCluster";
 
 const StatusBoard = () => {
-  const { gaepoLimitation, seochoLimitation, gaepo, seocho } = useSelector(
-    (state: RootState) => ({
-      gaepoLimitation: state.configReducer.gaepoLimitation,
-      seochoLimitation: state.configReducer.seochoLimitation,
-      seocho: state.configReducer.seocho,
-      gaepo: state.configReducer.gaepo,
-    }),
-    shallowEqual,
-  );
-
-  // const { gaepo, seocho } = useSelector((state: RootState) => ({
-  //   gaepo: state.statusReducer.gaepo,
-  //   seocho: state.statusReducer.seocho,
-  // }));
+  const {
+    cluster: { gaepoLimitation, seochoLimitation, seocho, gaepo },
+  } = useCluster();
 
   return (
     <div className={classes["status-board-wrapper"]}>

@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 import userReducer from "./user";
-import configReducer from "./config";
+import clusterReducer from "./cluster";
 
 const rootReducer = combineReducers({
   userReducer,
-  configReducer,
+  clusterReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

@@ -8,7 +8,7 @@ import useUser from "../utils/hooks/useUser";
 import { DEFAULT_PROFILE } from "../utils/utils";
 
 import classes from "../styles/CheckInPage.module.css";
-import useConfig from "../utils/hooks/useConfig";
+import useConfig from "../utils/hooks/useCluster";
 
 const CheckInPage = () => {
   const checkinCardWrapper = useRef<HTMLDivElement>(null);

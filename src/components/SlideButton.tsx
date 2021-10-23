@@ -14,9 +14,7 @@ const SlideButton: React.FC<IProps> = ({ value, setValue }) => {
   const setSlideValue = (e: React.ChangeEvent<HTMLInputElement>) =>
     setValue(parseInt(e.currentTarget.value, 10));
 
-  const changeSlider = (
-    e: React.MouseEvent<HTMLInputElement> | React.TouchEvent<HTMLInputElement>,
-  ) => {
+  const changeSlider = (e: React.MouseEvent<HTMLInputElement> | React.TouchEvent<HTMLInputElement>) => {
     if (!(slider.current && sliderText.current)) return;
     const currentValue = parseInt(e.currentTarget.value, 10);
     if (currentValue > 20) sliderText.current.style.opacity = "0";
@@ -24,9 +22,7 @@ const SlideButton: React.FC<IProps> = ({ value, setValue }) => {
     else slider.current.style.background = "";
   };
 
-  const checkSliderValue = (
-    e: React.MouseEvent<HTMLInputElement> | React.TouchEvent<HTMLInputElement>,
-  ) => {
+  const checkSliderValue = (e: React.MouseEvent<HTMLInputElement> | React.TouchEvent<HTMLInputElement>) => {
     if (!(slider.current && sliderText.current)) return;
     const currentValue = parseInt(e.currentTarget.value, 10);
     if (currentValue < 80) {

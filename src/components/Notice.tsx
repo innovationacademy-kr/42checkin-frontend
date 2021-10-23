@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import React from "react";
-import useConfig from "../utils/hooks/useConfig";
+import useCluster from "../utils/hooks/useCluster";
 
 const useStyles = makeStyles(() => ({
   info: {
@@ -20,8 +20,8 @@ const useStyles = makeStyles(() => ({
 const Notice: React.FC = () => {
   const classes = useStyles();
   const {
-    config: { openAt, closeAt },
-  } = useConfig();
+    cluster: { openAt, closeAt },
+  } = useCluster();
   return (
     <Alert severity='info' variant='filled' className={classes.info}>
       <AlertTitle className={classes.title}>

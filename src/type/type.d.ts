@@ -6,7 +6,7 @@ interface User {
   profile: string;
   isAdmin: boolean;
 }
-interface Config {
+interface Cluster {
   openAt: string | null;
   closeAt: string | null;
   gaepo: number;

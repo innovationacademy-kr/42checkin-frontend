@@ -24,7 +24,7 @@ import StatusBoard from "../../components/StatusBoard";
 import { forceCheckOut, getUserStatus as getCheckAdmin, getUsingCard } from "../api/api";
 
 import "../assets/styles/AdminPage.css";
-import useConfig from "../../utils/hooks/useConfig";
+import useConfig from "../../utils/hooks/useCluster";
 
 const LOGTYPE = {
   0: "클러스터",
