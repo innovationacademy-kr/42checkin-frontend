@@ -44,15 +44,6 @@ const CheckInPage = () => {
     }
   }, [isLogin, logout, setHeadCount, setUser]);
 
-  // const getHeadCount = useCallback(async () => {
-  //   try {
-  //     const response = await getUsingCard();
-  //     dispatch(setHeadCount(response.data));
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }, [dispatch]);
-
   const handleFlip = () => {
     setIsFlipped((state) => !state);
     const elem = checkinCardWrapper.current;
@@ -67,12 +58,10 @@ const CheckInPage = () => {
   useEffect(() => {
     if (!isLogin) history.push("/");
     getUserData();
-    // getHeadCount();
   }, [isLogin, history, getUserData]);
 
   return (
     <div className={classes["checkin-wrapper"]}>
-      {/* <h2 style={{ marginBottom: '0' }}>CHECK IN</h2> */}
       <StatusBoard />
       <div ref={checkinCardWrapper} className={classes["checkin-card-wrapper"]}>
         {!isFlipped ? <ProfileCard handleFlip={handleFlip} /> : <TimeLog handleFlip={handleFlip} />}
