@@ -4,6 +4,7 @@ pipelines:
     develop:
       - step:
           name: Install & Build
+          deployment: develop
           caches:
             - node
           script:
@@ -18,7 +19,6 @@ pipelines:
             - build/**
       - step:
           name: Deploy to S3
-          deployment: develop
           script:
             - pipe: atlassian/aws-s3-deploy:1.1.0
               variables:
