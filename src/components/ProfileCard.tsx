@@ -14,7 +14,6 @@ interface IProps {
 
 const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
   const history = useHistory();
-
   const {
     user: { cardNum, status, id, profile },
     setCardNum,
