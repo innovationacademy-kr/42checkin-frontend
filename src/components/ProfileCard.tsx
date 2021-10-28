@@ -1,15 +1,11 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useHistory } from "react-router-dom";
 import ListIcon from "@mui/icons-material/List";
-import Button from "./Button";
-import Profile from "./Profile";
-import CheckInForm from "./CheckInForm";
-import CheckInInfo from "./CheckInInfo";
-import { postCheckOut, postCheckIn } from "../api/api";
-
+import React, { useCallback } from "react";
+import { useHistory } from "react-router-dom";
+import { postCheckIn, postCheckOut } from "../api/api";
 import classes from "../styles/ProfileCard.module.css";
-import SlideButton from "./SlideButton";
 import useUser from "../utils/hooks/useUser";
+import CheckInForm from "./CheckInForm";
+import CheckOutUi from "./CheckOutUi";
 
 interface IProps {
   handleFlip: (e: React.MouseEvent) => void;
@@ -18,110 +14,68 @@ interface IProps {
 const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
   const history = useHistory();
   const {
-    user: { cardNum, status },
+    user: { cardNum, status, id, profile },
     setCardNum,
   } = useUser();
 
-  const [checkAll, setCheckAll] = useState(false);
-  const [checkStatus, setCheckStatus] = useState([false, false, false]);
-  const [readySubmit, setReadySubmit] = useState(false);
-
-  const btnText = status === "out" ? "CHECK IN" : "CHECK OUT";
-
-  const handleCheckIn = useCallback(async () => {
-    if (readySubmit) {
+  const handleCheckIn = useCallback(
+    async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
       try {
-        await postCheckIn(cardNum);
+        const {
+          data: { result },
+        } = await postCheckIn(cardNum);
+        if (!result)
+          throw new Error(
+            "체크인을 처리할 수 없습니다. 제한 인원 초과가 아닌 경우 관리자에게 문의해주세요.",
+          );
         history.push("/end");
+        return true;
       } catch (err: any) {
-        if (err.response.data.code === 404) alert(err.response.data.message);
-        else alert("체크인을 처리할 수 없습니다. 제한 인원 초과가 아닌 경우 관리자에게 문의해주세요.");
+        let { message } = err;
+        if (err.response.data.message) message = err.response.data.message;
+        alert(message);
+        // if (err.response.data.code === 404) alert(err.response.data.message);
         setCardNum({ cardNum: "" });
       }
-    }
-  }, [readySubmit, cardNum, history, setCardNum]);
+      return false;
+    },
+    [cardNum, history, setCardNum],
+  );
 
   const handleCheckOut = useCallback(async () => {
     try {
-      await postCheckOut();
+      const { data } = await postCheckOut();
+      if (!data) throw new Error("무언가 잘못되었습니다.");
       history.push("/end");
     } catch (err: any) {
-      if (!err.response) {
-        alert("정상적으로 처리되지 않았습니다.\n네트워크 연결 상태를 확인해주세요.");
-      } else if (err.response.data.code === 404) {
-        alert("이미 체크아웃 되었습니다.");
+      let message = "";
+      if (err.response?.data?.code === 404) {
+        message = "이미 체크아웃 되었습니다.";
         history.push("/");
+      } else if (err.response?.data?.message) {
+        console.log(err.response);
+        message = err.response.data.message;
       } else {
-        alert(err.response.data.message);
+        message = "정상적으로 처리되지 않았습니다.\n네트워크 연결 상태를 확인해주세요.";
       }
+      alert(message);
     }
   }, [history]);
 
-  const checkSubmitCondition = useCallback(() => {
-    if (cardNum && checkAll) {
-      setReadySubmit(true);
-    } else {
-      setReadySubmit(false);
-    }
-  }, [cardNum, checkAll]);
-
-  useEffect(() => {
-    if (status === "out") {
-      checkSubmitCondition();
-    }
-  }, [cardNum, status, checkSubmitCondition]);
-
-  useEffect(() => {
-    if (JSON.stringify(checkStatus) === JSON.stringify([true, true, true])) {
-      setCheckAll(true);
-    } else {
-      setCheckAll(false);
-    }
-    return () => {
-      setCheckAll(false);
-    };
-  }, [checkStatus]);
-
-  // slider
-  const [sliderValue, setSliderValue] = useState(0);
-  useEffect(() => {
-    if (sliderValue === 100) handleCheckOut();
-  }, [handleCheckOut, sliderValue]);
   return (
     <div className={classes.profileCard}>
-      <div
-        style={{
-          textAlign: "right",
-          width: "100%",
-        }}
-      >
+      <div className={classes["icon-wrapper"]}>
         <ListIcon onClick={handleFlip} />
       </div>
-      <Profile />
+      <div className={classes["profile-wrapper"]}>
+        <img className={classes.profile} src={profile} alt='profile' />
+        <h2>{id}</h2>
+      </div>
       {status === "out" ? (
-        <>
-          <CheckInForm
-            checkAll={checkAll}
-            setCheckAll={setCheckAll}
-            checkStatus={checkStatus}
-            setCheckStatus={setCheckStatus}
-          />
-
-          {/* TODO:버튼은 폼에 잇는게 맞음 추후에 수정 */}
-          <Button
-            type='button'
-            className={classes.submitBtn}
-            handleClick={status === "out" ? handleCheckIn : handleCheckOut}
-            text={btnText}
-            disabled={!readySubmit}
-          />
-        </>
+        <CheckInForm handleCheckIn={handleCheckIn} />
       ) : (
-        <>
-          <hr className={classes.divider} />
-          <CheckInInfo />
-          <SlideButton value={sliderValue} setValue={setSliderValue} />
-        </>
+        <CheckOutUi handleCheckOut={handleCheckOut} />
       )}
     </div>
   );

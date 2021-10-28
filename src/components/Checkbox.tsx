@@ -2,29 +2,29 @@ import React from "react";
 import classes from "../styles/Checkbox.module.css";
 
 interface IProps {
-  idx: number;
+  id: number;
   text: string;
-  checkStatus: boolean[];
-  setCheckStatus: (v: boolean[]) => void;
+  isChecked: boolean;
+  setCheckStatus: React.Dispatch<React.SetStateAction<CheckBox[]>>;
 }
 
-// TODO:로직 변경 필요
 const Checkbox = (props: IProps) => {
-  const { idx, text, checkStatus, setCheckStatus } = props;
+  const { id, text, isChecked, setCheckStatus } = props;
 
   const handleChange = () => {
-    const checked = checkStatus[idx];
-    setCheckStatus([...checkStatus.slice(0, idx), !checked, ...checkStatus.slice(idx + 1)]);
+    setCheckStatus((prev) =>
+      prev.map((s) => (s.id === id ? { ...s, checked: !s.checked } : { ...s })),
+    );
   };
 
   return (
     <div>
-      <label htmlFor={idx.toString()} className={classes["checkbox-text"]}>
+      <label htmlFor={id.toString()} className={classes["checkbox-text"]}>
         <input
-          id={idx.toString()}
+          id={id.toString()}
           className={classes.checkbox}
           type='checkbox'
-          checked={checkStatus[idx]}
+          checked={isChecked}
           onChange={handleChange}
         />
         {text}

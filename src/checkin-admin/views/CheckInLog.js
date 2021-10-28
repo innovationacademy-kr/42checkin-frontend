@@ -24,7 +24,7 @@ import StatusBoard from "../../components/StatusBoard";
 import { forceCheckOut, getUserStatus as getCheckAdmin, getUsingCard } from "../api/api";
 
 import "../assets/styles/AdminPage.css";
-import useConfig from "../../utils/hooks/useCluster";
+import useCluster from "../../utils/hooks/useCluster";
 
 const LOGTYPE = {
   0: "클러스터",
@@ -77,7 +77,7 @@ function a11yProps(index) {
 function CheckInLog() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { setCurrentUserCount } = useConfig();
+  const { setCurrentUserCount } = useCluster ();
   const [logType, setLogType] = useState(0);
   const [logs, setLogs] = useState([]);
   const [page, setPage] = useState(1);
