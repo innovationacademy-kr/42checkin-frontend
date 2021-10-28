@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/modules";
-import { setConfig as sC, setCurrentUserCount as sCUC } from "../../redux/modules/cluster";
+import { setCluster as sC, setCurrentUserCount as sCUC } from "../../redux/modules/cluster";
 
 const useCluster = () => {
   const dispatch = useDispatch();

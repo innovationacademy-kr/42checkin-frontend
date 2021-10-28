@@ -5,11 +5,12 @@ const SET_CLUSTER = "config/SET_CLUSTER";
 const SET_CURRENT_USER_COUNT = "config/SET_CURRENT_USER_COUNT";
 // action creators
 
-export const setConfig = createAction(SET_CLUSTER)<Cluster>();
-export const setCurrentUserCount = createAction(SET_CURRENT_USER_COUNT)<{ gaepo: number; seocho: number }>();
+export const setCluster = createAction(SET_CLUSTER)<Cluster>();
+export const setCurrentUserCount =
+  createAction(SET_CURRENT_USER_COUNT)<{ gaepo: number; seocho: number }>();
 
 // type
-const actions = { setConfig, setCurrentUserCount };
+const actions = { setCluster, setCurrentUserCount };
 type ClusterActions = ActionType<typeof actions>;
 
 // initalState

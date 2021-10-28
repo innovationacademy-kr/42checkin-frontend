@@ -8,7 +8,7 @@ import useUser from "../utils/hooks/useUser";
 import { DEFAULT_PROFILE } from "../utils/utils";
 
 import classes from "../styles/CheckInPage.module.css";
-import useConfig from "../utils/hooks/useCluster";
+import useCluster from "../utils/hooks/useCluster";
 
 const CheckInPage = () => {
   const checkinCardWrapper = useRef<HTMLDivElement>(null);
@@ -19,7 +19,7 @@ const CheckInPage = () => {
     logout,
   } = useUser();
   const [isFlip, setIsFlip] = useState(false);
-  const { setCurrentUserCount } = useConfig();
+  const { setCurrentUserCount } = useCluster();
   const getUserData = useCallback(async () => {
     try {
       const getUserStatusRes = await getUserStatus();
