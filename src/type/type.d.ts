@@ -4,12 +4,15 @@ interface User {
   cardNum: string;
   status: "in" | "out";
   profile: string;
+  isAdmin: boolean;
 }
-interface Config {
+interface Cluster {
   openAt: string | null;
   closeAt: string | null;
-  seocho: number;
   gaepo: number;
+  seocho: number;
+  seochoLimitation: number;
+  gaepoLimitation: number;
 }
 interface Status {
   seocho: number;

@@ -1,16 +1,9 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { setHeadCount } from "../../redux/modules/status";
 
 import * as moment from "moment";
 import { makeStyles } from "@material-ui/core/styles";
-import GridItem from "../components/Grid/GridItem.js";
-import GridContainer from "../components/Grid/GridContainer.js";
-import Table from "../components/Table/Table.js";
-import Card from "../components/Card/Card.js";
-import CardHeader from "../components/Card/CardHeader.js";
-import CardBody from "../components/Card/CardBody.js";
 import Paper from "@material-ui/core/Paper";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -18,6 +11,12 @@ import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import SettingsIcon from "@material-ui/icons/Settings";
+import CardBody from "../components/Card/CardBody";
+import CardHeader from "../components/Card/CardHeader";
+import Card from "../components/Card/Card";
+import Table from "../components/Table/Table";
+import GridContainer from "../components/Grid/GridContainer";
+import GridItem from "../components/Grid/GridItem";
 
 import PaginationRounded from "../components/Paging";
 import SearchBar from "../components/SearchBar";
@@ -25,6 +24,7 @@ import StatusBoard from "../../components/StatusBoard";
 import { forceCheckOut, getUserStatus as getCheckAdmin, getUsingCard } from "../api/api";
 
 import "../assets/styles/AdminPage.css";
+import useConfig from "../../utils/hooks/useCluster";
 
 const LOGTYPE = {
   0: "클러스터",
@@ -77,6 +77,7 @@ function a11yProps(index) {
 function CheckInLog() {
   const history = useHistory();
   const dispatch = useDispatch();
+  const { setCurrentUserCount } = useConfig();
   const [logType, setLogType] = useState(0);
   const [logs, setLogs] = useState([]);
   const [page, setPage] = useState(1);
@@ -148,12 +149,14 @@ function CheckInLog() {
 
   const getHeadCount = useCallback(async () => {
     try {
-      const response = await getUsingCard();
-      dispatch(setHeadCount(response.data));
+      const {
+        data: { gaepo, seocho },
+      } = await getUsingCard();
+      setCurrentUserCount({ gaepo, seocho });
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [setCurrentUserCount]);
 
   useEffect(() => {
     getUserStatus();
@@ -169,7 +172,7 @@ function CheckInLog() {
         margin: "auto",
       }}
     >
-      <StatusBoard></StatusBoard>
+      <StatusBoard />
       <div style={{ marginBottom: "5px" }}>
         <Button
           className={classes.settingBtn}
@@ -182,13 +185,7 @@ function CheckInLog() {
         </Button>
       </div>
       <Paper className={classes.root}>
-        <Tabs
-          value={logType}
-          onChange={handleChange}
-          indicatorColor='primary'
-          textColor='primary'
-          centered
-        >
+        <Tabs value={logType} onChange={handleChange} indicatorColor='primary' textColor='primary' centered>
           <Tab label='클러스터' {...a11yProps(0)} />
           <Tab label='인트라 ID' {...a11yProps(1)} />
           <Tab label='카드 번호' {...a11yProps(2)} />

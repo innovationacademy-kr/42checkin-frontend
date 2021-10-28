@@ -17,9 +17,9 @@ function LandingPage() {
     shallowEqual,
   );
   const handleLogin = () => {
-    window.location.href = `${
-      process.env.REACT_APP_API_URL
-    }/user/login?redirect=${encodeURIComponent(window.location.href)}`;
+    window.location.href = `${process.env.REACT_APP_API_URL}/user/login?redirect=${encodeURIComponent(
+      window.location.href,
+    )}`;
   };
 
   useEffect(() => {
