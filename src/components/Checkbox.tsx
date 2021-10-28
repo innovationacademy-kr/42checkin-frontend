@@ -12,7 +12,9 @@ const Checkbox = (props: IProps) => {
   const { id, text, isChecked, setCheckStatus } = props;
 
   const handleChange = () => {
-    setCheckStatus((prev) => prev.map((s) => (s.id === id ? { ...s, checked: !s.checked } : { ...s })));
+    setCheckStatus((prev) =>
+      prev.map((s) => (s.id === id ? { ...s, checked: !s.checked } : { ...s })),
+    );
   };
 
   return (

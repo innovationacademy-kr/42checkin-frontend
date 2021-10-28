@@ -14,11 +14,15 @@ const SlideButton: React.FC<IProps> = ({ value, setValue }) => {
   const setSlideValue = (e: React.ChangeEvent<HTMLInputElement>) =>
     setValue(parseInt(e.currentTarget.value, 10));
 
-  const changeSlider = (e: React.MouseEvent<HTMLInputElement> | React.TouchEvent<HTMLInputElement>) => {
+  const changeSlider = (
+    e: React.MouseEvent<HTMLInputElement> | React.TouchEvent<HTMLInputElement>,
+  ) => {
     setValue(parseInt(e.currentTarget.value, 10));
   };
 
-  const checkSliderValue = (e: React.MouseEvent<HTMLInputElement> | React.TouchEvent<HTMLInputElement>) => {
+  const checkSliderValue = (
+    e: React.MouseEvent<HTMLInputElement> | React.TouchEvent<HTMLInputElement>,
+  ) => {
     if (!(slider.current && sliderText.current)) return;
     const currentValue = parseInt(e.currentTarget.value, 10);
     if (currentValue < 80) setValue(0);

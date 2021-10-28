@@ -1,12 +1,11 @@
 import ListIcon from "@mui/icons-material/List";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import { postCheckIn, postCheckOut } from "../api/api";
 import classes from "../styles/ProfileCard.module.css";
 import useUser from "../utils/hooks/useUser";
 import CheckInForm from "./CheckInForm";
 import CheckOutUi from "./CheckOutUi";
-import SlideButton from "./SlideButton";
 
 interface IProps {
   handleFlip: (e: React.MouseEvent) => void;
