@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { getUserStatus } from "../api/api";
 import ProfileCard from "../components/ProfileCard";
@@ -48,15 +48,15 @@ const CheckInPage = () => {
   const handleFlip = () => {
     setIsFlipped((state) => !state);
     const elem = checkinCardWrapper.current;
+
     if (!elem) {
-      alert("에러ㅠ");
       return;
     }
     if (elem.style.transform === "rotateY(180deg)") elem.style.transform = "rotateY(0deg)";
     else elem.style.transform = "rotateY(180deg)";
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     getUserData();
   }, [isLogin, history, getUserData]);
 
@@ -64,7 +64,9 @@ const CheckInPage = () => {
     <div className={classes["checkin-wrapper"]}>
       <StatusBoard />
       <div ref={checkinCardWrapper} className={classes["checkin-card-wrapper"]}>
-        {!isFlipped ? <ProfileCard handleFlip={handleFlip} /> : <TimeLog handleFlip={handleFlip} />}
+        {/* {!isFlipped ? <ProfileCard handleFlip={handleFlip} /> : <TimeLog handleFlip={handleFlip} />} */}
+        <ProfileCard handleFlip={handleFlip} />
+        <TimeLog handleFlip={handleFlip} />
       </div>
     </div>
   );

@@ -3,23 +3,35 @@
 }
 
 .time-log-wrapper {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  padding: 3rem;
+  text-align: center;
+  background-color: white;
+
+  border-radius: 13px;
+
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-around; */
-  align-items: center;
-  background-color: white;
-  color: black;
-  border-radius: 13px;
-  padding: 1rem;
-  flex: 1;
+  transform: rotateY(-180deg);
   backface-visibility: hidden;
-  transform: rotateY(180deg);
-  flex-grow: 1;
+}
+
+.title {
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .util-box {
-  text-align: right;
-  width: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1rem;
 }
 
 .time-log-title {
