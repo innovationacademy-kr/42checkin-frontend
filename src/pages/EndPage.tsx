@@ -6,8 +6,12 @@ const EndPage = () => {
   const history = useHistory();
 
   useEffect(() => {
-    setTimeout(() => history.push("/checkin"), 1000);
-  });
+    const timeOutId = setTimeout(() => history.push("/checkin"), 1000);
+
+    return () => {
+      clearTimeout(timeOutId);
+    };
+  }, [history]);
 
   return (
     <div className={classes["text-wrapper"]}>

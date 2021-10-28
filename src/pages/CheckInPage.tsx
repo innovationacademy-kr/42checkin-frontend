@@ -4,11 +4,11 @@ import { getUserStatus } from "../api/api";
 import ProfileCard from "../components/ProfileCard";
 import StatusBoard from "../components/StatusBoard";
 import TimeLog from "../components/TimeLog";
-import useStatus from "../utils/hooks/useStatus";
 import useUser from "../utils/hooks/useUser";
 import { DEFAULT_PROFILE } from "../utils/utils";
 
 import classes from "../styles/CheckInPage.module.css";
+import useCluster from "../utils/hooks/useCluster";
 
 const CheckInPage = () => {
   const checkinCardWrapper = useRef<HTMLDivElement>(null);
@@ -18,12 +18,12 @@ const CheckInPage = () => {
     setUser,
     logout,
   } = useUser();
-  const { setHeadCount } = useStatus();
+  const { setCurrentUserCount } = useCluster();
   const [isFlipped, setIsFlipped] = useState(false);
   const getUserData = useCallback(async () => {
     try {
-      const response = await getUserStatus();
-      const { user, cluster } = response.data;
+      const getUserStatusRes = await getUserStatus();
+      const { user, cluster, isAdmin } = getUserStatusRes.data;
 
       setUser({
         isLogin,
@@ -31,9 +31,10 @@ const CheckInPage = () => {
         cardNum: user.card !== null ? user.card : "",
         status: user.card !== null ? "in" : "out",
         profile: user.profile_image_url || DEFAULT_PROFILE,
+        isAdmin,
       });
 
-      setHeadCount({
+      setCurrentUserCount({
         gaepo: cluster.gaepo,
         seocho: cluster.seocho,
       });
@@ -42,7 +43,7 @@ const CheckInPage = () => {
       document.cookie = `${process.env.REACT_APP_AUTH_KEY}=; expires=Thu, 01 Jan 1970 00:00:01 GMT; domain=${process.env.REACT_APP_COOKIE_DOMAIN}`;
       logout();
     }
-  }, [isLogin, logout, setHeadCount, setUser]);
+  }, [isLogin, logout, setCurrentUserCount, setUser]);
 
   const handleFlip = () => {
     setIsFlipped((state) => !state);
@@ -56,7 +57,6 @@ const CheckInPage = () => {
   };
 
   useEffect(() => {
-    if (!isLogin) history.push("/");
     getUserData();
   }, [isLogin, history, getUserData]);
 
