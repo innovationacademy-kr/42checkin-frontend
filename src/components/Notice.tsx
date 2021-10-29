@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const formatTime = ({ openAt, closeAt }: Pick<Cluster, "closeAt" | "openAt">) => {
-  if (openAt === null && closeAt === null) return `운영 시간: ${openAt} ~ ${closeAt}`;
+  if (openAt === null && closeAt === null) return `운영 시간:00:00 ~ 24:00`;
   if (openAt === null || closeAt === null) return ``;
   return `운영 시간: ${openAt.slice(0, 5)} ~ ${closeAt.slice(0, 5)}`;
 };
