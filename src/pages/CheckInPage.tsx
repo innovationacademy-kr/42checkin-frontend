@@ -1,25 +1,24 @@
-import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { getUserStatus } from "../api/api";
 import ProfileCard from "../components/ProfileCard";
 import StatusBoard from "../components/StatusBoard";
 import TimeLog from "../components/TimeLog";
-import useUser from "../utils/hooks/useUser";
-import { DEFAULT_PROFILE } from "../utils/utils";
-
 import classes from "../styles/CheckInPage.module.css";
 import useCluster from "../utils/hooks/useCluster";
+import useUser from "../utils/hooks/useUser";
+import { DEFAULT_PROFILE } from "../utils/utils";
 
 const CheckInPage = () => {
   const checkinCardWrapper = useRef<HTMLDivElement>(null);
   const history = useHistory();
+  const [isCardFlipped, setIsCardFlipped] = useState(false);
   const {
     user: { isLogin },
     setUser,
     logout,
   } = useUser();
   const { setCurrentUserCount } = useCluster();
-  const [isFlipped, setIsFlipped] = useState(false);
   const getUserData = useCallback(async () => {
     try {
       const getUserStatusRes = await getUserStatus();
@@ -46,15 +45,17 @@ const CheckInPage = () => {
   }, [isLogin, logout, setCurrentUserCount, setUser]);
 
   const handleFlip = () => {
-    setIsFlipped((state) => !state);
-    const elem = checkinCardWrapper.current;
+    setIsCardFlipped((state) => !state);
+  };
 
+  useLayoutEffect(() => {
+    const elem = checkinCardWrapper.current;
     if (!elem) {
       return;
     }
-    if (elem.style.transform === "rotateY(180deg)") elem.style.transform = "rotateY(0deg)";
-    else elem.style.transform = "rotateY(180deg)";
-  };
+    if (!isCardFlipped) elem.style.transform = "perspective(100rem) rotateY(0deg)";
+    else elem.style.transform = "perspective(100rem) rotateY(180deg)";
+  }, [isCardFlipped]);
 
   useLayoutEffect(() => {
     getUserData();

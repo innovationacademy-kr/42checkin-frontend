@@ -11,11 +11,10 @@
 .checkin-card-wrapper {
   height: 40rem;
   transition: transform .8s ease;
-  perspective: 150rem;
+  transform: perspective(150rem);
   transform-style: preserve-3d;
   display: flex;
   position: relative;
-
   background-color: white;
   color: black;
   border-radius: 13px;
