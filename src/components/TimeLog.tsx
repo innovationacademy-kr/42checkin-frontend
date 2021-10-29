@@ -13,7 +13,7 @@ interface IProps {
 
 const TimeLog: React.FC<IProps> = ({ handleFlip }) => {
   const [logs, setLogs] = useState<Usage[]>([]);
-  const [count, setCount] = useState(0);
+  // const [count, setCount] = useState(0);
 
   const getLogs = async () => {
     try {
@@ -31,7 +31,7 @@ const TimeLog: React.FC<IProps> = ({ handleFlip }) => {
         const wallet =
           logData.filter(({ seconds }: { seconds: string }) => +seconds >= FOUR_HOURS).length *
           WALLET_PER_HOUR;
-        setCount(wallet);
+        // setCount(wallet);
         setLogs(logData.reverse());
       }
       // const wallet = logs.filter(({ seconds }) => +seconds > FOUR_HOURS).length;
@@ -50,11 +50,11 @@ const TimeLog: React.FC<IProps> = ({ handleFlip }) => {
         <AccountBoxIcon onClick={handleFlip} />
       </div>
       <h4 className={classes["time-log-title"]}>CLUSTER LOG</h4>
-      <div className={classes["time-log-all-count"]}>ALL: {count}₳</div>
+      {/* <div className={classes["time-log-all-count"]}>ALL: {count}₳</div> */}
       <li className={classes["log-data"]}>
         <div>DATE</div>
         <div>TIME</div>
-        <div>WALLET</div>
+        {/* <div>WALLET</div> */}
       </li>
       <hr className={classes.divider} />
       <ul className={classes["log-data-wrapper"]}>
@@ -64,7 +64,7 @@ const TimeLog: React.FC<IProps> = ({ handleFlip }) => {
             <li className={classes["log-data"]}>
               <time dateTime={date}>{date}</time>
               <div>{moment.utc(+seconds * 1000).format("HH:mm:ss")}</div>
-              <div>{+seconds >= FOUR_HOURS && `${WALLET_PER_HOUR}₳`}</div>
+              {/* <div>{+seconds >= FOUR_HOURS && `${WALLET_PER_HOUR}₳`}</div> */}
             </li>
             <hr className={classes.divider} />
           </div>
