@@ -49,7 +49,7 @@ const CheckInPage = () => {
     setIsFlipped((state) => !state);
     const elem = checkinCardWrapper.current;
     if (!elem) {
-      alert("에러ㅠ");
+      console.error("checkinCardWrapper의 ref를 찾을 수 없음");
       return;
     }
     if (elem.style.transform === "rotateY(180deg)") elem.style.transform = "rotateY(0deg)";
