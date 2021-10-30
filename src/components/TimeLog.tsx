@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 import { getDailyUsage } from "../api/api";
 import classes from "../styles/TimeLog.module.css";
 
-const FOUR_HOURS = 4 * 60 * 60;
-const WALLET_PER_HOUR = 1;
+// const FOUR_HOURS = 4 * 60 * 60;
+// const WALLET_PER_HOUR = 1;
 
 interface IProps {
   handleFlip: (e: React.MouseEvent) => void;
@@ -28,9 +28,9 @@ const TimeLog: React.FC<IProps> = ({ handleFlip }) => {
       const response = await getDailyUsage(from, to);
       if (response.data.list) {
         const logData = response.data.list;
-        const wallet =
-          logData.filter(({ seconds }: { seconds: string }) => +seconds >= FOUR_HOURS).length *
-          WALLET_PER_HOUR;
+        // const wallet =
+        //   logData.filter(({ seconds }: { seconds: string }) => +seconds >= FOUR_HOURS).length *
+        //   WALLET_PER_HOUR;
         // setCount(wallet);
         setLogs(logData.reverse());
       }
