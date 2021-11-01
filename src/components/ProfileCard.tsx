@@ -33,7 +33,7 @@ const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
         return true;
       } catch (err: any) {
         let { message } = err;
-        if (err.response.data.message) message = err.response.data.message;
+        if (err?.response?.data?.message) message = err.response.data.message;
         alert(message);
         // if (err.response.data.code === 404) alert(err.response.data.message);
         setCardNum({ cardNum: "" });
@@ -60,6 +60,7 @@ const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
         message = "정상적으로 처리되지 않았습니다.\n네트워크 연결 상태를 확인해주세요.";
       }
       alert(message);
+      window.location.reload();
     }
   }, [history]);
 
