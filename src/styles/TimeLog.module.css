@@ -42,11 +42,18 @@
   width: 100%;
   flex-grow: 1;
 }
-
+.divider {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  width: 90%;
+  margin: 0 auto;
+}
 .log-data {
+  padding: 0.5rem 0;
+  display: flex;
+  justify-content: space-around;
   text-align: center;
   color: rgba(0, 0, 0, 0.6);
   width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  /* display: grid;
+  grid-template-columns: 1fr 1fr 1fr; */
 }
