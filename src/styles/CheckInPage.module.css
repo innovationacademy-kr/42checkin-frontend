@@ -9,9 +9,14 @@
 }
 
 .checkin-card-wrapper {
-  transition: transform 0.7s;
+  height: 40rem;
+  transition: transform .8s ease;
+  transform: perspective(150rem);
   transform-style: preserve-3d;
-  height: fit-content;
-  min-height: inherit;
   display: flex;
+  position: relative;
+  background-color: white;
+  color: black;
+  border-radius: 13px;
+  padding: 1rem;
 }
