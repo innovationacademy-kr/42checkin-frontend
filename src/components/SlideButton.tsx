@@ -1,7 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import classes from "../styles/SlideButton.module.css";
 
-// TODO: 로직 지저분함 추후에 개선
 interface IProps {
   value: number;
   setValue: React.Dispatch<React.SetStateAction<number>>;
@@ -11,16 +10,17 @@ const SlideButton: React.FC<IProps> = ({ value, setValue }) => {
   const slider = useRef<HTMLInputElement>(null);
   const sliderText = useRef<HTMLParagraphElement>(null);
 
-  const setSlideValue = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setValue(parseInt(e.currentTarget.value, 10));
-
-  const changeSlider = (
-    e: React.MouseEvent<HTMLInputElement> | React.TouchEvent<HTMLInputElement>,
+  const handleSliderChange = (
+    e:
+      | React.MouseEvent<HTMLInputElement>
+      | React.TouchEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setValue(parseInt(e.currentTarget.value, 10));
+    if (e.currentTarget.value === "100") setValue(99);
+    else setValue(parseInt(e.currentTarget.value, 10));
   };
 
-  const checkSliderValue = (
+  const handleSliderTouchEnd = (
     e: React.MouseEvent<HTMLInputElement> | React.TouchEvent<HTMLInputElement>,
   ) => {
     if (!(slider.current && sliderText.current)) return;
@@ -29,29 +29,29 @@ const SlideButton: React.FC<IProps> = ({ value, setValue }) => {
     else setValue(100);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!(slider.current && sliderText.current)) return;
-    if (value > 20) sliderText.current.style.opacity = "0";
-    if (value > 50) slider.current.style.background = "black";
-    else {
-      slider.current.style.background = "";
-      sliderText.current.style.opacity = "";
-    }
+
+    if (value > 1) sliderText.current.style.opacity = "0";
+    else sliderText.current.style.opacity = "";
+
+    if (value > 80) slider.current.style.background = "black";
+    else slider.current.style.background = "";
   }, [value]);
 
   return (
     <div className={classes["slider-wrapper"]}>
       <input
-        onMouseUp={checkSliderValue}
-        onTouchEnd={checkSliderValue}
-        onMouseMove={changeSlider}
-        onTouchMove={changeSlider}
+        onMouseUp={handleSliderTouchEnd}
+        onTouchEnd={handleSliderTouchEnd}
+        onMouseMove={handleSliderChange}
+        onTouchMove={handleSliderChange}
         ref={slider}
         type='range'
         value={value}
         min={1}
         max={100}
-        onChange={setSlideValue}
+        onChange={handleSliderChange}
         className={classes.slider}
       />
       <p ref={sliderText} className={classes["slider-backgroundText"]}>
