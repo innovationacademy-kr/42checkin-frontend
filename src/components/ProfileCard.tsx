@@ -72,7 +72,7 @@ const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
 
   return (
     <div className={classes.profileCard}>
-      <div className={classes["icon-wrapper"]}>
+      <div className={classes["util-box"]}>
         <ListIcon onClick={handleFlip} />
       </div>
       <div className={classes["profile-wrapper"]}>

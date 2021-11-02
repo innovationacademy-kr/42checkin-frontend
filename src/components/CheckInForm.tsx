@@ -82,6 +82,7 @@ const CheckInForm: React.FC<IProps> = ({ handleCheckIn }) => {
         <input
           className={classes.cardNumber}
           type='number'
+          min={1}
           value={cardNum}
           inputMode='numeric' /* 숫자형 키패드 */
           placeholder='카드 번호'

@@ -42,6 +42,10 @@ const TimeLog: React.FC<IProps> = ({ handleFlip }) => {
   };
   useEffect(() => {
     getLogs();
+    return () => {
+      // setCount(0);
+      setLogs([]);
+    };
   }, []);
 
   return (
