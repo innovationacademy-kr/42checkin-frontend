@@ -1,7 +1,7 @@
 import ListIcon from "@mui/icons-material/List";
 import React, { useCallback } from "react";
 import { useHistory } from "react-router-dom";
-import { postCheckIn, postCheckOut } from "../api/api";
+import { getUserStatus, postCheckIn, postCheckOut } from "../api/api";
 import classes from "../styles/ProfileCard.module.css";
 import useUser from "../utils/hooks/useUser";
 import CheckInForm from "./CheckInForm";
@@ -22,6 +22,8 @@ const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       try {
+        const { data: userData } = await getUserStatus();
+        if (userData.user.card) throw new Error("이미 체크인 되었습니다.");
         const {
           data: { result },
         } = await postCheckIn(cardNum);
@@ -33,10 +35,10 @@ const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
         return true;
       } catch (err: any) {
         let { message } = err;
-        if (err?.response?.data?.message) message = err.response.data.message;
-        alert(message);
-        // if (err.response.data.code === 404) alert(err.response.data.message);
+        if (err.response?.data?.message) message = err.response.data.message;
         setCardNum({ cardNum: "" });
+        alert(message);
+        window.location.reload();
       }
       return false;
     },
@@ -45,17 +47,21 @@ const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
 
   const handleCheckOut = useCallback(async () => {
     try {
+      const { data: userData } = await getUserStatus();
+      if (!userData.user.card) throw new Error("이미 체크아웃 되었습니다.");
       const { data } = await postCheckOut();
       if (!data) throw new Error("무언가 잘못되었습니다.");
+
       history.push("/end");
     } catch (err: any) {
       let message = "";
       if (err.response?.data?.code === 404) {
         message = "이미 체크아웃 되었습니다.";
-        history.push("/");
       } else if (err.response?.data?.message) {
         console.log(err.response);
         message = err.response.data.message;
+      } else if (err.message) {
+        message = err.message;
       } else {
         message = "정상적으로 처리되지 않았습니다.\n네트워크 연결 상태를 확인해주세요.";
       }
