@@ -10,7 +10,10 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  transform: rotateY(0deg);
   backface-visibility: hidden;
+  background-color: white;
+  border-radius: inherit;
 }
 
 .profile-wrapper {

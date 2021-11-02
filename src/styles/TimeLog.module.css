@@ -10,13 +10,13 @@
   padding: 3rem;
   text-align: center;
   background-color: white;
-  border-radius: 13px;
+  border-radius: inherit;
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
-  transform: rotateY(-180deg);
   backface-visibility: hidden;
+  transform: rotateY(-180deg);
 }
 
 .title {
@@ -51,6 +51,7 @@
   width: 100%;
   flex-grow: 1;
 }
+
 .divider {
   border: 1px solid rgba(0, 0, 0, 0.1);
   width: 90%;

@@ -49,22 +49,18 @@ const CheckInPage = () => {
   };
 
   useLayoutEffect(() => {
-    const elem = checkinCardWrapper.current;
-    if (!elem) {
-      return;
-    }
-    if (!isCardFlipped) elem.style.transform = "perspective(100rem) rotateY(0deg)";
-    else elem.style.transform = "perspective(100rem) rotateY(180deg)";
-  }, [isCardFlipped]);
-
-  useLayoutEffect(() => {
     getUserData();
   }, [isLogin, history, getUserData]);
 
   return (
     <div className={classes["checkin-wrapper"]}>
       <StatusBoard />
-      <div ref={checkinCardWrapper} className={classes["checkin-card-wrapper"]}>
+      <div
+        ref={checkinCardWrapper}
+        className={`${classes["checkin-card-wrapper"]} ${
+          !isCardFlipped ? classes.front : classes.back
+        }`}
+      >
         {/* {!isFlipped ? <ProfileCard handleFlip={handleFlip} /> : <TimeLog handleFlip={handleFlip} />} */}
         <ProfileCard handleFlip={handleFlip} />
         <TimeLog handleFlip={handleFlip} />
