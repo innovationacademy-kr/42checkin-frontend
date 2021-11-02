@@ -1,5 +1,5 @@
 .profileCard {
-  padding:3rem;
+  padding: 1.3rem;
   overflow: hidden;
   position: absolute;
   top: 0;
@@ -26,11 +26,9 @@
   height: 30vw;
 }
 
-
 .util-box {
   position: absolute;
   top: 0;
   right: 0;
   padding: 1rem;
 }
-
