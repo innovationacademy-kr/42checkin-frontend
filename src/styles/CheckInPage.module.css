@@ -6,17 +6,24 @@
   margin: auto;
   display: flex;
   flex-direction: column;
+  perspective: 200rem;
 }
 
 .checkin-card-wrapper {
   height: 40rem;
-  transition: transform .8s ease;
-  transform: perspective(150rem);
+  transition: transform 0.8s ease;
   transform-style: preserve-3d;
   display: flex;
   position: relative;
-  background-color: white;
   color: black;
-  border-radius: 13px;
   padding: 1rem;
+  border-radius: 13px;
+}
+
+.front {
+  transform: rotateY(0deg);
+}
+
+.back {
+  transform: rotateY(180deg);
 }

@@ -1,5 +1,5 @@
 .profileCard {
-  padding:3rem;
+  padding: 3rem;
   overflow: hidden;
   position: absolute;
   top: 0;
@@ -10,7 +10,10 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  transform: rotateY(0deg);
   backface-visibility: hidden;
+  background-color: white;
+  border-radius: inherit;
 }
 
 .profile-wrapper {
@@ -26,11 +29,9 @@
   height: 30vw;
 }
 
-
 .util-box {
   position: absolute;
   top: 0;
   right: 0;
   padding: 1rem;
 }
-
