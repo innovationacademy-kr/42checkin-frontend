@@ -1,11 +1,11 @@
 .check-in-form-wrapper {
   background-color: rgb(244, 244, 245);
-  width: 90%;
+  /* width: 90%; */
   border-radius: 3px;
-  padding: 1rem 0;
+  padding: 1rem;
 }
 
-.form{
+.form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,7 +42,7 @@
   border-radius: 3px;
   padding: 10px;
   font-size: 1rem;
-  width: 90%;
+  width: 100%;
   font-weight: bold;
   margin: 0 auto;
   color: whitesmoke;
@@ -55,4 +55,14 @@
   border-color: #696969;
   background-color: #696969;
   opacity: 0.2;
+}
+
+.check-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.allCheckBox {
+  margin-right: 0.2rem;
 }
