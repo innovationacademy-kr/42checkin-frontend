@@ -77,7 +77,7 @@ function a11yProps(index) {
 function CheckInLog() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { setCurrentUserCount } = useCluster ();
+  const { setCurrentUserCount } = useCluster();
   const [logType, setLogType] = useState(0);
   const [logs, setLogs] = useState([]);
   const [page, setPage] = useState(1);
@@ -185,7 +185,13 @@ function CheckInLog() {
         </Button>
       </div>
       <Paper className={classes.root}>
-        <Tabs value={logType} onChange={handleChange} indicatorColor='primary' textColor='primary' centered>
+        <Tabs
+          value={logType}
+          onChange={handleChange}
+          indicatorColor='primary'
+          textColor='primary'
+          centered
+        >
           <Tab label='클러스터' {...a11yProps(0)} />
           <Tab label='인트라 ID' {...a11yProps(1)} />
           <Tab label='카드 번호' {...a11yProps(2)} />
@@ -242,7 +248,8 @@ function CheckInLog() {
                     log.login,
                     log.card_no,
                     log.card_no > 999 ? "서초" : "개포",
-                    logType === 3 || log.User.card_no === log.card_no ? (
+                    logType === 3 ||
+                    (log.User.card_no === log.card_no && log.User.log_id === log._id) ? (
                       <button
                         className='force-out-Btn'
                         onClick={checkOutOnClick}
